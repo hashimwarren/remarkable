@@ -1,0 +1,11 @@
+interface:
+  display_name: "Remarkable"
+  short_description: "Build persuasive articles from premise to proof"
+  default_prompt: "Use $remarkable to turn my raw idea into a persuasive article."
+policy:
+  products:
+  - "chatgpt"
+  - "codex"
+  - "api"
+  - "atlas"
+  allow_implicit_invocation: false
