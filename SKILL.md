@@ -7,7 +7,7 @@ description: Build persuasive long-form articles through premise discovery, open
 
 Give AI agents the architecture of persuasion. Style governs how writing sounds; Remarkable governs what the writing helps a reader believe, feel, and do.
 
-Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.5-beta`.
+Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.6-beta`.
 
 ## Preserve the product boundary
 
@@ -59,7 +59,13 @@ Infer the likely audience, stakes, urgency, and persuasive directions. Ask at mo
 
 ### 2. Offer three compact premises
 
-Read [references/premise.md](references/premise.md) and [references/premise-transformation.md](references/premise-transformation.md). Generate a wide private candidate pool, discard the obvious cluster, fingerprint the survivors, and run pairwise distinctness checks before presenting exactly three materially different directions.
+Read [references/premise.md](references/premise.md) and [references/premise-transformation.md](references/premise-transformation.md). When the runtime supports subagents, run the five-scout premise council defined in `premise-transformation.md`: give every scout the same bounded brief, assign each a different pair of appeals, wait for all scouts, and pool their strongest candidates. Do not let scouts choose the finalists. The main agent discards the obvious cluster, fingerprints the survivors, scores the complete pool, and runs pairwise distinctness checks before presenting exactly three materially different directions.
+
+Before delegation, tell the user:
+
+> I’m sending the same brief to five independent premise scouts. Each will explore two appeals and several fascination triggers. I’ll compare their strongest ideas and show you only the three most promising and genuinely different directions.
+
+If subagents are unavailable, capacity is insufficient, or a scout fails, do not block premise discovery. Use the single-agent wide-generation fallback in `premise-transformation.md` and state briefly that the premise search ran in one context. Never fabricate scout results.
 
 State the shared realization and why-now context once at the top. Then label the directions `A`, `B`, and `C`. Each option contains only:
 
