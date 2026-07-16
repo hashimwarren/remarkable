@@ -43,7 +43,7 @@ Wait for all five scouts when possible. Pool all returned candidates and ignore 
 
 ### Degrade gracefully
 
-If the runtime cannot spawn subagents, has fewer than five available worker slots, or a scout fails, continue in the main thread. Privately simulate the same five appeal territories, generate 12–20 candidates, and apply the same selection process below. Briefly disclose that the premise search ran in one context. Never claim that scouts ran when they did not.
+If the runtime cannot spawn subagents or has fewer than five available worker slots, continue in the main thread. Privately simulate the same five appeal territories, generate 12-20 candidates, and apply the same selection process below. If a spawned scout fails, the main agent should privately simulate only that failed scout's assigned appeal territory to complete the pool, rather than discarding the other scouts' work. Briefly disclose any fallback or single-context execution to the user. Never claim that scouts ran when they did not.
 
 For `Go wider`, use a fresh council when capacity permits. Give it the rejected candidates' fingerprints as negative territory, not as examples to imitate. For `[letter], but bolder`, use up to three scouts when capacity permits, all preserving the selected claim, appeal, fascination posture, and truth boundary while testing different intensification moves. The main agent selects the strongest responsible revision.
 
