@@ -65,7 +65,7 @@ Before delegation, tell the user:
 
 > I’m sending the same brief to five independent premise scouts. Each will explore two appeals and several fascination triggers. I’ll compare their strongest ideas and show you only the three most promising and genuinely different directions.
 
-If subagents are unavailable, capacity is insufficient, or a scout fails, do not block premise discovery. Use the single-agent wide-generation fallback in `premise-transformation.md` and state briefly that the premise search ran in one context. Never fabricate scout results.
+If subagents are unavailable or capacity is insufficient, do not block premise discovery. Use the single-agent wide-generation fallback in 'premise-transformation.md'. If an individual scout fails, simulate its territory in the main thread to preserve the other scouts' work. State briefly if the search used fallback or ran in one context, and never fabricate scout results.
 
 State the shared realization and why-now context once at the top. Then label the directions `A`, `B`, and `C`. Each option contains only:
 
