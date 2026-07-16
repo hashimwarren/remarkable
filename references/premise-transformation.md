@@ -6,15 +6,16 @@ Treat premise quality as Remarkable's highest-leverage result. Search broadly be
 
 When the runtime supports subagents, spawn five independent, read-only premise scouts in parallel. Do not ask the user to request delegation again. Keep all premise selection and file writes in the main thread. Tell every scout not to spawn descendants.
 
-Give every scout the same bounded packet:
+Give every scout the same bounded packet, supplemented with its specific assigned pair of appeals:
 
+- its assigned pair of appeals;
 - the reader and relevant audience context;
 - the reader's current belief;
 - the desired movement;
 - why the idea matters now;
 - available evidence and explicit truth boundaries;
 - any relevant project positioning; and
-- instructions to read `premise.md` and this reference before generating candidates.
+- instructions to read 'premise.md' and this reference before generating candidates.
 
 Do not pass another scout's candidates into its context. Independent search is the point.
 
