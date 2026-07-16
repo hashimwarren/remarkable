@@ -358,6 +358,35 @@ print(json.dumps({{"event": "review.completed", "feedbackCount": 2}}))
             command_text = log.read_text(encoding="utf-8")
             self.assertNotIn("--no-watch", command_text)
             self.assertIn("--json", command_text)
+            self.assertEqual(payload["review_event"]["event"], "review.completed")
+
+    def test_does_not_treat_an_abandoned_review_as_complete(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            draft = root / "draft.md"
+            draft.write_text("Draft", encoding="utf-8")
+            command = root / "node_modules" / ".bin" / "roughdraft"
+            write_command(
+                command,
+                """#!/usr/bin/env python3
+import json
+import sys
+if "--help" in sys.argv:
+    print("open <path> --no-watch --timeout --json")
+    raise SystemExit(0)
+print(json.dumps({"event": "review.abandoned"}))
+""",
+            )
+            result = run_script(
+                "open_roughdraft.py",
+                str(draft),
+                "--project-root",
+                str(root),
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["status"], "review_abandoned")
+            self.assertNotEqual(payload["status"], "review_completed")
 
 
 class InstructionContractTests(unittest.TestCase):
