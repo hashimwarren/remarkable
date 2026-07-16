@@ -52,11 +52,14 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("0.6-beta", skill)
+        self.assertIn("0.7-beta", skill)
         self.assertIn("five-scout premise council", skill)
         self.assertIn("spawn five independent", transformation)
         self.assertIn("Assign the ten appeals exactly once", transformation)
-        self.assertIn("If the runtime cannot spawn subagents", transformation)
+        self.assertIn("launch scouts in waves", transformation)
+        self.assertIn("Limited concurrency changes only how many waves run", transformation)
+        self.assertIn("Begin finalist selection only after all five territories", transformation)
+        self.assertIn("fully single-context fallback only when subagents cannot be spawned", transformation)
         self.assertIn("The main agent is the editor-in-chief", transformation)
 
 
@@ -367,7 +370,10 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("What do you want the reader to realize", skill)
         self.assertIn("exactly three", skill.casefold())
         self.assertIn("Which premise should govern the article: A, B, or C?", skill)
-        self.assertIn("Treat this release as `0.6-beta`", skill)
+        self.assertIn("structured user-input control", skill)
+        self.assertIn("Make these bolder", skill)
+        self.assertIn("selection by letter, direction name", skill)
+        self.assertIn("Treat this release as `0.7-beta`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("Appeal: [one of the ten appeals]", skill)
@@ -380,6 +386,8 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("ran Slopless [run count] times in total", skill)
         self.assertIn("leave inline comments, or suggest changes", skill)
         self.assertIn("click **Done Reviewing**", skill)
+        self.assertIn("Do not use `--no-watch` for this handoff", skill)
+        self.assertIn("Wait for the wrapper to report `review_completed`", skill)
         self.assertIn("create_article_map.py", skill)
         self.assertIn("say **“Guide me”**", skill)
         self.assertIn("say **“Draft it”**", skill)
