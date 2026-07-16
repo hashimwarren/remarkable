@@ -2,6 +2,51 @@
 
 Treat premise quality as Remarkable's highest-leverage result. Search broadly before presenting a narrow, simple choice.
 
+## Run the five-scout premise council
+
+When the runtime supports subagents, spawn five independent, read-only premise scouts in parallel. Do not ask the user to request delegation again. Keep all premise selection and file writes in the main thread. Tell every scout not to spawn descendants.
+
+Give every scout the same bounded packet, supplemented with its specific assigned pair of appeals:
+
+- its assigned pair of appeals;
+- the reader and relevant audience context;
+- the reader's current belief;
+- the desired movement;
+- why the idea matters now;
+- available evidence and explicit truth boundaries;
+- any relevant project positioning; and
+- instructions to read 'premise.md' and this reference before generating candidates.
+
+Do not pass another scout's candidates into its context. Independent search is the point.
+
+Assign the ten appeals exactly once across five deliberately tense pairs:
+
+1. **Future and stakes:** Encourage their dreams + Agitate their fears.
+2. **Risk and reassurance:** Warn against the destruction of their dreams + Allay their fears.
+3. **Causal responsibility:** Justify their failures + Imply they are their own worst enemy.
+4. **Recognition and reversal:** Confirm their suspicions + Shock them with unusual praise for their enemies.
+5. **Opposition and replacement:** Thwart their conventional wisdom + Help them throw rocks at their enemies.
+
+Each scout must use both assigned appeals as separate search territories, test at least three fitting fascination advantages or pairs across its exploration, and generate at least three candidate governing ideas. It returns only its strongest two candidates. Do not force one winner per assigned appeal when both strongest candidates honestly emerge from the same territory.
+
+Require this compact return shape for each candidate:
+
+- **Premise:** the single governing claim;
+- **Belief shift:** what the reader must stop, start, or change believing;
+- **Causal logic:** the explanation that makes the premise govern a whole article;
+- **Appeal:** the primary assigned appeal;
+- **Fascination:** the advantage or archetype and underlying pair;
+- **Truth boundary:** the strongest responsible version of the claim and what would overstate it; and
+- **Support fit:** what supplied or obtainable evidence could support it.
+
+Wait for all five scouts when possible. Pool all returned candidates and ignore the scouts' relative confidence when selecting finalists. The main agent is the editor-in-chief.
+
+### Degrade gracefully
+
+If the runtime cannot spawn subagents or has fewer than five available worker slots, continue in the main thread. Privately simulate the same five appeal territories, generate 12-20 candidates, and apply the same selection process below. If a spawned scout fails, the main agent should privately simulate only that failed scout's assigned appeal territory to complete the pool, rather than discarding the other scouts' work. Briefly disclose any fallback or single-context execution to the user. Never claim that scouts ran when they did not.
+
+For `Go wider`, use a fresh council when capacity permits. Give it the rejected candidates' fingerprints as negative territory, not as examples to imitate. For `[letter], but bolder`, use up to three scouts when capacity permits, all preserving the selected claim, appeal, fascination posture, and truth boundary while testing different intensification moves. The main agent selects the strongest responsible revision.
+
 ## Generate for divergence
 
 Keep the reader, desired movement, and why-now context fixed. Privately generate 12–20 candidate governing ideas that vary the causal explanation, mistaken assumption, consequence, and action—not merely the wording.
@@ -19,6 +64,14 @@ Identify the obvious/default cluster and discard it. Fingerprint surviving candi
 Before presenting finalists, compare A vs. B, A vs. C, and B vs. C. Replace a candidate when substantially the same article body or evidence could support both members of a pair, or when believing either would lead to the same reader decision. Select for both quality and distance: truth, specificity, surprise, consequence, supportability, generative power, and difference from the other finalists.
 
 Choose the appeal and fascination posture after establishing genuinely different governing ideas. A different emotional wrapper does not make the same claim a different premise.
+
+## Select the three finalists
+
+The main agent evaluates the entire candidate pool. Score candidates privately for truth, specificity, surprise, consequence, supportability, generative power across a full article, and distance from the other finalists. Reject a candidate that is interesting only because of its headline, emotional temperature, or fascination label.
+
+Do not select one candidate from each scout as a fairness exercise. Select the strongest portfolio of three. Prefer different core claims and causal models over superficial coverage of more appeals.
+
+Then run the pairwise test for A vs. B, A vs. C, and B vs. C. Replace either member of a pair when substantially the same body, evidence, or reader decision could support both. The final three should lead to meaningfully different articles even if all headlines are removed.
 
 ## Offer refinement controls
 

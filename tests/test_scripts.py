@@ -46,6 +46,20 @@ def write_command(path: Path, body: str) -> Path:
     return command
 
 
+class PremiseCouncilInstructionTests(unittest.TestCase):
+    def test_premise_council_has_five_scouts_and_a_single_agent_fallback(self) -> None:
+        skill = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
+        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("0.6-beta", skill)
+        self.assertIn("five-scout premise council", skill)
+        self.assertIn("spawn five independent", transformation)
+        self.assertIn("Assign the ten appeals exactly once", transformation)
+        self.assertIn("If the runtime cannot spawn subagents", transformation)
+        self.assertIn("The main agent is the editor-in-chief", transformation)
+
+
 class ContextDiscoveryTests(unittest.TestCase):
     def test_prioritizes_context_and_excludes_generated_and_secret_files(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -353,7 +367,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("What do you want the reader to realize", skill)
         self.assertIn("exactly three", skill.casefold())
         self.assertIn("Which premise should govern the article: A, B, or C?", skill)
-        self.assertIn("Treat this release as `0.5-beta`", skill)
+        self.assertIn("Treat this release as `0.6-beta`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("Appeal: [one of the ten appeals]", skill)
