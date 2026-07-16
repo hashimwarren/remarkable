@@ -27,6 +27,30 @@ def emit(payload: dict[str, object]) -> None:
     print(json.dumps(payload, indent=2))
 
 
+def review_event(output: str) -> dict[str, object] | None:
+    """Return the last JSON review event emitted by Roughdraft."""
+    event: dict[str, object] | None = None
+    for line in output.splitlines():
+        try:
+            payload = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, dict):
+            event = payload
+    return event
+
+
+def review_status(event: dict[str, object] | None) -> str:
+    if event is None:
+        return "review_ended"
+    name = str(event.get("event", event.get("status", ""))).casefold().replace("_", ".").replace("-", ".")
+    if name in {"review.completed", "completed"}:
+        return "review_completed"
+    if name in {"review.abandoned", "review.cancelled", "review.canceled", "review.closed", "abandoned", "cancelled", "canceled"}:
+        return "review_abandoned"
+    return "review_ended"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("draft", help="Markdown file to open")
@@ -131,13 +155,15 @@ def main() -> int:
         )
         return 2
 
-    status = "opened" if args.no_watch else "review_completed"
+    event = None if args.no_watch else review_event(opened.stdout)
+    status = "opened" if args.no_watch else review_status(event)
     emit(
         {
             "status": status,
             "watching": not args.no_watch,
             "draft": str(draft),
             "command": open_args,
+            "review_event": event,
             "output": opened.stdout.strip(),
         }
     )
