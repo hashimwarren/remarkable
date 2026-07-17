@@ -29,7 +29,7 @@ Interpret the user's explicit invocation and route to the smallest useful mode:
 - `draft`: draft the article from an explicitly approved working outline. Read [references/outline.md](references/outline.md) and [references/article.md](references/article.md).
 - `opening`: build or diagnose the reader contract. Read [references/opening.md](references/opening.md).
 - `develop`: develop the argument through claim, proof, and consequence. Read [references/develop.md](references/develop.md).
-- `framework`: find and develop an operational framework for the article's advice. Read [references/framework-design.md](references/framework-design.md).
+- `framework`: find and develop an operational framework for the current article map's advice. Locate it through `PREMISE.md`; if no map exists, request one or route to the map stage rather than inventing advice. Read [references/framework-design.md](references/framework-design.md).
 - `prove`: map, research, validate, and design evidence. Read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md).
 - `ending`: complete the premise and, when appropriate, evaluate the CTA. Read [references/ending.md](references/ending.md).
 - `critique`: diagnose a complete article before rewriting. Read [references/critique.md](references/critique.md).
