@@ -35,11 +35,17 @@ At a natural completion point, say:
 
 > This version is ready for you to use.
 
-Then use structured input when available, with a concise plain-text fallback:
+Name all four available continuations in chat:
 
 - **Run another Remarkable critique**
 - **Strengthen one section**
 - **Help produce the proof or visuals**
 - **Prepare the final publishable version**
 
-Always include another critique, but never imply that it is required. Give a repeated critique a useful lens when context supports one: fresh-reader, skeptical-reader, or final pre-publication. Do not manufacture another revision when the article is ready.
+Codex structured input supports at most three buttons, so use:
+
+- **Run another critique**
+- **Strengthen one section**
+- **Finish or produce assets** — the writer can specify proof, visuals, or publication in the free-form response.
+
+Use the four-item list as the plain-text fallback. Always include another critique, but never imply that it is required. Give a repeated critique a useful lens when context supports one: fresh-reader, skeptical-reader, or final pre-publication. Do not manufacture another revision when the article is ready.
