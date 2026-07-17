@@ -33,6 +33,8 @@ def main() -> int:
         parser.error("article must be Markdown and cannot already be an outline")
 
     outline = outline_path(article)
+    if outline.is_symlink():
+        parser.error(f"outline path must not be a symbolic link: {outline}")
     if outline.exists():
         if not outline.is_file():
             parser.error(f"outline path is not a file: {outline}")
