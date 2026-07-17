@@ -81,9 +81,8 @@ Use the runtime’s structured user-input control when it is available. Keep the
 - **A — [short direction name]**
 - **B — [short direction name]**
 - **C — [short direction name]**
-- **Make these bolder**
 
-Ask: **Which premise should govern the article: A, B, or C?** Never choose for them. Treat **Make these bolder** as a request for a genuinely new, stronger set—not approval of the current options. When structured input is unavailable, ask for A, B, C, `Go wider`, `[letter], but bolder`, or a natural-language combination in plain text. Accept selection by letter, direction name, or unambiguous natural language. Confirm the chosen premise before writing `PREMISE.md`.
+Ask: **Which premise should govern the article: A, B, or C?** Never choose for them. In the preamble, explain that the user can instead type `Make these bolder`, `Go wider`, `[letter], but bolder`, or a natural-language combination in the control's free-form response. Treat **Make these bolder** as a request for a genuinely new, stronger set—not approval of the current options. When structured input is unavailable, offer the same choices in plain text. Accept selection by letter, direction name, or unambiguous natural language. Confirm the chosen premise before writing `PREMISE.md`.
 
 For `Go wider`, discard the explored premise clusters and generate three directions with different core claims, causal explanations, and consequences. For `[letter], but bolder`, preserve the claim, appeal, fascination posture, and truth boundary while intensifying the premise through its fascination trigger. When the user combines options, synthesize one governing premise and confirm it before continuing.
 
@@ -133,17 +132,23 @@ python3 <skill-directory>/scripts/create_article_map.py "<descriptive topic>" --
 
 Replace `pending` in `PREMISE.md` with the returned relative draft path. The map contains brief temporary guidance and one CriticMarkup question for each stage: opening, argument, visible evidence, ending, and CTA. Adapt the map to the premise: add or remove claim blocks, omit visible evidence when it adds no proof, and remove the CTA when none belongs.
 
-Before opening it, tell the user:
+Before opening it, explain the three interaction modes, then use the runtime's structured user-input control when available:
 
-> I’m opening the article map in Roughdraft’s live review mode. Each section contains a short explanation and one Remarkable question. Edit the text directly or answer in inline replies, then click **Done Reviewing**. Remarkable will resume here automatically and read your feedback. If you would rather work in chat, say **“Guide me”**; if you want me to proceed from the available context, say **“Draft it.”**
+- **Open Roughdraft** — edit the map or answer inline, then click **Done Reviewing**.
+- **Guide me** — answer one section question at a time in chat.
+- **Draft it** — let Remarkable proceed from the available context.
 
-Open the map in watched mode. Do not use `--no-watch` for this handoff:
+When structured input is unavailable, ask for the same choice in plain text. STOP and wait for the user's selection before launching watched mode or drafting.
+
+Only after the user selects **Open Roughdraft**, tell them that Remarkable will resume automatically after **Done Reviewing**, then open the map in watched mode. Do not use `--no-watch` for this handoff:
 
 ```bash
 python3 <skill-directory>/scripts/open_roughdraft.py <absolute-draft-path> --project-root "$PWD"
 ```
 
 Wait for the wrapper to report `review_completed`. Read all comments, suggestions, and replies from the same Markdown file. Treat closing or abandoning the review as different from clicking **Done Reviewing**; do not claim completion without the machine-readable completion signal.
+
+If the user switches to **Guide me** or **Draft it** while watched mode is active, stop the watched process before continuing in chat. Do not leave an orphaned review command running.
 
 ### 5. Follow the chosen interaction mode
 
