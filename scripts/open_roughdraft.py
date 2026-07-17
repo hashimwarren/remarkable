@@ -27,24 +27,24 @@ def emit(payload: dict[str, object]) -> None:
     print(json.dumps(payload, indent=2))
 
 
-def review_event(output: str) -> dict[str, object] | None:
-    """Return the last event from Roughdraft's non-timeout JSON envelope."""
+def review_payload(output: str) -> dict[str, object] | None:
+    """Parse Roughdraft's JSON output envelope."""
     try:
         payload = json.loads(output)
     except json.JSONDecodeError:
         return None
-    if not isinstance(payload, dict):
-        return None
+    return payload if isinstance(payload, dict) else None
 
-    # Roughdraft `open --json` emits {"events": [...], "timedOut": bool}.
-    # A completion event from a timed-out handoff must not count as completed.
-    if payload.get("timedOut") is True:
+
+def review_event(payload: dict[str, object] | None) -> dict[str, object] | None:
+    """Return the last event from a non-timeout Roughdraft envelope."""
+    if payload is None or payload.get("timedOut") is True:
         return None
     events = payload.get("events")
     if isinstance(events, list):
         return next((event for event in reversed(events) if isinstance(event, dict)), None)
 
-    # Retain compatibility with earlier one-event output used by pre-release builds.
+    # Retain compatibility with one-event output used by pre-release builds.
     return payload
 
 
@@ -156,13 +156,18 @@ def main() -> int:
             cwd=project_root,
             text=True,
             capture_output=True,
-            timeout=None if args.timeout is None else args.timeout + 5,
+            # Roughdraft reserves five seconds beyond its own review timeout.
+            # Leave additional room for it to emit the structured result.
+            timeout=None if args.timeout is None else args.timeout + 15,
             check=False,
         )
     except (OSError, subprocess.TimeoutExpired) as error:
         emit({"status": "error", "stage": "open", "message": str(error)})
         return 2
-    if opened.returncode != 0:
+
+    payload = None if args.no_watch else review_payload(opened.stdout)
+    timed_out = payload is not None and payload.get("timedOut") is True
+    if opened.returncode != 0 and not timed_out:
         emit(
             {
                 "status": "error",
@@ -173,7 +178,7 @@ def main() -> int:
         )
         return 2
 
-    event = None if args.no_watch else review_event(opened.stdout)
+    event = None if args.no_watch else review_event(payload)
     status = "opened" if args.no_watch else review_status(event)
     emit(
         {
