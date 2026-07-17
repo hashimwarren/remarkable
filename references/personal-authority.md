@@ -48,7 +48,7 @@ Frank Kern's Us vs. Them pattern. Create solidarity, reveal an obscured mechanis
 5. Taking action expresses membership in a group with shared values.
 6. Inaction preserves the condition being challenged.
 
-The opposing force may be a powerful company, institution, business model, incentive, convention, policy, or belief when its role can be supported. It must never be a specific private person or vulnerable group. Criticize consequential choices and systems precisely. Do not invent motives, conspiracies, concealment, or collective guilt.
+The opposing force may be a powerful company, institution, business model, incentive, convention, policy, or belief when its role can be supported. It must never be a specific person—public or private—or a vulnerable group. Criticize consequential choices and systems precisely. Do not invent motives, conspiracies, concealment, or collective guilt.
 
 Use “secret” or “they don't want you to know” only when evidence supports actual concealment. Otherwise describe the mechanism accurately as overlooked, structurally hidden, counterintuitive, poorly explained, or visible mainly from an inside position.
 
