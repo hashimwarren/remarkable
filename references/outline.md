@@ -4,7 +4,7 @@ The working outline lets the writer judge the argument before prose makes struct
 
 ## Build the outline
 
-Use `PREMISE.md`, the article map and its answers, the confirmed objection response, approved Personal Authority, project context, existing evidence or proof artifacts, and any existing article prose. Save it beside the article as `<article-stem>.outline.md`.
+Use `PREMISE.md`, the article map and its answers, any approved practical framework in the map, the confirmed objection response, approved Personal Authority, project context, existing evidence or proof artifacts, and any existing article prose. Save it beside the article as `<article-stem>.outline.md`.
 
 Read [visual-placeholders.md](visual-placeholders.md). Start the visual subagent after the headline and major section jobs are stable, then continue building the outline while it works.
 
@@ -18,6 +18,7 @@ For a normal long-form article, use 300–700 words and a small number of major 
 - major section headings;
 - one italic sentence explaining each section's rhetorical job;
 - bullets for claims, examples, transitions, objection handling, and intended movement;
+- an approved practical framework when one exists, preserving its governing logic, demonstration, and limit;
 - proof placeholders attached to the claims they must support;
 - explicit requests for missing author information; and
 - a closing or CTA plan, omitting a CTA when none belongs.
