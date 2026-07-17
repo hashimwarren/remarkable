@@ -2,6 +2,10 @@
 
 The premise governs what the reader should believe. A framework may package what the reader should do next. Do not force every article to have one.
 
+## Enter the mode safely
+
+In the guided workflow, begin only after the article map has been resolved. For a focused `framework` invocation, locate the current article map from the `Draft:` path in `PREMISE.md`. If that path or map does not exist, ask the writer to identify the article map or run the preceding map stage; do not invent advice from `PREMISE.md` alone and do not silently start the entire guided workflow.
+
 ## Detect a genuine opportunity
 
 After the article map is resolved and before the working outline, privately inspect the writer's advice for:
@@ -56,7 +60,7 @@ These techniques may strengthen approved advice or an operational framework, but
 - **Allegory:** explain an abstract structure through a memorable story or analogy.
 - **Exemplar:** use a recognizable example or archetype to embody relevant attributes.
 
-Do not run a separate Tier 2 checkpoint in this release. Use a Tier 2 technique only when it clarifies a sound structure without exaggerating novelty. A catchy name cannot rescue weak advice.
+Do not apply a Tier 2 technique or run a Tier 2 checkpoint in this release. Preserve these definitions only for a later “make it memorable” pass. A catchy name cannot rescue weak advice.
 
 ## Develop and confirm
 
@@ -69,10 +73,14 @@ Do not run a separate Tier 2 checkpoint in this release. Use a Tier 2 technique 
    - **Develop it**
    - **Revise the logic**
    - **Try another structure**
-7. Use the same choices as a plain-text fallback. Accept free-form requests to keep it as prose.
-8. Revise until the writer explicitly approves it or returns to prose.
+7. Use the same choices as a plain-text fallback. Apply these branches exactly:
+   - **Develop it:** explicitly approves the structure just shown. Add it to the existing article map and continue automatically to the working outline.
+   - **Revise the logic:** ask what is wrong or missing, update the same proposed structure, and repeat this confirmation checkpoint. Do not persist it yet.
+   - **Try another structure:** discard the proposed organizing logic, choose a genuinely different Tier 1 structure, show the new concrete proposal, and repeat this checkpoint. Do not persist the rejected proposal.
+8. Accept a free-form request to **Keep it as prose** at this checkpoint. Persist no framework, mark the stage skipped, and continue to the outline.
+9. Revise until the writer explicitly approves through **Develop it** or returns to prose.
 
-Never interpret enthusiasm, silence, or a request to see the possibility as approval. Do not add a proposed framework to an artifact until it is explicitly approved.
+Never interpret enthusiasm, silence, or a request to see the possibility as approval. Do not add a proposed framework to an artifact until the writer chooses **Develop it** for the concrete structure currently shown.
 
 ## Persist it in the article map
 
