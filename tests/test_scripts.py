@@ -54,6 +54,12 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         )
         self.assertIn("0.8-beta", skill)
         self.assertIn("five-scout premise council", skill)
+        scout_preamble = skill.split("Before delegation, tell the user:", 1)[1].split(
+            "If subagents are unavailable", 1
+        )[0]
+        self.assertNotIn("appeal", scout_preamble.casefold())
+        self.assertNotIn("fascination", scout_preamble.casefold())
+        self.assertIn("different persuasive territory", scout_preamble)
         self.assertIn("run five independent", transformation)
         self.assertIn("Assign the ten appeals exactly once", transformation)
         self.assertIn("launch scouts in waves", transformation)
@@ -485,6 +491,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("must never be a specific private person or vulnerable group", personal)
         self.assertIn("If the writer skips Personal Authority, omit the entire section", personal)
         self.assertNotIn("**Recommended placement:**", personal)
+        self.assertEqual(personal.count("```markdown"), 2)
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(encoding="utf-8")
         self.assertIn("Privately generate 12–20", transformation)
         self.assertIn("Make a premise bolder", transformation)
