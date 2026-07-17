@@ -28,25 +28,43 @@ def emit(payload: dict[str, object]) -> None:
 
 
 def review_event(output: str) -> dict[str, object] | None:
-    """Return the last JSON review event emitted by Roughdraft."""
-    event: dict[str, object] | None = None
-    for line in output.splitlines():
-        try:
-            payload = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        if isinstance(payload, dict):
-            event = payload
-    return event
+    """Return the last event from Roughdraft's non-timeout JSON envelope."""
+    try:
+        payload = json.loads(output)
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(payload, dict):
+        return None
+
+    # Roughdraft `open --json` emits {"events": [...], "timedOut": bool}.
+    # A completion event from a timed-out handoff must not count as completed.
+    if payload.get("timedOut") is True:
+        return None
+    events = payload.get("events")
+    if isinstance(events, list):
+        return next((event for event in reversed(events) if isinstance(event, dict)), None)
+
+    # Retain compatibility with earlier one-event output used by pre-release builds.
+    return payload
 
 
 def review_status(event: dict[str, object] | None) -> str:
     if event is None:
         return "review_ended"
-    name = str(event.get("event", event.get("status", ""))).casefold().replace("_", ".").replace("-", ".")
+    name = str(
+        event.get("type", event.get("event", event.get("status", "")))
+    ).casefold().replace("_", ".").replace("-", ".")
     if name in {"review.completed", "completed"}:
         return "review_completed"
-    if name in {"review.abandoned", "review.cancelled", "review.canceled", "review.closed", "abandoned", "cancelled", "canceled"}:
+    if name in {
+        "review.abandoned",
+        "review.cancelled",
+        "review.canceled",
+        "review.closed",
+        "abandoned",
+        "cancelled",
+        "canceled",
+    }:
         return "review_abandoned"
     return "review_ended"
 
