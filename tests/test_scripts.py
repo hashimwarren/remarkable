@@ -52,7 +52,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("0.8-beta", skill)
+        self.assertIn("0.9-beta", skill)
         self.assertIn("five-scout premise council", skill)
         scout_preamble = skill.split("Before delegation, tell the user:", 1)[1].split(
             "If subagents are unavailable", 1
@@ -125,6 +125,39 @@ class DraftReservationTests(unittest.TestCase):
             self.assertTrue(Path(payload["path"]).exists())
 
 
+class OutlineReservationTests(unittest.TestCase):
+    def test_reserves_and_reuses_predictable_outline_path(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            drafts = root / "drafts"
+            drafts.mkdir()
+            article = drafts / "article.md"
+            article.write_text("# Article\n", encoding="utf-8")
+
+            first = run_script("reserve_outline.py", str(article), "--root", str(root))
+            self.assertEqual(first.returncode, 0, first.stderr)
+            first_payload = json.loads(first.stdout)
+            self.assertEqual(first_payload["status"], "reserved")
+            self.assertEqual(first_payload["relative_path"], "drafts/article.outline.md")
+
+            outline = Path(first_payload["path"])
+            outline.write_text("Keep this outline", encoding="utf-8")
+            second = run_script("reserve_outline.py", str(article), "--root", str(root))
+            self.assertEqual(second.returncode, 0, second.stderr)
+            second_payload = json.loads(second.stdout)
+            self.assertEqual(second_payload["status"], "existing")
+            self.assertEqual(outline.read_text(encoding="utf-8"), "Keep this outline")
+
+    def test_rejects_articles_outside_the_project(self) -> None:
+        with tempfile.TemporaryDirectory() as directory, tempfile.TemporaryDirectory() as outside:
+            root = Path(directory)
+            article = Path(outside) / "article.md"
+            article.write_text("# Article\n", encoding="utf-8")
+            result = run_script("reserve_outline.py", str(article), "--root", str(root))
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("inside the project root", result.stderr)
+
+
 class ArticleMapTests(unittest.TestCase):
     def test_creates_a_premise_grounded_roughdraft_map(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -141,6 +174,9 @@ Choose repeatable practices.
 ## Premise
 Household rhythms form children's loves.
 
+## Likely Objection
+Small repeated practices cannot overcome the wider culture.
+
 ## Why Now
 Calendars increasingly choose the family's defaults.
 """,
@@ -152,6 +188,8 @@ Calendars increasingly choose the family's defaults.
             draft = Path(payload["path"])
             text = draft.read_text(encoding="utf-8")
             self.assertIn("Household rhythms form children's loves.", text)
+            self.assertIn("Small repeated practices cannot overcome the wider culture.", text)
+            self.assertIn("[Add the confirmed response direction before review.]", text)
             self.assertIn("## Opening", text)
             self.assertIn("## Argument", text)
             self.assertIn("## Visible evidence", text)
@@ -449,7 +487,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("structured user-input control", skill)
         self.assertIn("Make these bolder", skill)
         self.assertIn("selection by letter, direction name", skill)
-        self.assertIn("Treat this release as `0.8-beta`", skill)
+        self.assertIn("Treat this release as `0.9-beta`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("## Likely Objection", skill)
@@ -458,6 +496,14 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("Is there something you discovered, struggled through", skill)
         self.assertIn("Yes — I’ll tell you", skill)
         self.assertIn("references/personal-authority.md", skill)
+        self.assertIn("references/objection-response.md", skill)
+        self.assertIn("references/outline.md", skill)
+        self.assertIn("Yes — I’ll answer", skill)
+        self.assertIn("reserve_outline.py", skill)
+        self.assertIn("Build the outline", skill)
+        self.assertNotIn("**Draft it**", skill)
+        self.assertIn("Draft this structure", skill)
+        self.assertIn("If no outline exists, route to `outline`", skill)
         self.assertIn("derive a fresh strongest intelligent likely objection", skill)
         self.assertNotIn("[When a personal story was approved", skill)
         self.assertIn("800–1,200", skill)
@@ -500,6 +546,15 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("Use the fascination trigger as the control", transformation)
         self.assertIn("Never invent", article)
         self.assertIn("selected premise", article)
+        objection = (SKILL_DIR / "references" / "objection-response.md").read_text(
+            encoding="utf-8"
+        )
+        outline = (SKILL_DIR / "references" / "outline.md").read_text(encoding="utf-8")
+        self.assertIn("Store only the objection in `PREMISE.md`", objection)
+        self.assertIn("A widened, intensified, combined", objection)
+        self.assertIn("300–700", outline)
+        self.assertIn("Blocking", outline)
+        self.assertIn("AUTHOR INPUT NEEDED", outline)
         self.assertIn("allow_implicit_invocation: false", interface)
 
 
