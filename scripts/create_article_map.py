@@ -25,6 +25,7 @@ def build_map(premise_markdown: str) -> str:
     audience = section(premise_markdown, "Audience") or "[Intended reader]"
     desired = section(premise_markdown, "Desired Movement") or "[Desired reader movement]"
     why_now = section(premise_markdown, "Why Now") or "[Why this matters now]"
+    objection = section(premise_markdown, "Likely Objection") or "[Confirmed likely objection]"
     return f"""# [Working title]
 
 > **Governing premise:** {premise}
@@ -42,6 +43,10 @@ def build_map(premise_markdown: str) -> str:
 ## Argument
 
 [Develop the premise through a small number of necessary claims. Support each claim and show what changes because it is true.]
+
+> **Likely objection:** {objection}
+>
+> **Author's response direction:** [Add the confirmed response direction before review.]
 
 {{>>What must the reader believe before they can accept the premise? What are the two or three essential steps that will get them there?<<}}
 
