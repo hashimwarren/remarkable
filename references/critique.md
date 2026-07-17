@@ -16,3 +16,24 @@ Use supporting principles only after structural issues: frictionless comprehensi
 First return a high-level diagnosis, the three most consequential problems, and a prioritized revision sequence. Do not rewrite the whole article until the writer accepts the direction.
 
 When the writer invokes critique or chooses the post-Slopless critique offer, share the diagnosis in chat and add at most one document-level diagnosis and five high-value inline CriticMarkup interventions by default. The chat prioritizes the editorial work; inline feedback localizes where the writer can act. Do not duplicate the same prose word for word. Comments should ask useful questions or explain stakes; suggestions should show a concrete fix. Do not wallpaper the document with feedback or duplicate Slopless's mechanical checks.
+
+## Obtain revision authority
+
+After the critique and Roughdraft review, use the runtime's structured user-input control when available:
+
+- **Review revisions one by one**
+- **Apply recommended revisions**
+- **Leave the draft unchanged**
+
+Use the same choices as a short plain-text fallback. Favor **Review revisions one by one** in the ordering and explanation because consequential editorial judgment belongs to the writer. Never interpret an ambiguous response as permission to change the premise, proof burden, major claims, reader movement, or CTA.
+
+For one-by-one review, present only one consequential recommendation at a time:
+
+1. the issue;
+2. why it matters to the governing premise;
+3. the proposed direction; and
+4. the decision requested.
+
+Allow the writer to accept, modify, discuss, or reject it. Apply only accepted changes and patch the existing article rather than creating a second full draft. If the writer applies all recommendations, still preserve explicit truth boundaries and unresolved evidence gaps. If the article needs no further rhetorical revision, say so instead of manufacturing work.
+
+Distinguish Slopless's already-applied mechanical cleanup from Remarkable's rhetorical recommendations. After substantive accepted edits, rerun Slopless and return to watched Roughdraft review.
