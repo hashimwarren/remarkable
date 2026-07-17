@@ -52,7 +52,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("0.9-beta", skill)
+        self.assertIn("0.10-beta", skill)
         self.assertIn("five-scout premise council", skill)
         scout_preamble = skill.split("Before delegation, tell the user:", 1)[1].split(
             "If subagents are unavailable", 1
@@ -507,7 +507,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("structured user-input control", skill)
         self.assertIn("Make these bolder", skill)
         self.assertIn("selection by letter, direction name", skill)
-        self.assertIn("Treat this release as `0.9-beta`", skill)
+        self.assertIn("Treat this release as `0.10-beta`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("## Likely Objection", skill)
@@ -575,11 +575,26 @@ class InstructionContractTests(unittest.TestCase):
             encoding="utf-8"
         )
         outline = (SKILL_DIR / "references" / "outline.md").read_text(encoding="utf-8")
+        critique = (SKILL_DIR / "references" / "critique.md").read_text(encoding="utf-8")
+        wayfinding = (SKILL_DIR / "references" / "wayfinding.md").read_text(encoding="utf-8")
+        visuals = (SKILL_DIR / "references" / "visual-placeholders.md").read_text(encoding="utf-8")
         self.assertIn("Store only the objection in `PREMISE.md`", objection)
         self.assertIn("A widened, intensified, combined", objection)
         self.assertIn("300–700", outline)
         self.assertIn("Blocking", outline)
         self.assertIn("AUTHOR INPUT NEEDED", outline)
+        self.assertIn("generated header-image placeholder", outline)
+        self.assertIn("Review revisions one by one", critique)
+        self.assertIn("Apply recommended revisions", critique)
+        self.assertIn("Leave the draft unchanged", critique)
+        self.assertIn("patch the existing article", critique)
+        self.assertIn("This version is ready for you to use", wayfinding)
+        self.assertIn("Run another Remarkable critique", wayfinding)
+        self.assertIn("● Premise", wayfinding)
+        self.assertIn("dedicated visual subagent", visuals)
+        self.assertIn("image-generation model", visuals)
+        self.assertIn("public web", visuals)
+        self.assertIn("drafts/assets/<article-stem>/", visuals)
         self.assertIn("allow_implicit_invocation: false", interface)
 
 
