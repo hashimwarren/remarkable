@@ -26,7 +26,7 @@ Interpret the user's explicit invocation and route to the smallest useful mode:
 - `start` or no mode: run the guided article workflow.
 - `premise`: generate or refine premise directions.
 - `outline`: create or revise the working outline from the selected premise, article map, and available answers. Read [references/outline.md](references/outline.md).
-- `draft`: draft the article from an approved or sufficiently resolved working outline. Read [references/outline.md](references/outline.md) and [references/article.md](references/article.md).
+- `draft`: draft the article from an explicitly approved working outline. Read [references/outline.md](references/outline.md) and [references/article.md](references/article.md).
 - `opening`: build or diagnose the reader contract. Read [references/opening.md](references/opening.md).
 - `develop`: develop the argument through claim, proof, and consequence. Read [references/develop.md](references/develop.md).
 - `prove`: map, research, validate, and design evidence. Read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md).
@@ -195,17 +195,25 @@ python3 <skill-directory>/scripts/reserve_outline.py <absolute-article-path> --r
 
 Use the returned path. If it reports `existing`, update that outline rather than creating a parallel version. Build a 300–700 word, scan-friendly working outline from `PREMISE.md`, the article map, confirmed objection response, Personal Authority when approved, project context, and available evidence. Include major headings, one italic rhetorical-purpose statement per section, bullets, attached proof placeholders, explicit information requests, and a closing or CTA plan. Classify unresolved needs as **Blocking**, **Helpful**, or **Researchable**.
 
+Begin the outline with `Status: working`. Set `Status: approved` only after the user explicitly approves the structure. Any material outline revision resets it to `Status: working`; never infer approval from the file's existence.
+
 Open the outline in watched Roughdraft mode with only a small number of consequential inline questions:
 
 ```bash
 python3 <skill-directory>/scripts/open_roughdraft.py <absolute-outline-path> --project-root "$PWD"
 ```
 
-After **Done Reviewing**, incorporate the feedback and ask the user to choose: **Draft this structure**, **Revise the outline**, or **Help me answer the missing questions**. STOP and wait. Do not treat an ambiguous response as approval.
+After **Done Reviewing**, incorporate the feedback and use the runtime's structured user-input control when available with exactly three choices: **Draft this structure**, **Revise the outline**, or **Help me answer the missing questions**. Use the same choices as a plain-text fallback. STOP and wait. Do not treat an ambiguous response as approval.
+
+- For **Draft this structure**, require no Blocking items, set `Status: approved`, and continue.
+- For **Revise the outline**, ask what should change, update it, set `Status: working`, reopen watched Roughdraft, and repeat the approval checkpoint.
+- For **Help me answer the missing questions**, work through unresolved needs, update or reclassify them, set `Status: working`, reopen watched Roughdraft, and repeat the checkpoint. Do not fall through to prose.
 
 ### 8. Draft from the approved outline
 
-Require an approved or sufficiently resolved working outline. If no outline exists, route to `outline`; do not silently jump from the map to prose. Before writing prose, run the Slopless preflight in section 9 and stop if it is not ready. Preserve the selected premise, confirmed objection response, agreed claim order, proof assignments, intended reader movement, and deliberate gaps. Use explicit `[AUTHOR INPUT NEEDED: ...]` markers rather than inventing missing personal information. Patch the existing article Markdown instead of creating a second prose draft.
+Require `Status: approved` and no Blocking items in the working outline. If no outline exists, route to `outline`; do not silently jump from the map to prose. If approval is absent or may no longer apply, show a compact structural summary and ask the same three-choice decision again; never infer approval from file existence. Before writing prose, run the Slopless preflight in section 9 and stop if it is not ready. Preserve the selected premise, confirmed objection response, agreed claim order, proof assignments, intended reader movement, and deliberate gaps. Use explicit `[AUTHOR INPUT NEEDED: ...]` markers rather than inventing missing personal information. Patch the existing article Markdown instead of creating a second prose draft.
+
+As the article map becomes prose, remove resolved CriticMarkup questions, temporary bracketed scaffold guidance, unused generic claim blocks, and unused asset or CTA placeholders. Preserve deliberate, specific gaps such as `[AUTHOR INPUT NEEDED: ...]` and `[EVIDENCE NEEDED: ...]`.
 
 Read [references/article.md](references/article.md), [references/opening.md](references/opening.md), [references/develop.md](references/develop.md), and [references/ending.md](references/ending.md). Default to 800–1,200 words, aiming for about 1,000, unless the user specifies otherwise.
 
