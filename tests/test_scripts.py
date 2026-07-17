@@ -52,7 +52,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("0.10-beta", skill)
+        self.assertIn("0.11-beta", skill)
         self.assertIn("five-scout premise council", skill)
         scout_preamble = skill.split("Before delegation, tell the user:", 1)[1].split(
             "If subagents are unavailable", 1
@@ -507,7 +507,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("structured user-input control", skill)
         self.assertIn("Make these bolder", skill)
         self.assertIn("selection by letter, direction name", skill)
-        self.assertIn("Treat this release as `0.10-beta`", skill)
+        self.assertIn("Treat this release as `0.11-beta`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("## Likely Objection", skill)
@@ -578,6 +578,7 @@ class InstructionContractTests(unittest.TestCase):
         critique = (SKILL_DIR / "references" / "critique.md").read_text(encoding="utf-8")
         wayfinding = (SKILL_DIR / "references" / "wayfinding.md").read_text(encoding="utf-8")
         visuals = (SKILL_DIR / "references" / "visual-placeholders.md").read_text(encoding="utf-8")
+        frameworks = (SKILL_DIR / "references" / "framework-design.md").read_text(encoding="utf-8")
         self.assertIn("Store only the objection in `PREMISE.md`", objection)
         self.assertIn("A widened, intensified, combined", objection)
         self.assertIn("300–700", outline)
@@ -592,6 +593,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("Run another Remarkable critique", wayfinding)
         self.assertIn("● Premise", wayfinding)
         self.assertIn("○ Slopless", wayfinding)
+        self.assertIn("○ Framework", wayfinding)
         self.assertIn("Slopless current", skill)
         self.assertIn("Mark Slopless complete", skill)
         self.assertIn("skipped with `–` for a non-English draft", skill)
@@ -610,6 +612,23 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("same choices as a short plain-text fallback", critique)
         self.assertIn("at most three buttons", wayfinding)
         self.assertIn("Low-fidelity outline concepts and placeholders", skill)
+        self.assertIn("references/framework-design.md", skill)
+        self.assertIn("Develop the framework", skill)
+        self.assertIn("Keep it as prose", skill)
+        self.assertIn("mark framework skipped with `–`", skill)
+        self.assertIn("Never write it to `PREMISE.md`", skill)
+        self.assertIn("Whole / Parts / Whole", frameworks)
+        self.assertIn("Formula", frameworks)
+        self.assertIn("Progression", frameworks)
+        self.assertIn("Categories", frameworks)
+        self.assertIn("Decision Tree", frameworks)
+        self.assertIn("Do not run a separate Tier 2 checkpoint", frameworks)
+        self.assertIn("Continue directly to the outline without mentioning frameworks", frameworks)
+        self.assertIn("Never interpret enthusiasm, silence", frameworks)
+        self.assertIn("not `PREMISE.md` and not a separate framework artifact", frameworks)
+        self.assertIn("converts ordinary bullets into an acronym", frameworks)
+        self.assertIn("approved practical framework", outline)
+        self.assertIn("approved practical framework", visuals)
         self.assertIn("allow_implicit_invocation: false", interface)
 
 
