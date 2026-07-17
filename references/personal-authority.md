@@ -90,11 +90,8 @@ Approach: [Earned Discovery, Shared Struggle, or Transformation]
 
 **Approved story:**
 [The approved factual story architecture connecting the writer's experience to the premise.]
-```
 
-For Shared Struggle, add only when relevant:
-
-```markdown
+[For Shared Struggle, when relevant:]
 **Opposing force:**
 [The supported system, company, incentive, convention, policy, or belief.]
 
@@ -102,4 +99,4 @@ For Shared Struggle, add only when relevant:
 [The relevant values or goal connecting writer and reader.]
 ```
 
-Do not add recommended placement, truth-boundary, privacy-boundary, headline, or polished article prose. If the writer skips Personal Authority, omit the entire section.
+Omit the bracketed Shared Struggle fields for Earned Discovery and Transformation, and when they are irrelevant to a particular Shared Struggle account. Do not add recommended placement, truth-boundary, privacy-boundary, headline, or polished article prose. If the writer skips Personal Authority, omit the entire section.
