@@ -63,7 +63,7 @@ Read [references/premise.md](references/premise.md) and [references/premise-tran
 
 Before delegation, tell the user:
 
-> I’m sending the same brief to five independent premise scouts. Each will explore two appeals and several fascination triggers. I’ll compare their strongest ideas and show you only the three most promising and genuinely different directions.
+> I’m sending the same brief to five independent premise scouts. Each will explore a different persuasive territory. I’ll compare their strongest ideas and show you only the three most promising and genuinely different directions.
 
 If subagents are unavailable, do not block premise discovery: use the single-agent wide-generation fallback in `premise-transformation.md`. Limited concurrency is not unavailability. When fewer than five worker slots are open, run the five scouts in capacity-aware waves, preserve every assignment, and collect all five reports before synthesis. Retry a failed scout once when practical; if it still fails, simulate only that scout’s territory in the main thread and disclose the fallback briefly. Never fabricate scout results.
 
