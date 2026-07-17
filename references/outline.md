@@ -6,11 +6,14 @@ The working outline lets the writer judge the argument before prose makes struct
 
 Use `PREMISE.md`, the article map and its answers, the confirmed objection response, approved Personal Authority, project context, existing evidence or proof artifacts, and any existing article prose. Save it beside the article as `<article-stem>.outline.md`.
 
+Read [visual-placeholders.md](visual-placeholders.md). Start the visual subagent after the headline and major section jobs are stable, then continue building the outline while it works.
+
 Begin the artifact with `Status: working`. Change it to `Status: approved` only after the user explicitly chooses **Draft this structure**. Any material revision resets it to `Status: working`; file existence alone never means approval.
 
 For a normal long-form article, use 300–700 words and a small number of major sections. Include:
 
 - a working headline;
+- a generated header-image placeholder immediately after the headline;
 - the governing premise, reader, and desired movement;
 - major section headings;
 - one italic sentence explaining each section's rhetorical job;
@@ -18,6 +21,8 @@ For a normal long-form article, use 300–700 words and a small number of major 
 - proof placeholders attached to the claims they must support;
 - explicit requests for missing author information; and
 - a closing or CTA plan, omitting a CTA when none belongs.
+
+Evaluate the claims and narrative for up to two additional useful visual placeholders. Attach each to the section where it would perform its proof, comprehension, or story job. Include a relative Markdown image path, concise concept alt text, and one italic production note. Do not add decorative placeholders merely to reach three images.
 
 Classify unresolved needs:
 
