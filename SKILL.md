@@ -239,6 +239,8 @@ When evidence work is requested or necessary, read [references/prove.md](referen
 
 ### 9. Run Slopless
 
+Mark drafting complete and Slopless current. Explain that this pass removes deterministic prose friction and that the writer may choose a Remarkable critique afterward.
+
 For English articles, preflight before substantive drafting:
 
 ```bash
@@ -259,7 +261,7 @@ Skip Slopless for non-English drafts and explain its language limitation.
 
 ### 10. Return to Roughdraft
 
-Mark drafting complete and critique current. Explain that the writer will receive a small number of consequential recommendations, then control which rhetorical changes are applied.
+Mark Slopless complete and critique current. Explain that the writer will receive a small number of consequential recommendations, then control which rhetorical changes are applied.
 
 After the first draft passes Slopless, offer exactly:
 
