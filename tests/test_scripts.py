@@ -594,6 +594,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("○ Slopless", wayfinding)
         self.assertIn("Slopless current", skill)
         self.assertIn("Mark Slopless complete", skill)
+        self.assertIn("skipped with `–` for a non-English draft", skill)
         self.assertIn("dedicated visual subagent", visuals)
         self.assertIn("image-generation model", visuals)
         self.assertIn("public web", visuals)
