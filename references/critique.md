@@ -27,6 +27,11 @@ After the critique and Roughdraft review, use the runtime's structured user-inpu
 
 Use the same choices as a short plain-text fallback. Favor **Review revisions one by one** in the ordering and explanation because consequential editorial judgment belongs to the writer. Never interpret an ambiguous response as permission to change the premise, proof burden, major claims, reader movement, or CTA.
 
+- **Review revisions one by one:** use the sequence below. Partial acceptance authorizes only the accepted local edits; leave rejected and undecided passages unchanged.
+- **Apply recommended revisions:** apply the presented local recommendations, but review any premise, proof-burden, major-claim, reader-movement, or CTA change one by one because blanket approval does not authorize those changes.
+- **Leave the draft unchanged:** make no rhetorical edits. Preserve the current file and proceed to the ready-state handoff.
+- **Ambiguous reply:** make no rhetorical edits and ask the same decision again in plain language.
+
 For one-by-one review, present only one consequential recommendation at a time:
 
 1. the issue;
@@ -35,5 +40,7 @@ For one-by-one review, present only one consequential recommendation at a time:
 4. the decision requested.
 
 Allow the writer to accept, modify, discuss, or reject it. Apply only accepted changes and patch the existing article rather than creating a second full draft. If the writer applies all recommendations, still preserve explicit truth boundaries and unresolved evidence gaps. If the article needs no further rhetorical revision, say so instead of manufacturing work.
+
+When the diagnosis finds no consequential revision, skip the approval checkpoint, state that no further rhetorical revision is necessary, and proceed to the ready-state handoff.
 
 Distinguish Slopless's already-applied mechanical cleanup from Remarkable's rhetorical recommendations. After substantive accepted edits, rerun Slopless and return to watched Roughdraft review.
