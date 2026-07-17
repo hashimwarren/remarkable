@@ -261,7 +261,7 @@ Skip Slopless for non-English drafts and explain its language limitation.
 
 ### 10. Return to Roughdraft
 
-Mark Slopless complete and critique current. Explain that the writer will receive a small number of consequential recommendations, then control which rhetorical changes are applied.
+Mark Slopless complete—or skipped with `–` for a non-English draft—and critique current. Explain that the writer will receive a small number of consequential recommendations, then control which rhetorical changes are applied.
 
 After the first draft passes Slopless, offer exactly:
 
