@@ -157,6 +157,26 @@ class OutlineReservationTests(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("inside the project root", result.stderr)
 
+    def test_rejects_existing_outline_symlink(self) -> None:
+        with tempfile.TemporaryDirectory() as directory, tempfile.TemporaryDirectory() as outside:
+            root = Path(directory)
+            drafts = root / "drafts"
+            drafts.mkdir()
+            article = drafts / "article.md"
+            article.write_text("# Article\n", encoding="utf-8")
+            target = Path(outside) / "outside.md"
+            target.write_text("Keep me", encoding="utf-8")
+            outline = drafts / "article.outline.md"
+            try:
+                outline.symlink_to(target)
+            except (OSError, NotImplementedError) as error:
+                self.skipTest(f"symlinks unavailable: {error}")
+
+            result = run_script("reserve_outline.py", str(article), "--root", str(root))
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("symbolic link", result.stderr)
+            self.assertEqual(target.read_text(encoding="utf-8"), "Keep me")
+
 
 class ArticleMapTests(unittest.TestCase):
     def test_creates_a_premise_grounded_roughdraft_map(self) -> None:
@@ -504,6 +524,11 @@ class InstructionContractTests(unittest.TestCase):
         self.assertNotIn("**Draft it**", skill)
         self.assertIn("Draft this structure", skill)
         self.assertIn("If no outline exists, route to `outline`", skill)
+        self.assertIn("never infer approval from file existence", skill)
+        self.assertIn("Status: approved", skill)
+        self.assertIn("reopen watched Roughdraft", skill)
+        self.assertIn("resolved CriticMarkup questions", skill)
+        self.assertIn("[EVIDENCE NEEDED: ...]", skill)
         self.assertIn("derive a fresh strongest intelligent likely objection", skill)
         self.assertNotIn("[When a personal story was approved", skill)
         self.assertIn("800–1,200", skill)
