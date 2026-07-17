@@ -7,7 +7,7 @@ description: Build persuasive long-form articles through premise discovery, open
 
 Give AI agents the architecture of persuasion. Style governs how writing sounds; Remarkable governs what the writing helps a reader believe, feel, and do.
 
-Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.10-beta`.
+Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.11-beta`.
 
 ## Preserve the product boundary
 
@@ -29,6 +29,7 @@ Interpret the user's explicit invocation and route to the smallest useful mode:
 - `draft`: draft the article from an explicitly approved working outline. Read [references/outline.md](references/outline.md) and [references/article.md](references/article.md).
 - `opening`: build or diagnose the reader contract. Read [references/opening.md](references/opening.md).
 - `develop`: develop the argument through claim, proof, and consequence. Read [references/develop.md](references/develop.md).
+- `framework`: find and develop an operational framework for the current article map's advice. Locate it through `PREMISE.md`; if no map exists, request one or route to the map stage rather than inventing advice. Read [references/framework-design.md](references/framework-design.md).
 - `prove`: map, research, validate, and design evidence. Read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md).
 - `ending`: complete the premise and, when appropriate, evaluate the CTA. Read [references/ending.md](references/ending.md).
 - `critique`: diagnose a complete article before rewriting. Read [references/critique.md](references/critique.md).
@@ -195,9 +196,17 @@ If the user switches to **Guide me** or **Build the outline** while watched mode
 
 The user can change modes at any time. Keep the Markdown article map as the source of truth across all modes. Do not remove its guidance or unresolved placeholders yet; they are inputs to the working outline.
 
+### 6a. Check for a framework opportunity
+
+Read [references/framework-design.md](references/framework-design.md). Mark the map complete and framework current while evaluating privately. If the advice has no genuine operational structure, mark framework skipped with `–` and continue directly to the outline without adding a user checkpoint.
+
+When a framework could materially improve application or memory, briefly explain the concrete opportunity and use exactly three structured choices when available: **Develop the framework**, **Show me the possibility**, or **Keep it as prose**. Use the same plain-text fallback. STOP and wait.
+
+Develop the best-fitting operational structure internally from the writer's existing advice. Show the concrete logic and obtain explicit approval through the three-choice confirmation in `framework-design.md`. Do not ask the writer to choose a taxonomy, invent arbitrary components, or interpret interest as approval. Add only an approved framework to the existing article map. Never write it to `PREMISE.md` or create a separate framework artifact.
+
 ### 7. Create and approve the working outline
 
-Mark the map complete. Explain that the outline lets the writer judge structure before prose and that drafting comes only after explicit approval.
+Mark framework completed or skipped. Explain that the outline lets the writer judge structure before prose and that drafting comes only after explicit approval.
 
 After article-map questions have been answered or classified, read [references/outline.md](references/outline.md). Reserve the predictable outline path beside the article:
 

@@ -8,6 +8,8 @@ Create a header-image concept immediately after the working headline. Then evalu
 
 The header is standard. The other two are opportunities, not a quota. Omit a placement that would be merely decorative. Under each visual, add one short italic sentence stating its rhetorical job and suggesting the finished form.
 
+When the article map contains an approved practical framework, evaluate its natural diagram as one of the two in-article opportunities. Use a system map, scorecard, progression, category map, or decision tree only when it reveals the framework's actual logic.
+
 ## Delegate image creation
 
 When subagents and the Codex image-generation model are available, spawn one dedicated visual subagent. Give it bounded briefs containing the premise and relevant section, the visual's single job, intended form and aspect ratio, truth boundaries, and low-fidelity requirement.
