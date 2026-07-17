@@ -384,6 +384,7 @@ print(json.dumps({
     "events": [{"type": "review.completed"}],
     "timedOut": True,
 }, indent=2))
+raise SystemExit(1)
 """,
             )
             result = run_script(
@@ -455,8 +456,9 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("Do not use `--no-watch` for this handoff", skill)
         self.assertIn("Wait for the wrapper to report `review_completed`", skill)
         self.assertIn("create_article_map.py", skill)
-        self.assertIn("say **“Guide me”**", skill)
-        self.assertIn("say **“Draft it.”**", skill)
+        self.assertIn("**Open Roughdraft**", skill)
+        self.assertIn("STOP and wait for the user's selection", skill)
+        self.assertIn("stop the watched process", skill)
         self.assertIn("Go wider", skill)
         self.assertIn("pairwise distinctness", skill)
         self.assertIn("A. Run Remarkable critique", skill)
