@@ -7,7 +7,7 @@ description: Build persuasive long-form articles through premise discovery, open
 
 Give AI agents the architecture of persuasion. Style governs how writing sounds; Remarkable governs what the writing helps a reader believe, feel, and do.
 
-Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.9-beta`.
+Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.10-beta`.
 
 ## Preserve the product boundary
 
@@ -51,7 +51,11 @@ Read [references/context-artifacts.md](references/context-artifacts.md) before c
 
 ## Run the guided workflow
 
+Read [references/wayfinding.md](references/wayfinding.md). Apply its compact orientation at major stage transitions, after Roughdraft returns, and in revision loops. Do not add it before every question.
+
 ### 1. Establish intent
+
+Orient the writer to premise discovery and say that objection pressure-testing comes next. Show the current stage marker.
 
 If the user has not answered it in substance, ask exactly:
 
@@ -93,6 +97,8 @@ For `Go wider`, discard the explored premise clusters and generate three directi
 
 ### 3. Pressure-test the objection
 
+Mark the premise complete, orient the writer to objection pressure-testing, and say that Personal Authority comes next.
+
 After the user confirms the governing premise, read [references/objection-response.md](references/objection-response.md). Show the selected likely objection and ask whether it is the strongest intelligent reader resistance and how the writer would answer it or what the article could show to make a skeptic reconsider.
 
 Use structured input when available with exactly three choices: **Yes — I’ll answer**, **Revise the objection**, and **Help me answer it**. Confirm both the final objection and a compact response direction before continuing. When a premise is widened, intensified, or combined, repeat this checkpoint with a fresh objection and response direction.
@@ -100,6 +106,8 @@ Use structured input when available with exactly three choices: **Yes — I’ll
 Keep only the confirmed objection in `PREMISE.md`. Carry the response direction into the article map; it is argument material, not premise metadata.
 
 ### 4. Develop Personal Authority and preserve the premise
+
+Mark the objection complete. Explain that this optional stage connects the argument to the writer and that the article map comes next.
 
 After the user confirms the governing premise, read [references/personal-authority.md](references/personal-authority.md). Ask exactly:
 
@@ -149,6 +157,8 @@ Do not expose internal appeal or fascination metadata in `PREMISE.md`. Do not pu
 
 ### 5. Create and open the article map
 
+Mark Personal Authority completed or skipped. Explain that the map gathers the article's necessary movements and that a reviewable outline comes next.
+
 Create a collision-safe scaffold from the selected premise:
 
 ```bash
@@ -187,13 +197,17 @@ The user can change modes at any time. Keep the Markdown article map as the sour
 
 ### 7. Create and approve the working outline
 
+Mark the map complete. Explain that the outline lets the writer judge structure before prose and that drafting comes only after explicit approval.
+
 After article-map questions have been answered or classified, read [references/outline.md](references/outline.md). Reserve the predictable outline path beside the article:
 
 ```bash
 python3 <skill-directory>/scripts/reserve_outline.py <absolute-article-path> --root "$PWD"
 ```
 
-Use the returned path. If it reports `existing`, update that outline rather than creating a parallel version. Build a 300–700 word, scan-friendly working outline from `PREMISE.md`, the article map, confirmed objection response, Personal Authority when approved, project context, and available evidence. Include major headings, one italic rhetorical-purpose statement per section, bullets, attached proof placeholders, explicit information requests, and a closing or CTA plan. Classify unresolved needs as **Blocking**, **Helpful**, or **Researchable**.
+Use the returned path. If it reports `existing`, update that outline rather than creating a parallel version. Read [references/visual-placeholders.md](references/visual-placeholders.md). Build a 300–700 word, scan-friendly working outline from `PREMISE.md`, the article map, confirmed objection response, Personal Authority when approved, project context, and available evidence. Include major headings, one italic rhetorical-purpose statement per section, bullets, attached proof placeholders, explicit information requests, and a closing or CTA plan. Classify unresolved needs as **Blocking**, **Helpful**, or **Researchable**.
+
+After the headline and section jobs are stable, use a dedicated visual subagent when available to create the header-image concept and up to two useful in-article concepts through Codex image generation. Continue building the outline while it works. Generate one asset per worker turn and use follow-up tasks as needed. The main agent owns the briefs, truth review, captions, persistence, and placement; never invent a local path when the returned artifact exposes none. If subagents are unavailable, generate in the main context. If image generation is unavailable, use a generic placeholder service or reuse-permitted public-web imagery with source and license recorded. Keep the outline moving and disclose fallbacks briefly.
 
 Begin the outline with `Status: working`. Set `Status: approved` only after the user explicitly approves the structure. Any material outline revision resets it to `Status: working`; never infer approval from the file's existence.
 
@@ -211,6 +225,8 @@ After **Done Reviewing**, incorporate the feedback and use the runtime's structu
 
 ### 8. Draft from the approved outline
 
+Mark the outline approved. Explain that prose drafting and Slopless happen next, followed by an optional Remarkable critique.
+
 Require `Status: approved` and no Blocking items in the working outline. If no outline exists, route to `outline`; do not silently jump from the map to prose. If approval is absent or may no longer apply, show a compact structural summary and ask the same three-choice decision again; never infer approval from file existence. Before writing prose, run the Slopless preflight in section 9 and stop if it is not ready. Preserve the selected premise, confirmed objection response, agreed claim order, proof assignments, intended reader movement, and deliberate gaps. Use explicit `[AUTHOR INPUT NEEDED: ...]` markers rather than inventing missing personal information. Patch the existing article Markdown instead of creating a second prose draft.
 
 As the article map becomes prose, remove resolved CriticMarkup questions, temporary bracketed scaffold guidance, unused generic claim blocks, and unused asset or CTA placeholders. Preserve deliberate, specific gaps such as `[AUTHOR INPUT NEEDED: ...]` and `[EVIDENCE NEEDED: ...]`.
@@ -222,6 +238,8 @@ Keep the premise alive from opening through ending. Build major movements throug
 When evidence work is requested or necessary, read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md). Prefer user-owned evidence, then first-party public sources, then credible independent evidence. Ask before materially expanding research into connected private sources. Recommend visible proof only when it performs an evidentiary job.
 
 ### 9. Run Slopless
+
+Mark drafting complete and Slopless current. Explain that this pass removes deterministic prose friction and that the writer may choose a Remarkable critique afterward.
 
 For English articles, preflight before substantive drafting:
 
@@ -242,6 +260,8 @@ Record the initial finding count, rule-type count, rule IDs, and total lint runs
 Skip Slopless for non-English drafts and explain its language limitation.
 
 ### 10. Return to Roughdraft
+
+Mark Slopless complete—or skipped with `–` for a non-English draft—and critique current. Explain that the writer will receive a small number of consequential recommendations, then control which rhetorical changes are applied.
 
 After the first draft passes Slopless, offer exactly:
 
@@ -265,7 +285,9 @@ Before running the watched command, explain:
 
 > Roughdraft is open for your review. You can edit the text directly, leave inline comments, or suggest changes. When you’re finished, click **Done Reviewing**; Remarkable will automatically resume here with your feedback.
 
-Wait for the wrapper to report `review_completed`. Read the reviewed Markdown, summarize what the writer accepted, rejected, or clarified, and obtain confirmation before a substantial rewrite. Preserve the premise, evidence constraints, and the writer's accepted judgment. After substantive revisions, rerun Slopless and reopen watched Roughdraft for final review.
+Wait for the wrapper to report `review_completed`. Read the reviewed Markdown and summarize what the writer accepted, rejected, or clarified. When critique ran, use the three-choice revision-authority checkpoint in `references/critique.md`; do not apply substantive rhetorical recommendations merely because review completed. Preserve the premise, evidence constraints, and the writer's accepted judgment. Patch the existing draft. After substantive revisions, rerun Slopless and reopen watched Roughdraft for final review.
+
+At every natural stopping point after final review, follow `references/wayfinding.md`: say the current version is ready, then offer continued work through structured input when available. Always include another purposeful Remarkable critique alongside strengthening one section, producing proof or visuals, and preparing the publishable version.
 
 ## Critique independently
 
@@ -286,7 +308,7 @@ If the first run was clean, say so without implying revisions. If deliberate exc
 ## Keep beta boundaries
 
 - Produce article-oriented long-form writing, not homepage, email, social, or generic copy modes.
-- Create evidence specifications, not media, unless explicitly requested.
+- Create evidence specifications, not production media, unless explicitly requested. Low-fidelity outline concepts and placeholders are part of the normal outline workflow and are permitted under `references/visual-placeholders.md`.
 - Diagnose critique before rewriting.
 - Require confirmation before applying substantial feedback-driven revisions.
 - Do not create accounts, telemetry, cloud services, billing, dashboards, custom lint rules, or a proprietary document format.
