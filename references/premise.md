@@ -8,7 +8,7 @@ Generate **exactly three** premise options. Make them strategically different: a
 
 ## Choose the persuasive appeal
 
-Use one fitting appeal as the main reason the reader should care. Explore the set; do not mechanically cycle through it or expose the terminology unless it helps the user.
+Use one fitting appeal as the main reason the reader should care. Explore the set; do not mechanically cycle through it. Keep the appeal private unless the user explicitly asks how Remarkable developed the premise.
 
 1. **Encourage their dreams.** Show how the idea helps the reader reach a desired future, gain freedom, succeed, or become who they want to be.
 2. **Warn against the destruction of their dreams.** Show what could prevent, delay, or quietly undermine that desired future.
@@ -35,7 +35,7 @@ Use fascination to make the idea difficult to ignore. Treat it as persuasive pos
 - **Mystique:** lead with substance, restraint, curiosity, selective revelation, or hidden insight.
 - **Alert:** lead with details, care, vigilance, risk prevention, or precision.
 
-Choose a primary advantage for the dominant energy and, when useful, a secondary advantage to shape it. Prefer a named archetype when a listed combination fits. State both its name and its underlying pair in plain language. Use one clear advantage alone when a pairing would be forced.
+Choose a primary advantage for the dominant energy and, when useful, a secondary advantage to shape it. Prefer a named archetype when a listed combination fits. Use the pairing privately to shape the premise; do not display its name or underlying pair by default. Use one clear advantage alone when a pairing would be forced.
 
 ### High-value archetypes
 
@@ -84,7 +84,7 @@ State the shared intent once before the options:
 **What you want the reader to realize:** [Shared realization]
 **Why it matters now:** [Shared present stakes]
 
-Here are three different premises the article could use to make that case. The headline is illustrative; choose the premise you want to govern the article.
+I’m going to show you three genuinely different ways this article could move the reader. Each premise combines the central claim with a different persuasive approach. Focus on which realization feels most important and generative—the headline is only an illustration.
 ```
 
 Do not repeat the shared realization or why-now context inside every option. Assign the options the letters `A`, `B`, and `C`, keeping the letter attached to the direction name.
@@ -94,14 +94,11 @@ Use this compact structure:
 ```markdown
 ## [A, B, or C]. [Distinctive direction name]
 
-**Premise — [selected appeal]**
-[One concise governing persuasive idea. The premise and persuasive angle are one decision.]
+**Premise**
+[One concise governing persuasive idea with the selected appeal and fascination posture already integrated.]
 
-**Fascination — [named archetype and underlying pair]**
-[One sentence explaining how the posture makes this premise difficult to ignore.]
-
-**Risk**
-[The primary risk of misuse or overclaiming.]
+**Likely objection**
+[The strongest intelligent resistance this premise must answer, qualify, or accommodate.]
 
 **Possible headline**
 [One illustrative headline.]
@@ -113,12 +110,13 @@ After option C, ask exactly:
 
 > **Which premise should govern the article: A, B, or C? If none feels strong enough, say “Go wider.” You can also ask for one to be bolder or combine two.**
 
-## Audit distinctness and risk
+## Audit distinctness and objections
 
 Before presenting the options:
 
 - Confirm that each option uses a genuinely different persuasive strategy, not lexical variation.
-- Name one primary risk for each option: overclaiming, excessive alarm, weak evidence, audience mismatch, unfair blame, false reassurance, or another specific failure mode.
-- Tie the risk to the actual appeal or posture. Flag unsupported threat amplification, self-blame, scapegoating, suspicion-confirmation, contrarianism, or praise that distorts the evidence.
+- Give every option a substantive, reader-specific likely objection. Represent the strongest intelligent response, not a straw man or generic writing risk.
+- Use the objection to expose what the eventual argument must answer, qualify, or accommodate and what proof burden it creates.
+- Privately audit the actual appeal and posture for overclaiming, excessive alarm, weak evidence, audience mismatch, unfair blame, false reassurance, unsupported threat amplification, scapegoating, or distorted praise. Do not expose that machinery as option metadata.
 - Reject or revise any option whose central claim cannot be responsibly supported from supplied or obtainable context.
 - Keep all three options truthful, fair, audience-relevant, and faithful to the user's stated realization and urgency.

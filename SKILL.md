@@ -7,7 +7,7 @@ description: Build persuasive long-form articles through premise discovery, open
 
 Give AI agents the architecture of persuasion. Style governs how writing sounds; Remarkable governs what the writing helps a reader believe, feel, and do.
 
-Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.7-beta`.
+Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.8-beta`.
 
 ## Preserve the product boundary
 
@@ -63,18 +63,21 @@ Read [references/premise.md](references/premise.md) and [references/premise-tran
 
 Before delegation, tell the user:
 
-> I’m sending the same brief to five independent premise scouts. Each will explore two appeals and several fascination triggers. I’ll compare their strongest ideas and show you only the three most promising and genuinely different directions.
+> I’m sending the same brief to five independent premise scouts. Each will explore a different persuasive territory. I’ll compare their strongest ideas and show you only the three most promising and genuinely different directions.
 
 If subagents are unavailable, do not block premise discovery: use the single-agent wide-generation fallback in `premise-transformation.md`. Limited concurrency is not unavailability. When fewer than five worker slots are open, run the five scouts in capacity-aware waves, preserve every assignment, and collect all five reports before synthesis. Retry a failed scout once when practical; if it still fails, simulate only that scout’s territory in the main thread and disclose the fallback briefly. Never fabricate scout results.
 
+Before the options, explain:
+
+> I’m going to show you three genuinely different ways this article could move the reader. Each premise combines the central claim with a different persuasive approach. Focus on which realization feels most important and generative—the headline is only an illustration.
+
 State the shared realization and why-now context once at the top. Then label the directions `A`, `B`, and `C`. Each option contains only:
 
-1. **Premise — [selected appeal]**
-2. **Fascination — [archetype and pair]**
-3. **Risk**
-4. **Possible headline**
+1. **Premise**
+2. **Likely objection**
+3. **Possible headline**
 
-The premise and persuasive angle are one decision. Do not repeat `Reader realization`, `Why it matters now`, `Persuasive angle`, or `Why it works` under each option.
+The premise and persuasive angle are one decision. Integrate the selected appeal and fascination posture into the premise's wording and force, but do not expose appeal, fascination, advantage, pairing, archetype, or attention-strategy labels unless the user explicitly asks how the options were developed. A likely objection is the strongest intelligent reader resistance the article must answer, qualify, or accommodate—not a possible writing mistake. Do not repeat `Reader realization`, `Why it matters now`, `Persuasive angle`, or `Why it works` under each option.
 
 Use the runtime’s structured user-input control when it is available. Keep the full premise explanations in chat and make the control labels compact:
 
@@ -84,9 +87,23 @@ Use the runtime’s structured user-input control when it is available. Keep the
 
 Ask: **Which premise should govern the article: A, B, or C?** Never choose for them. In the preamble, explain that the user can instead type `Make these bolder`, `Go wider`, `[letter], but bolder`, or a natural-language combination in the control's free-form response. Treat **Make these bolder** as a request for a genuinely new, stronger set—not approval of the current options. When structured input is unavailable, offer the same choices in plain text. Accept selection by letter, direction name, or unambiguous natural language. Confirm the chosen premise before writing `PREMISE.md`.
 
-For `Go wider`, discard the explored premise clusters and generate three directions with different core claims, causal explanations, and consequences. For `[letter], but bolder`, preserve the claim, appeal, fascination posture, and truth boundary while intensifying the premise through its fascination trigger. When the user combines options, synthesize one governing premise and confirm it before continuing.
+For `Go wider`, discard the explored premise clusters and generate three directions with different core claims, causal explanations, and consequences. For `[letter], but bolder`, preserve the claim, appeal, fascination posture, and truth boundary while intensifying the premise through its fascination trigger. When the user combines options, synthesize one governing premise. Whenever a premise is widened, intensified, or combined, derive a fresh strongest intelligent likely objection rather than carrying one forward from a discarded direction. Confirm the complete revised premise and objection before continuing.
 
-### 3. Preserve the selected premise
+### 3. Develop Personal Authority and preserve the premise
+
+After the user confirms the governing premise, read [references/personal-authority.md](references/personal-authority.md). Ask exactly:
+
+> Is there something you discovered, struggled through, or changed your mind about that led you to this premise?
+
+Use the runtime's structured user-input control when available:
+
+- **Yes — I’ll tell you**
+- **Help me find it**
+- **Not for this piece**
+
+When structured input is unavailable, offer the same choices in plain text. Accept incomplete notes. Select the best-fitting Personal Authority approach internally, ask only necessary factual follow-ups, and read back a compact story architecture—not polished article prose. Then use a structured confirmation question with at most three choices: **Approve**, **Revise it**, and **Skip personal story**. The free-form response can request more questions or less personal detail. Never interpret silence or ambiguity as approval.
+
+Continue revising until the user explicitly approves or skips. Do not fabricate experience, heighten drama beyond the supplied facts, or pressure the user to disclose personal material. After approval or skip, continue automatically to the article map.
 
 Create or update `PREMISE.md` at the project root. Use only this structure:
 
@@ -109,18 +126,16 @@ Updated: [YYYY-MM-DD]
 ## Premise
 [The single controlling idea.]
 
+## Likely Objection
+[The strongest intelligent resistance the intended reader is likely to have.]
+
 ## Why Now
 [Why the idea matters now.]
-
-## Persuasive Approach
-
-Appeal: [one of the ten appeals]
-Fascination: [advantage or archetype and underlying pair]
-
-[How the appeal and fascination work together.]
 ```
 
-Do not put an argument, proof plan, evidence list, headline, opening, CTA, or draft prose in `PREMISE.md`. If the file belongs to another article, do not overwrite it without permission.
+When a personal story was approved, append the lean `## Personal Authority` structure defined in `references/personal-authority.md`. Omit that section entirely when the user skips.
+
+Do not expose internal appeal or fascination metadata in `PREMISE.md`. Do not put an argument, proof plan, evidence list, headline, opening, CTA, or polished draft prose in it. If the file belongs to another article, do not overwrite it without permission.
 
 ### 4. Create and open the article map
 
