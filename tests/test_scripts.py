@@ -52,11 +52,14 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("0.6-beta", skill)
+        self.assertIn("0.7-beta", skill)
         self.assertIn("five-scout premise council", skill)
-        self.assertIn("spawn five independent", transformation)
+        self.assertIn("run five independent", transformation)
         self.assertIn("Assign the ten appeals exactly once", transformation)
-        self.assertIn("If the runtime cannot spawn subagents", transformation)
+        self.assertIn("launch scouts in waves", transformation)
+        self.assertIn("Limited concurrency changes only how many waves run", transformation)
+        self.assertIn("Begin finalist selection only after all five territories", transformation)
+        self.assertIn("fully single-context fallback only when subagents cannot be spawned", transformation)
         self.assertIn("The main agent is the editor-in-chief", transformation)
 
 
@@ -339,7 +342,13 @@ if "--help" in sys.argv:
     print("open <path> --no-watch --timeout --json")
     raise SystemExit(0)
 pathlib.Path({str(log)!r}).write_text(" ".join(sys.argv[1:]))
-print(json.dumps({{"event": "review.completed", "feedbackCount": 2}}))
+print(json.dumps({{
+    "events": [
+        {{"type": "review.started"}},
+        {{"type": "review.completed", "feedbackCount": 2}},
+    ],
+    "timedOut": False,
+}}, indent=2))
 """,
             )
             result = run_script(
@@ -355,6 +364,67 @@ print(json.dumps({{"event": "review.completed", "feedbackCount": 2}}))
             command_text = log.read_text(encoding="utf-8")
             self.assertNotIn("--no-watch", command_text)
             self.assertIn("--json", command_text)
+            self.assertEqual(payload["review_event"]["type"], "review.completed")
+
+    def test_does_not_complete_a_timed_out_review(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            draft = root / "draft.md"
+            draft.write_text("Draft", encoding="utf-8")
+            command = root / "node_modules" / ".bin" / "roughdraft"
+            write_command(
+                command,
+                """#!/usr/bin/env python3
+import json
+import sys
+if "--help" in sys.argv:
+    print("open <path> --no-watch --timeout --json")
+    raise SystemExit(0)
+print(json.dumps({
+    "events": [{"type": "review.completed"}],
+    "timedOut": True,
+}, indent=2))
+raise SystemExit(1)
+""",
+            )
+            result = run_script(
+                "open_roughdraft.py",
+                str(draft),
+                "--project-root",
+                str(root),
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["status"], "review_ended")
+            self.assertIsNone(payload["review_event"])
+
+    def test_does_not_treat_an_abandoned_review_as_complete(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            draft = root / "draft.md"
+            draft.write_text("Draft", encoding="utf-8")
+            command = root / "node_modules" / ".bin" / "roughdraft"
+            write_command(
+                command,
+                """#!/usr/bin/env python3
+import json
+import sys
+if "--help" in sys.argv:
+    print("open <path> --no-watch --timeout --json")
+    raise SystemExit(0)
+print(json.dumps({"event": "review.abandoned"}))
+""",
+            )
+            result = run_script(
+                "open_roughdraft.py",
+                str(draft),
+                "--project-root",
+                str(root),
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["status"], "review_abandoned")
+            self.assertNotEqual(payload["status"], "review_completed")
 
 
 class InstructionContractTests(unittest.TestCase):
@@ -367,7 +437,10 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("What do you want the reader to realize", skill)
         self.assertIn("exactly three", skill.casefold())
         self.assertIn("Which premise should govern the article: A, B, or C?", skill)
-        self.assertIn("Treat this release as `0.6-beta`", skill)
+        self.assertIn("structured user-input control", skill)
+        self.assertIn("Make these bolder", skill)
+        self.assertIn("selection by letter, direction name", skill)
+        self.assertIn("Treat this release as `0.7-beta`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("Appeal: [one of the ten appeals]", skill)
@@ -380,9 +453,12 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("ran Slopless [run count] times in total", skill)
         self.assertIn("leave inline comments, or suggest changes", skill)
         self.assertIn("click **Done Reviewing**", skill)
+        self.assertIn("Do not use `--no-watch` for this handoff", skill)
+        self.assertIn("Wait for the wrapper to report `review_completed`", skill)
         self.assertIn("create_article_map.py", skill)
-        self.assertIn("say **“Guide me”**", skill)
-        self.assertIn("say **“Draft it”**", skill)
+        self.assertIn("**Open Roughdraft**", skill)
+        self.assertIn("STOP and wait for the user's selection", skill)
+        self.assertIn("stop the watched process", skill)
         self.assertIn("Go wider", skill)
         self.assertIn("pairwise distinctness", skill)
         self.assertIn("A. Run Remarkable critique", skill)

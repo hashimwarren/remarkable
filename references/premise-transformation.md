@@ -4,7 +4,7 @@ Treat premise quality as Remarkable's highest-leverage result. Search broadly be
 
 ## Run the five-scout premise council
 
-When the runtime supports subagents, spawn five independent, read-only premise scouts in parallel. Do not ask the user to request delegation again. Keep all premise selection and file writes in the main thread. Tell every scout not to spawn descendants.
+When the runtime supports subagents, run five independent, read-only premise scouts. Do not ask the user to request delegation again. Keep all premise selection and file writes in the main thread. Tell every scout not to spawn descendants. Launch as many scouts concurrently as the available worker slots allow; when capacity is lower than five, wait for the current wave and launch the remaining assigned scouts in the next wave.
 
 Give every scout the same bounded packet, supplemented with its specific assigned pair of appeals:
 
@@ -39,11 +39,19 @@ Require this compact return shape for each candidate:
 - **Truth boundary:** the strongest responsible version of the claim and what would overstate it; and
 - **Support fit:** what supplied or obtainable evidence could support it.
 
-Wait for all five scouts when possible. Pool all returned candidates and ignore the scouts' relative confidence when selecting finalists. The main agent is the editor-in-chief.
+Wait until all five assigned scouts have returned before synthesis. Limited concurrency changes only how many waves run; it must not reduce the council’s membership or independence. Pool all returned candidates and ignore the scouts' relative confidence when selecting finalists. The main agent is the editor-in-chief.
 
-### Degrade gracefully
+### Respect capacity and degrade gracefully
 
-If the runtime cannot spawn subagents or has fewer than five available worker slots, continue in the main thread. Privately simulate the same five appeal territories, generate 12-20 candidates, and apply the same selection process below. If a spawned scout fails, the main agent should privately simulate only that failed scout's assigned appeal territory to complete the pool, rather than discarding the other scouts' work. Briefly disclose any fallback or single-context execution to the user. Never claim that scouts ran when they did not.
+Treat concurrency and availability as different conditions.
+
+- When five slots are available, launch all five scouts together.
+- When fewer slots are available, launch scouts in waves without changing their assigned appeal pairs or exposing earlier candidates to later scouts.
+- Track the five assignments explicitly. Begin finalist selection only after all five territories have reports.
+- If a scout fails, retry it once when practical. If it still fails, simulate only that assignment in the main thread and disclose that substitution.
+- Use the fully single-context fallback only when subagents cannot be spawned at all or repeated spawning fails.
+
+In the fully single-context fallback, privately simulate the same five appeal territories, generate 12–20 candidates, and apply the same selection process below. Briefly disclose fallback or single-context execution. Never claim that scouts ran when they did not.
 
 For `Go wider`, use a fresh council when capacity permits. Give it the rejected candidates' fingerprints as negative territory, not as examples to imitate. For `[letter], but bolder`, use up to three scouts when capacity permits, all preserving the selected claim, appeal, fascination posture, and truth boundary while testing different intensification moves. The main agent selects the strongest responsible revision.
 

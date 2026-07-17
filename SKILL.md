@@ -7,7 +7,7 @@ description: Build persuasive long-form articles through premise discovery, open
 
 Give AI agents the architecture of persuasion. Style governs how writing sounds; Remarkable governs what the writing helps a reader believe, feel, and do.
 
-Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.6-beta`.
+Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.7-beta`.
 
 ## Preserve the product boundary
 
@@ -65,7 +65,7 @@ Before delegation, tell the user:
 
 > I’m sending the same brief to five independent premise scouts. Each will explore two appeals and several fascination triggers. I’ll compare their strongest ideas and show you only the three most promising and genuinely different directions.
 
-If subagents are unavailable or capacity is insufficient, do not block premise discovery. Use the single-agent wide-generation fallback in 'premise-transformation.md'. If an individual scout fails, simulate its territory in the main thread to preserve the other scouts' work. State briefly if the search used fallback or ran in one context, and never fabricate scout results.
+If subagents are unavailable, do not block premise discovery: use the single-agent wide-generation fallback in `premise-transformation.md`. Limited concurrency is not unavailability. When fewer than five worker slots are open, run the five scouts in capacity-aware waves, preserve every assignment, and collect all five reports before synthesis. Retry a failed scout once when practical; if it still fails, simulate only that scout’s territory in the main thread and disclose the fallback briefly. Never fabricate scout results.
 
 State the shared realization and why-now context once at the top. Then label the directions `A`, `B`, and `C`. Each option contains only:
 
@@ -76,7 +76,13 @@ State the shared realization and why-now context once at the top. Then label the
 
 The premise and persuasive angle are one decision. Do not repeat `Reader realization`, `Why it matters now`, `Persuasive angle`, or `Why it works` under each option.
 
-End by asking: **Which premise should govern the article: A, B, or C? If none feels strong enough, say “Go wider.” You can also ask for one to be bolder or combine two.** Never choose for them.
+Use the runtime’s structured user-input control when it is available. Keep the full premise explanations in chat and make the control labels compact:
+
+- **A — [short direction name]**
+- **B — [short direction name]**
+- **C — [short direction name]**
+
+Ask: **Which premise should govern the article: A, B, or C?** Never choose for them. In the preamble, explain that the user can instead type `Make these bolder`, `Go wider`, `[letter], but bolder`, or a natural-language combination in the control's free-form response. Treat **Make these bolder** as a request for a genuinely new, stronger set—not approval of the current options. When structured input is unavailable, offer the same choices in plain text. Accept selection by letter, direction name, or unambiguous natural language. Confirm the chosen premise before writing `PREMISE.md`.
 
 For `Go wider`, discard the explored premise clusters and generate three directions with different core claims, causal explanations, and consequences. For `[letter], but bolder`, preserve the claim, appeal, fascination posture, and truth boundary while intensifying the premise through its fascination trigger. When the user combines options, synthesize one governing premise and confirm it before continuing.
 
@@ -124,23 +130,31 @@ Create a collision-safe scaffold from the selected premise:
 python3 <skill-directory>/scripts/create_article_map.py "<descriptive topic>" --root "$PWD"
 ```
 
-Replace `pending` in `PREMISE.md` with the returned relative draft path. Open that file immediately in Roughdraft:
+Replace `pending` in `PREMISE.md` with the returned relative draft path. The map contains brief temporary guidance and one CriticMarkup question for each stage: opening, argument, visible evidence, ending, and CTA. Adapt the map to the premise: add or remove claim blocks, omit visible evidence when it adds no proof, and remove the CTA when none belongs.
+
+Before opening it, explain the three interaction modes, then use the runtime's structured user-input control when available:
+
+- **Open Roughdraft** — edit the map or answer inline, then click **Done Reviewing**.
+- **Guide me** — answer one section question at a time in chat.
+- **Draft it** — let Remarkable proceed from the available context.
+
+When structured input is unavailable, ask for the same choice in plain text. STOP and wait for the user's selection before launching watched mode or drafting.
+
+Only after the user selects **Open Roughdraft**, tell them that Remarkable will resume automatically after **Done Reviewing**, then open the map in watched mode. Do not use `--no-watch` for this handoff:
 
 ```bash
-python3 <skill-directory>/scripts/open_roughdraft.py <absolute-draft-path> --project-root "$PWD" --no-watch
+python3 <skill-directory>/scripts/open_roughdraft.py <absolute-draft-path> --project-root "$PWD"
 ```
 
-The map contains brief temporary guidance and one CriticMarkup question for each stage: opening, argument, visible evidence, ending, and CTA. Adapt the map to the premise: add or remove claim blocks, omit visible evidence when it adds no proof, and remove the CTA when none belongs.
+Wait for the wrapper to report `review_completed`. Read all comments, suggestions, and replies from the same Markdown file. Treat closing or abandoning the review as different from clicking **Done Reviewing**; do not claim completion without the machine-readable completion signal.
 
-Tell the user:
-
-> I’ve opened an article map in Roughdraft. Each section contains a short explanation and one Remarkable question. Choose **“Roughdraft”** and I’ll watch for your inline answers and **Done Reviewing** handoff, say **“Guide me”** to work through the questions here, or say **“Draft it”** and I’ll develop the article from the selected premise and available context.
+If the user switches to **Guide me** or **Draft it** while watched mode is active, stop the watched process before continuing in chat. Do not leave an orphaned review command running.
 
 ### 5. Follow the chosen interaction mode
 
-- **Roughdraft:** rerun `open_roughdraft.py` without `--no-watch`, wait for `review_completed`, and read the user's comments and suggestions from the same Markdown file. Do not ask answered questions again.
-- **Guide me:** ask one stage question at a time in this order: opening, develop, prove, ending. Write each answer into the same draft before moving on.
-- **Draft it:** use the premise and available context to complete the map without additional interviewing. Preserve explicit evidence gaps.
+- **Roughdraft:** use the feedback returned by the watched session. Do not ask answered questions again.
+- **Guide me:** if the user switches to chat, ask one stage question at a time in this order: opening, develop, prove, ending. Write each answer into the same draft before moving on.
+- **Draft it:** if the user asks the agent to proceed, use the premise and available context to complete the map without additional interviewing. Preserve explicit evidence gaps.
 
 The user can change modes at any time. Keep the Markdown draft as the source of truth across all modes. Remove temporary bracketed guidance, resolved scaffold questions, unused claim blocks, unused asset placeholders, and unnecessary CTA sections before linting.
 
