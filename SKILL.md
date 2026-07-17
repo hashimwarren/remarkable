@@ -7,7 +7,7 @@ description: Build persuasive long-form articles through premise discovery, open
 
 Give AI agents the architecture of persuasion. Style governs how writing sounds; Remarkable governs what the writing helps a reader believe, feel, and do.
 
-Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.8-beta`.
+Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.9-beta`.
 
 ## Preserve the product boundary
 
@@ -25,6 +25,8 @@ Interpret the user's explicit invocation and route to the smallest useful mode:
 
 - `start` or no mode: run the guided article workflow.
 - `premise`: generate or refine premise directions.
+- `outline`: create or revise the working outline from the selected premise, article map, and available answers. Read [references/outline.md](references/outline.md).
+- `draft`: draft the article from an approved or sufficiently resolved working outline. Read [references/outline.md](references/outline.md) and [references/article.md](references/article.md).
 - `opening`: build or diagnose the reader contract. Read [references/opening.md](references/opening.md).
 - `develop`: develop the argument through claim, proof, and consequence. Read [references/develop.md](references/develop.md).
 - `prove`: map, research, validate, and design evidence. Read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md).
@@ -89,7 +91,15 @@ Ask: **Which premise should govern the article: A, B, or C?** Never choose for t
 
 For `Go wider`, discard the explored premise clusters and generate three directions with different core claims, causal explanations, and consequences. For `[letter], but bolder`, preserve the claim, appeal, fascination posture, and truth boundary while intensifying the premise through its fascination trigger. When the user combines options, synthesize one governing premise. Whenever a premise is widened, intensified, or combined, derive a fresh strongest intelligent likely objection rather than carrying one forward from a discarded direction. Confirm the complete revised premise and objection before continuing.
 
-### 3. Develop Personal Authority and preserve the premise
+### 3. Pressure-test the objection
+
+After the user confirms the governing premise, read [references/objection-response.md](references/objection-response.md). Show the selected likely objection and ask whether it is the strongest intelligent reader resistance and how the writer would answer it or what the article could show to make a skeptic reconsider.
+
+Use structured input when available with exactly three choices: **Yes — I’ll answer**, **Revise the objection**, and **Help me answer it**. Confirm both the final objection and a compact response direction before continuing. When a premise is widened, intensified, or combined, repeat this checkpoint with a fresh objection and response direction.
+
+Keep only the confirmed objection in `PREMISE.md`. Carry the response direction into the article map; it is argument material, not premise metadata.
+
+### 4. Develop Personal Authority and preserve the premise
 
 After the user confirms the governing premise, read [references/personal-authority.md](references/personal-authority.md). Ask exactly:
 
@@ -137,7 +147,7 @@ When a personal story was approved, append the lean `## Personal Authority` stru
 
 Do not expose internal appeal or fascination metadata in `PREMISE.md`. Do not put an argument, proof plan, evidence list, headline, opening, CTA, or polished draft prose in it. If the file belongs to another article, do not overwrite it without permission.
 
-### 4. Create and open the article map
+### 5. Create and open the article map
 
 Create a collision-safe scaffold from the selected premise:
 
@@ -147,13 +157,15 @@ python3 <skill-directory>/scripts/create_article_map.py "<descriptive topic>" --
 
 Replace `pending` in `PREMISE.md` with the returned relative draft path. The map contains brief temporary guidance and one CriticMarkup question for each stage: opening, argument, visible evidence, ending, and CTA. Adapt the map to the premise: add or remove claim blocks, omit visible evidence when it adds no proof, and remove the CTA when none belongs.
 
+Before opening the map, replace `[Add the confirmed response direction before review.]` with the confirmed response direction. Do not place that response in `PREMISE.md`. If the response names evidence that does not yet exist, preserve it as a specific proof need rather than a fact.
+
 Before opening it, explain the three interaction modes, then use the runtime's structured user-input control when available:
 
 - **Open Roughdraft** — edit the map or answer inline, then click **Done Reviewing**.
 - **Guide me** — answer one section question at a time in chat.
-- **Draft it** — let Remarkable proceed from the available context.
+- **Build the outline** — let Remarkable resolve the map from available context and propose the argument structure.
 
-When structured input is unavailable, ask for the same choice in plain text. STOP and wait for the user's selection before launching watched mode or drafting.
+When structured input is unavailable, ask for the same choice in plain text. STOP and wait for the user's selection before launching watched mode or building the outline.
 
 Only after the user selects **Open Roughdraft**, tell them that Remarkable will resume automatically after **Done Reviewing**, then open the map in watched mode. Do not use `--no-watch` for this handoff:
 
@@ -163,17 +175,37 @@ python3 <skill-directory>/scripts/open_roughdraft.py <absolute-draft-path> --pro
 
 Wait for the wrapper to report `review_completed`. Read all comments, suggestions, and replies from the same Markdown file. Treat closing or abandoning the review as different from clicking **Done Reviewing**; do not claim completion without the machine-readable completion signal.
 
-If the user switches to **Guide me** or **Draft it** while watched mode is active, stop the watched process before continuing in chat. Do not leave an orphaned review command running.
+If the user switches to **Guide me** or **Build the outline** while watched mode is active, stop the watched process before continuing in chat. Do not leave an orphaned review command running.
 
-### 5. Follow the chosen interaction mode
+### 6. Follow the chosen interaction mode
 
 - **Roughdraft:** use the feedback returned by the watched session. Do not ask answered questions again.
 - **Guide me:** if the user switches to chat, ask one stage question at a time in this order: opening, develop, prove, ending. Write each answer into the same draft before moving on.
-- **Draft it:** if the user asks the agent to proceed, use the premise and available context to complete the map without additional interviewing. Preserve explicit evidence gaps.
+- **Build the outline:** use the premise and available context to resolve the map without additional interviewing, classify unanswered needs, and proceed to the working outline. Preserve explicit evidence gaps.
 
-The user can change modes at any time. Keep the Markdown draft as the source of truth across all modes. Remove temporary bracketed guidance, resolved scaffold questions, unused claim blocks, unused asset placeholders, and unnecessary CTA sections before linting.
+The user can change modes at any time. Keep the Markdown article map as the source of truth across all modes. Do not remove its guidance or unresolved placeholders yet; they are inputs to the working outline.
 
-### 6. Develop the article
+### 7. Create and approve the working outline
+
+After article-map questions have been answered or classified, read [references/outline.md](references/outline.md). Reserve the predictable outline path beside the article:
+
+```bash
+python3 <skill-directory>/scripts/reserve_outline.py <absolute-article-path> --root "$PWD"
+```
+
+Use the returned path. If it reports `existing`, update that outline rather than creating a parallel version. Build a 300–700 word, scan-friendly working outline from `PREMISE.md`, the article map, confirmed objection response, Personal Authority when approved, project context, and available evidence. Include major headings, one italic rhetorical-purpose statement per section, bullets, attached proof placeholders, explicit information requests, and a closing or CTA plan. Classify unresolved needs as **Blocking**, **Helpful**, or **Researchable**.
+
+Open the outline in watched Roughdraft mode with only a small number of consequential inline questions:
+
+```bash
+python3 <skill-directory>/scripts/open_roughdraft.py <absolute-outline-path> --project-root "$PWD"
+```
+
+After **Done Reviewing**, incorporate the feedback and ask the user to choose: **Draft this structure**, **Revise the outline**, or **Help me answer the missing questions**. STOP and wait. Do not treat an ambiguous response as approval.
+
+### 8. Draft from the approved outline
+
+Require an approved or sufficiently resolved working outline. If no outline exists, route to `outline`; do not silently jump from the map to prose. Before writing prose, run the Slopless preflight in section 9 and stop if it is not ready. Preserve the selected premise, confirmed objection response, agreed claim order, proof assignments, intended reader movement, and deliberate gaps. Use explicit `[AUTHOR INPUT NEEDED: ...]` markers rather than inventing missing personal information. Patch the existing article Markdown instead of creating a second prose draft.
 
 Read [references/article.md](references/article.md), [references/opening.md](references/opening.md), [references/develop.md](references/develop.md), and [references/ending.md](references/ending.md). Default to 800–1,200 words, aiming for about 1,000, unless the user specifies otherwise.
 
@@ -181,7 +213,7 @@ Keep the premise alive from opening through ending. Build major movements throug
 
 When evidence work is requested or necessary, read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md). Prefer user-owned evidence, then first-party public sources, then credible independent evidence. Ask before materially expanding research into connected private sources. Recommend visible proof only when it performs an evidentiary job.
 
-### 7. Run Slopless
+### 9. Run Slopless
 
 For English articles, preflight before substantive drafting:
 
@@ -201,7 +233,7 @@ Record the initial finding count, rule-type count, rule IDs, and total lint runs
 
 Skip Slopless for non-English drafts and explain its language limitation.
 
-### 8. Return to Roughdraft
+### 10. Return to Roughdraft
 
 After the first draft passes Slopless, offer exactly:
 
