@@ -87,7 +87,7 @@ Use the runtime’s structured user-input control when it is available. Keep the
 
 Ask: **Which premise should govern the article: A, B, or C?** Never choose for them. In the preamble, explain that the user can instead type `Make these bolder`, `Go wider`, `[letter], but bolder`, or a natural-language combination in the control's free-form response. Treat **Make these bolder** as a request for a genuinely new, stronger set—not approval of the current options. When structured input is unavailable, offer the same choices in plain text. Accept selection by letter, direction name, or unambiguous natural language. Confirm the chosen premise before writing `PREMISE.md`.
 
-For `Go wider`, discard the explored premise clusters and generate three directions with different core claims, causal explanations, and consequences. For `[letter], but bolder`, preserve the claim, appeal, fascination posture, and truth boundary while intensifying the premise through its fascination trigger. When the user combines options, synthesize one governing premise and confirm it before continuing.
+For `Go wider`, discard the explored premise clusters and generate three directions with different core claims, causal explanations, and consequences. For `[letter], but bolder`, preserve the claim, appeal, fascination posture, and truth boundary while intensifying the premise through its fascination trigger. When the user combines options, synthesize one governing premise. Whenever a premise is widened, intensified, or combined, derive a fresh strongest intelligent likely objection rather than carrying one forward from a discarded direction. Confirm the complete revised premise and objection before continuing.
 
 ### 3. Develop Personal Authority and preserve the premise
 
@@ -131,9 +131,9 @@ Updated: [YYYY-MM-DD]
 
 ## Why Now
 [Why the idea matters now.]
-
-[When a personal story was approved, append the lean `## Personal Authority` structure defined in `references/personal-authority.md`. Omit the section entirely when the user skips.]
 ```
+
+When a personal story was approved, append the lean `## Personal Authority` structure defined in `references/personal-authority.md`. Omit that section entirely when the user skips.
 
 Do not expose internal appeal or fascination metadata in `PREMISE.md`. Do not put an argument, proof plan, evidence list, headline, opening, CTA, or polished draft prose in it. If the file belongs to another article, do not overwrite it without permission.
 
