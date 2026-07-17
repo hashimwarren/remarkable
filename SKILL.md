@@ -207,7 +207,7 @@ python3 <skill-directory>/scripts/reserve_outline.py <absolute-article-path> --r
 
 Use the returned path. If it reports `existing`, update that outline rather than creating a parallel version. Read [references/visual-placeholders.md](references/visual-placeholders.md). Build a 300–700 word, scan-friendly working outline from `PREMISE.md`, the article map, confirmed objection response, Personal Authority when approved, project context, and available evidence. Include major headings, one italic rhetorical-purpose statement per section, bullets, attached proof placeholders, explicit information requests, and a closing or CTA plan. Classify unresolved needs as **Blocking**, **Helpful**, or **Researchable**.
 
-After the headline and section jobs are stable, use a dedicated visual subagent when available to create the header-image concept and up to two useful in-article concepts through Codex image generation. Continue building the outline while it works. The main agent owns the briefs, truth review, captions, and placement. If subagents are unavailable, generate in the main context. If image generation is unavailable, use attributed public-web placeholder imagery. Keep the outline moving and disclose fallbacks briefly.
+After the headline and section jobs are stable, use a dedicated visual subagent when available to create the header-image concept and up to two useful in-article concepts through Codex image generation. Continue building the outline while it works. Generate one asset per worker turn and use follow-up tasks as needed. The main agent owns the briefs, truth review, captions, persistence, and placement; never invent a local path when the returned artifact exposes none. If subagents are unavailable, generate in the main context. If image generation is unavailable, use a generic placeholder service or reuse-permitted public-web imagery with source and license recorded. Keep the outline moving and disclose fallbacks briefly.
 
 Begin the outline with `Status: working`. Set `Status: approved` only after the user explicitly approves the structure. Any material outline revision resets it to `Status: working`; never infer approval from the file's existence.
 
@@ -306,7 +306,7 @@ If the first run was clean, say so without implying revisions. If deliberate exc
 ## Keep beta boundaries
 
 - Produce article-oriented long-form writing, not homepage, email, social, or generic copy modes.
-- Create evidence specifications, not media, unless explicitly requested.
+- Create evidence specifications, not production media, unless explicitly requested. Low-fidelity outline concepts and placeholders are part of the normal outline workflow and are permitted under `references/visual-placeholders.md`.
 - Diagnose critique before rewriting.
 - Require confirmation before applying substantial feedback-driven revisions.
 - Do not create accounts, telemetry, cloud services, billing, dashboards, custom lint rules, or a proprietary document format.
