@@ -7,7 +7,7 @@ description: Build persuasive long-form articles through premise discovery, open
 
 Give AI agents the architecture of persuasion. Style governs how writing sounds; Remarkable governs what the writing helps a reader believe, feel, and do.
 
-Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.11-beta`.
+Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.12-beta`.
 
 ## Preserve the product boundary
 
@@ -25,11 +25,11 @@ Interpret the user's explicit invocation and route to the smallest useful mode:
 
 - `start` or no mode: run the guided article workflow.
 - `premise`: generate or refine premise directions.
-- `outline`: create or revise the working outline from the selected premise, article map, and available answers. Read [references/outline.md](references/outline.md).
+- `outline`: create or revise the working outline from the selected premise, resolved article map, and completed or explicitly bounded proof plan. If the proof plan is absent, run the compact proof stage first. Read [references/prove.md](references/prove.md) and [references/outline.md](references/outline.md).
 - `draft`: draft the article from an explicitly approved working outline. Read [references/outline.md](references/outline.md) and [references/article.md](references/article.md).
 - `opening`: build or diagnose the reader contract. Read [references/opening.md](references/opening.md).
 - `develop`: develop the argument through claim, proof, and consequence. Read [references/develop.md](references/develop.md).
-- `framework`: find and develop an operational framework for the current article map's advice. Locate it through `PREMISE.md`; if no map exists, request one or route to the map stage rather than inventing advice. Read [references/framework-design.md](references/framework-design.md).
+- `framework`: find and develop an operational framework from the selected premise, confirmed objection response, writer-owned advice, and available context. Read [references/framework-design.md](references/framework-design.md).
 - `prove`: map, research, validate, and design evidence. Read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md).
 - `ending`: complete the premise and, when appropriate, evaluate the CTA. Read [references/ending.md](references/ending.md).
 - `critique`: diagnose a complete article before rewriting. Read [references/critique.md](references/critique.md).
@@ -102,13 +102,13 @@ Mark the premise complete, orient the writer to objection pressure-testing, and 
 
 After the user confirms the governing premise, read [references/objection-response.md](references/objection-response.md). Show the selected likely objection and ask whether it is the strongest intelligent reader resistance and how the writer would answer it or what the article could show to make a skeptic reconsider.
 
-Use structured input when available with exactly three choices: **Yes — I’ll answer**, **Revise the objection**, and **Help me answer it**. Confirm both the final objection and a compact response direction before continuing. When a premise is widened, intensified, or combined, repeat this checkpoint with a fresh objection and response direction.
+Use structured input when available with exactly three choices: **Yes — I’ll answer**, **Revise the objection**, and **Help me answer it**. Confirm both the final objection and a compact response direction before continuing. If the writer's answer reveals that the premise needs a qualification or consequential distinction, revise and reconfirm the premise here. When a premise is widened, intensified, combined, or materially qualified, repeat this checkpoint with a fresh objection and response direction.
 
 Keep only the confirmed objection in `PREMISE.md`. Carry the response direction into the article map; it is argument material, not premise metadata.
 
 ### 4. Develop Personal Authority and preserve the premise
 
-Mark the objection complete. Explain that this optional stage connects the argument to the writer and that the article map comes next.
+Mark the objection complete. Explain that this optional stage connects the argument to the writer and that framework design comes next.
 
 After the user confirms the governing premise, read [references/personal-authority.md](references/personal-authority.md). Ask exactly:
 
@@ -122,7 +122,7 @@ Use the runtime's structured user-input control when available:
 
 When structured input is unavailable, offer the same choices in plain text. Accept incomplete notes. Select the best-fitting Personal Authority approach internally, ask only necessary factual follow-ups, and read back a compact story architecture—not polished article prose. Then use a structured confirmation question with at most three choices: **Approve**, **Revise it**, and **Skip personal story**. The free-form response can request more questions or less personal detail. Never interpret silence or ambiguity as approval.
 
-Continue revising until the user explicitly approves or skips. Do not fabricate experience, heighten drama beyond the supplied facts, or pressure the user to disclose personal material. After approval or skip, continue automatically to the article map.
+Continue revising until the user explicitly approves or skips. Do not fabricate experience, heighten drama beyond the supplied facts, or pressure the user to disclose personal material. After approval or skip, preserve the premise and continue automatically to framework evaluation.
 
 Create or update `PREMISE.md` at the project root. Use only this structure:
 
@@ -156,9 +156,23 @@ When a personal story was approved, append the lean `## Personal Authority` stru
 
 Do not expose internal appeal or fascination metadata in `PREMISE.md`. Do not put an argument, proof plan, evidence list, headline, opening, CTA, or polished draft prose in it. If the file belongs to another article, do not overwrite it without permission.
 
-### 5. Create and open the article map
+### 5. Check for a framework opportunity
 
-Mark Personal Authority completed or skipped. Explain that the map gathers the article's necessary movements and that a reviewable outline comes next.
+Mark Personal Authority completed or skipped. Explain that this stage tests whether the writer's advice can become a useful, memorable structure and that the article map comes next.
+
+Read [references/framework-design.md](references/framework-design.md). Evaluate the selected premise, confirmed objection response, approved Personal Authority when present, writer-owned advice, and available context. If the reader's movement is clear but the practical advice is not, ask one concrete question:
+
+> What should the reader be able to do differently after accepting this premise?
+
+Do not ask the writer to choose a framework taxonomy. If no genuine operational structure exists, mark framework skipped with `–` and continue directly to the map without adding a user checkpoint.
+
+When a framework could materially improve application or memory, briefly explain the concrete opportunity and use exactly three structured choices when available: **Develop the framework**, **Show me the possibility**, or **Keep it as prose**. Use the same plain-text fallback. STOP and wait.
+
+Develop the best-fitting operational structure internally from the writer's existing advice. Show the concrete logic and obtain explicit approval through the three-choice confirmation in `framework-design.md`. Do not invent arbitrary components or interpret interest as approval. Hold only an approved framework for insertion into the article map created in the next stage. Never write it to `PREMISE.md` or create a separate framework artifact.
+
+### 6. Create and open the article map
+
+Mark framework completed or skipped. Explain that the map gathers the article's necessary movements and visual opportunities and that proof development comes next.
 
 Create a collision-safe scaffold from the selected premise:
 
@@ -166,17 +180,17 @@ Create a collision-safe scaffold from the selected premise:
 python3 <skill-directory>/scripts/create_article_map.py "<descriptive topic>" --root "$PWD"
 ```
 
-Replace `pending` in `PREMISE.md` with the returned relative draft path. The map contains brief temporary guidance and one CriticMarkup question for each stage: opening, argument, visible evidence, ending, and CTA. Adapt the map to the premise: add or remove claim blocks, omit visible evidence when it adds no proof, and remove the CTA when none belongs.
+Replace `pending` in `PREMISE.md` with the returned relative draft path. The map contains brief temporary guidance, one CriticMarkup question for opening, argument, ending, and CTA, plus three visual planning positions: a header image, a proof visual, and a comprehension or story visual. Adapt the map to the premise: add or remove claim blocks, move the two in-article visual positions beside the sections they would strengthen, and remove a CTA or in-article visual when none belongs.
 
-Before opening the map, replace `[Add the confirmed response direction before review.]` with the confirmed response direction. Do not place that response in `PREMISE.md`. If the response names evidence that does not yet exist, preserve it as a specific proof need rather than a fact.
+Before opening the map, replace `[Add the confirmed response direction before review.]` with the confirmed response direction. Replace `[Add the approved framework body here, or remove only this heading and marker when skipped.]` with the body-only approved-framework block from `framework-design.md`. When framework work was skipped, remove only the `## Practical framework` heading and its marker; preserve and rehome the independent `## Comprehension or story visual` position wherever a framework, process, distinction, interface, comparison, or personal scene would benefit the reader. Do not create a second framework heading or a separate framework visual. Do not place the response or framework in `PREMISE.md`. If either names evidence that does not yet exist, preserve it as a specific proof need rather than a fact.
 
 Before opening it, explain the three interaction modes, then use the runtime's structured user-input control when available:
 
 - **Open Roughdraft** — edit the map or answer inline, then click **Done Reviewing**.
 - **Guide me** — answer one section question at a time in chat.
-- **Build the outline** — let Remarkable resolve the map from available context and propose the argument structure.
+- **Complete the map** — let Remarkable resolve the map from available context before strengthening its proof.
 
-When structured input is unavailable, ask for the same choice in plain text. STOP and wait for the user's selection before launching watched mode or building the outline.
+When structured input is unavailable, ask for the same choice in plain text. STOP and wait for the user's selection before launching watched mode or completing the map.
 
 Only after the user selects **Open Roughdraft**, tell them that Remarkable will resume automatically after **Done Reviewing**, then open the map in watched mode. Do not use `--no-watch` for this handoff:
 
@@ -186,27 +200,39 @@ python3 <skill-directory>/scripts/open_roughdraft.py <absolute-draft-path> --pro
 
 Wait for the wrapper to report `review_completed`. Read all comments, suggestions, and replies from the same Markdown file. Treat closing or abandoning the review as different from clicking **Done Reviewing**; do not claim completion without the machine-readable completion signal.
 
-If the user switches to **Guide me** or **Build the outline** while watched mode is active, stop the watched process before continuing in chat. Do not leave an orphaned review command running.
+If the user switches to **Guide me** or **Complete the map** while watched mode is active, stop the watched process before continuing in chat. Do not leave an orphaned review command running.
 
-### 6. Follow the chosen interaction mode
+### 7. Follow the chosen interaction mode
 
 - **Roughdraft:** use the feedback returned by the watched session. Do not ask answered questions again.
-- **Guide me:** if the user switches to chat, ask one stage question at a time in this order: opening, develop, prove, ending. Write each answer into the same draft before moving on.
-- **Build the outline:** use the premise and available context to resolve the map without additional interviewing, classify unanswered needs, and proceed to the working outline. Preserve explicit evidence gaps.
+- **Guide me:** if the user switches to chat, ask one stage question at a time in this order: opening, develop, ending. Write each answer into the same map before moving on.
+- **Complete the map:** use the premise, objection response, Personal Authority, approved framework, and available context to resolve the map without additional interviewing. Preserve explicit evidence gaps for the proof stage.
 
-The user can change modes at any time. Keep the Markdown article map as the source of truth across all modes. Do not remove its guidance or unresolved placeholders yet; they are inputs to the working outline.
+The user can change modes at any time. Keep the Markdown article map as the source of truth across all modes. Do not remove its guidance or unresolved placeholders yet; they are inputs to proof development and the working outline.
 
-### 6a. Check for a framework opportunity
+### 8. Strengthen the proof
 
-Read [references/framework-design.md](references/framework-design.md). Mark the map complete and framework current while evaluating privately. If the advice has no genuine operational structure, mark framework skipped with `–` and continue directly to the outline without adding a user checkpoint.
+Mark the map complete. Explain that Remarkable will now identify what the consequential claims need in order to be credible and that a reviewable outline comes next.
 
-When a framework could materially improve application or memory, briefly explain the concrete opportunity and use exactly three structured choices when available: **Develop the framework**, **Show me the possibility**, or **Keep it as prose**. Use the same plain-text fallback. STOP and wait.
+Read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md). Extract the map's consequential claims and add a compact claim-to-evidence plan to the same map. For each claim, identify what is already supported, what the writer may own, what can be researched, and what must be narrowed if proof is unavailable. Assign the proof visual to the strongest claim that readers should be able to see for themselves.
 
-Develop the best-fitting operational structure internally from the writer's existing advice. Show the concrete logic and obtain explicit approval through the three-choice confirmation in `framework-design.md`. Do not ask the writer to choose a taxonomy, invent arbitrary components, or interpret interest as approval. Add only an approved framework to the existing article map. Never write it to `PREMISE.md` or create a separate framework artifact.
+When consequential evidence is missing, make the checkpoint match the severity of the gap:
 
-### 7. Create and approve the working outline
+- If any central claim is unsupported, use exactly three choices: **Add my evidence**, **Research the gaps**, or **Narrow or remove the claim**. A central unsupported claim cannot pass into the outline as a placeholder.
+- If only non-central gaps remain, use exactly three choices: **Add my evidence**, **Research the gaps**, or **Keep explicit placeholders**.
 
-Mark framework completed or skipped. Explain that the outline lets the writer judge structure before prose and that drafting comes only after explicit approval.
+Use the same plain-text fallback. STOP and wait. Apply the selected branch explicitly:
+
+- **Add my evidence:** ask one focused question at a time for the relevant source, example, observation, or result; update the plan and reassess support without upgrading unverified material.
+- **Research the gaps:** research the named public gaps, cite what each source supports, and update, narrow, or remove claims accordingly. Ask before materially expanding into connected private sources.
+- **Narrow or remove the claim:** propose the strongest wording the available evidence can carry, obtain confirmation when it materially changes the premise, then update the map and proof plan.
+- **Keep explicit placeholders:** preserve specific non-central gaps in the map and outline. Never use this branch for a central unsupported claim.
+
+Repeat the checkpoint while a central claim remains unsupported. Continue to the outline only when central support is adequate or the claim has been narrowed or removed honestly.
+
+### 9. Create and approve the working outline
+
+Mark proof completed or explicitly bounded. Explain that the outline lets the writer judge structure before prose and that drafting comes only after explicit approval.
 
 After article-map questions have been answered or classified, read [references/outline.md](references/outline.md). Reserve the predictable outline path beside the article:
 
@@ -214,9 +240,9 @@ After article-map questions have been answered or classified, read [references/o
 python3 <skill-directory>/scripts/reserve_outline.py <absolute-article-path> --root "$PWD"
 ```
 
-Use the returned path. If it reports `existing`, update that outline rather than creating a parallel version. Read [references/visual-placeholders.md](references/visual-placeholders.md). Build a 300–700 word, scan-friendly working outline from `PREMISE.md`, the article map, confirmed objection response, Personal Authority when approved, project context, and available evidence. Include major headings, one italic rhetorical-purpose statement per section, bullets, attached proof placeholders, explicit information requests, and a closing or CTA plan. Classify unresolved needs as **Blocking**, **Helpful**, or **Researchable**.
+Use the returned path. If it reports `existing`, update that outline rather than creating a parallel version. Read [references/visual-placeholders.md](references/visual-placeholders.md). Build a 300–700 word, scan-friendly working outline from `PREMISE.md`, the article map, confirmed objection response, Personal Authority when approved, approved framework when present, the claim-to-evidence plan, project context, and available evidence. Include major headings, one italic rhetorical-purpose statement per section, bullets, attached proof placeholders, explicit information requests, and a closing or CTA plan. Classify unresolved needs as **Blocking**, **Helpful**, or **Researchable**.
 
-After the headline and section jobs are stable, use a dedicated visual subagent when available to create the header-image concept and up to two useful in-article concepts through Codex image generation. Continue building the outline while it works. Generate one asset per worker turn and use follow-up tasks as needed. The main agent owns the briefs, truth review, captions, persistence, and placement; never invent a local path when the returned artifact exposes none. If subagents are unavailable, generate in the main context. If image generation is unavailable, use a generic placeholder service or reuse-permitted public-web imagery with source and license recorded. Keep the outline moving and disclose fallbacks briefly.
+After the headline and section jobs are stable, use a dedicated visual subagent when available to turn the map's header, proof, and comprehension or story positions into low-fidelity concepts through Codex image generation. Continue building the outline while it works. Generate one asset per worker turn and use follow-up tasks as needed. The main agent owns the briefs, truth review, captions, persistence, and placement; never invent a local path when the returned artifact exposes none. If a planned in-article visual no longer has a real job, remove it. If subagents are unavailable, generate in the main context. If image generation is unavailable, use a generic placeholder service or reuse-permitted public-web imagery with source and license recorded. Keep the outline moving and disclose fallbacks briefly.
 
 Begin the outline with `Status: working`. Set `Status: approved` only after the user explicitly approves the structure. Any material outline revision resets it to `Status: working`; never infer approval from the file's existence.
 
@@ -232,11 +258,11 @@ After **Done Reviewing**, incorporate the feedback and use the runtime's structu
 - For **Revise the outline**, ask what should change, update it, set `Status: working`, reopen watched Roughdraft, and repeat the approval checkpoint.
 - For **Help me answer the missing questions**, work through unresolved needs, update or reclassify them, set `Status: working`, reopen watched Roughdraft, and repeat the checkpoint. Do not fall through to prose.
 
-### 8. Draft from the approved outline
+### 10. Draft from the approved outline
 
 Mark the outline approved. Explain that prose drafting and Slopless happen next, followed by an optional Remarkable critique.
 
-Require `Status: approved` and no Blocking items in the working outline. If no outline exists, route to `outline`; do not silently jump from the map to prose. If approval is absent or may no longer apply, show a compact structural summary and ask the same three-choice decision again; never infer approval from file existence. Before writing prose, run the Slopless preflight in section 9 and stop if it is not ready. Preserve the selected premise, confirmed objection response, agreed claim order, proof assignments, intended reader movement, and deliberate gaps. Use explicit `[AUTHOR INPUT NEEDED: ...]` markers rather than inventing missing personal information. Patch the existing article Markdown instead of creating a second prose draft.
+Require `Status: approved` and no Blocking items in the working outline. If no outline exists, route to `outline`; do not silently jump from the map to prose. If approval is absent or may no longer apply, show a compact structural summary and ask the same three-choice decision again; never infer approval from file existence. Before writing prose, run the Slopless preflight in section 11 and stop if it is not ready. Preserve the selected premise, confirmed objection response, agreed claim order, proof assignments, intended reader movement, and deliberate gaps. Use explicit `[AUTHOR INPUT NEEDED: ...]` markers rather than inventing missing personal information. Patch the existing article Markdown instead of creating a second prose draft.
 
 As the article map becomes prose, remove resolved CriticMarkup questions, temporary bracketed scaffold guidance, unused generic claim blocks, and unused asset or CTA placeholders. Preserve deliberate, specific gaps such as `[AUTHOR INPUT NEEDED: ...]` and `[EVIDENCE NEEDED: ...]`.
 
@@ -246,7 +272,7 @@ Keep the premise alive from opening through ending. Build major movements throug
 
 When evidence work is requested or necessary, read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md). Prefer user-owned evidence, then first-party public sources, then credible independent evidence. Ask before materially expanding research into connected private sources. Recommend visible proof only when it performs an evidentiary job.
 
-### 9. Run Slopless
+### 11. Run Slopless
 
 Mark drafting complete and Slopless current. Explain that this pass removes deterministic prose friction and that the writer may choose a Remarkable critique afterward.
 
@@ -268,7 +294,7 @@ Record the initial finding count, rule-type count, rule IDs, and total lint runs
 
 Skip Slopless for non-English drafts and explain its language limitation.
 
-### 10. Return to Roughdraft
+### 12. Offer Remarkable critique and return to Roughdraft
 
 Mark Slopless complete—or skipped with `–` for a non-English draft—and critique current. Explain that the writer will receive a small number of consequential recommendations, then control which rhetorical changes are applied.
 

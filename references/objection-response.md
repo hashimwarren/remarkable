@@ -28,6 +28,8 @@ For **Revise the objection**, ask what the audience would actually resist. Rewri
 
 For **Help me answer it**, offer no more than three fitting strategies: concede and narrow, make a consequential distinction, explain a mechanism, give a counterexample, demonstrate a result, compare alternatives, identify necessary evidence, or use authentic experience. Never invent facts, proof, experience, or certainty. Let the writer select, combine, reject, or revise them.
 
+If the writer's answer exposes a missing qualification, consequential distinction, or false implication in the governing premise, revise the premise itself and confirm the revised premise, objection, and response direction before continuing. Objection pressure-testing is still premise formation, not a late disclaimer exercise.
+
 ## Preserve the boundary
 
 Confirm both the objection and response direction. Store only the objection in `PREMISE.md`. Carry the response direction into the article map under `Author's response direction`; preserve unsupported evidence as a proof need. A widened, intensified, combined, or otherwise changed premise requires a fresh objection and response checkpoint.
