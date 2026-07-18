@@ -15,7 +15,7 @@ Do not repeat this before every question. Keep the two sentences under 45 words 
 Use this Markdown-safe marker and update it truthfully:
 
 ```text
-Remarkable  ● Premise → ● Objection → ◉ Story → ○ Map → ○ Framework → ○ Outline → ○ Draft → ○ Slopless → ○ Critique
+Remarkable  ● Premise → ● Objection → ◉ Story → ○ Framework → ○ Map → ○ Proof → ○ Outline → ○ Draft → ○ Slopless → ○ Critique
 ```
 
 - `●` completed
