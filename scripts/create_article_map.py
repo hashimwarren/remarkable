@@ -28,6 +28,10 @@ def build_map(premise_markdown: str) -> str:
     objection = section(premise_markdown, "Likely Objection") or "[Confirmed likely objection]"
     return f"""# [Working title]
 
+[HEADER IMAGE PLACEHOLDER: Create a concept that expresses the central tension or promise of this premise without pretending to be evidence: {premise}]
+
+*Visual job: Make the article's promise emotionally and conceptually legible before the opening.*
+
 > **Governing premise:** {premise}
 >
 > **Reader:** {audience}
@@ -74,13 +78,21 @@ def build_map(premise_markdown: str) -> str:
 
 [Explain what changes if the claim is true.]
 
-## Visible evidence
+## Practical framework
 
-[Place screenshots, demonstrations, charts, quotations, or other assets where they let the reader see an important claim for themselves. Remove this section when no visual proof is useful.]
+[Add the approved framework here, or remove this section when skipped.]
 
-{{>>Which claim would become more credible if the reader could see it rather than merely being told it?<<}}
+[COMPREHENSION OR STORY VISUAL PLACEHOLDER: Show the framework's actual logic, a consequential process or comparison, or a personal scene that would become easier to understand or remember.]
 
-<!-- Suggested asset: screenshot, chart, demonstration, quotation, or comparison -->
+*Visual job: Explain or humanize a consequential part of the argument; remove this position when it would be merely decorative.*
+
+## Proof needs
+
+[After the map is resolved, identify the consequential claims, what proof each requires, what already exists, and what must be researched, supplied, narrowed, or removed.]
+
+[PROOF VISUAL PLACEHOLDER: Attach a chart, screenshot, source excerpt, demonstration, comparison, or other visible evidence to the strongest claim the reader should be able to see for themselves.]
+
+*Visual job: Make one important claim more credible; remove this position when no visual proof is useful.*
 
 ## Ending
 
