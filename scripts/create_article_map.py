@@ -80,7 +80,9 @@ def build_map(premise_markdown: str) -> str:
 
 ## Practical framework
 
-[Add the approved framework here, or remove this section when skipped.]
+[Add the approved framework body here, or remove only this heading and marker when skipped.]
+
+## Comprehension or story visual
 
 [COMPREHENSION OR STORY VISUAL PLACEHOLDER: Show the framework's actual logic, a consequential process or comparison, or a personal scene that would become easier to understand or remember.]
 
