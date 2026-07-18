@@ -76,7 +76,7 @@ Do not apply a Tier 2 technique or run a Tier 2 checkpoint in this release. Pres
    - **Revise the logic**
    - **Try another structure**
 7. Use the same choices as a plain-text fallback. Apply these branches exactly:
-   - **Develop it:** explicitly approves the structure just shown. In the guided workflow, hold it for insertion into the article map created next and continue automatically to that map. In focused mode with an existing map, add it there.
+   - **Develop it:** explicitly approves the structure just shown. In the guided workflow, hold it for insertion into the article map created next and continue automatically to that map. In focused mode with an existing map, add it there. In focused mode without a map, return the approved framework in chat and use the no-map handoff below.
    - **Revise the logic:** ask what is wrong or missing, update the same proposed structure, and repeat this confirmation checkpoint. Do not persist it yet.
    - **Try another structure:** discard the proposed organizing logic, choose a genuinely different Tier 1 structure, show the new concrete proposal, and repeat this checkpoint. Do not persist the rejected proposal.
 8. Accept a free-form request to **Keep it as prose** at this checkpoint. Persist no framework, mark the stage skipped, and continue to the article map.
@@ -84,12 +84,16 @@ Do not apply a Tier 2 technique or run a Tier 2 checkpoint in this release. Pres
 
 Never interpret enthusiasm, silence, or a request to see the possibility as approval. Do not add a proposed framework to an artifact until the writer chooses **Develop it** for the concrete structure currently shown.
 
+### Focused mode without an article map
+
+After approval, present the final framework in chat and state plainly that no durable artifact has been changed. Then offer exactly two structured choices when available: **Create an article map** or **Keep it in chat**. Use the same plain-text fallback and STOP and wait. Create a map only after explicit consent; otherwise end the focused invocation with the approved framework in chat. Never silently start the full guided workflow or invent a standalone framework file.
+
 ## Persist it in the article map
 
-Insert an approved framework into the article map when it is created, or add it to the existing map in focused mode. Never write it to `PREMISE.md` or a separate framework artifact:
+Insert an approved framework into the article map when it is created, or add it to the existing map in focused mode. In a generated scaffold, keep the existing `## Practical framework` heading and replace only its marker with this body-only block. If an existing map has no framework section, create the heading once and place this block beneath it. Never write it to `PREMISE.md` or a separate framework artifact:
 
 ```markdown
-## Practical framework: [Provisional descriptive title]
+### [Provisional descriptive title]
 
 *Turn the proven argument into a reusable tool. Establish the framework's governing logic before presenting its components.*
 
@@ -98,11 +102,9 @@ Insert an approved framework into the article map when it is created, or add it 
 - Demonstration: [A realistic example that shows how to use it.]
 - Limit: [Where it does not apply or what judgment it cannot replace.]
 - Proof or author input still needed: [Specific gap, or none.]
-
-[FRAMEWORK VISUAL PLACEHOLDER: recommended form and its comprehension job]
 ```
 
-Adapt the fields to the chosen structure rather than filling irrelevant bullets. The approved framework then flows into the working outline and draft.
+Adapt the fields to the chosen structure rather than filling irrelevant bullets. Record its recommended visual form by refining the map's single independent comprehension-or-story visual position; do not add a fourth visual slot. The approved framework then flows into the working outline and draft.
 
 ## Reject framework-shaped slop
 
