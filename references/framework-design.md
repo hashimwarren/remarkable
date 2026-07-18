@@ -4,11 +4,13 @@ The premise governs what the reader should believe. A framework may package what
 
 ## Enter the mode safely
 
-In the guided workflow, begin only after the article map has been resolved. For a focused `framework` invocation, locate the current article map from the `Draft:` path in `PREMISE.md`. If that path or map does not exist, ask the writer to identify the article map or run the preceding map stage; do not invent advice from `PREMISE.md` alone and do not silently start the entire guided workflow.
+In the guided workflow, begin after objection pressure-testing and Personal Authority, before creating the article map. Use the selected premise, confirmed objection response, approved story when present, writer-owned advice, and available context. This lets the framework shape the map instead of being retrofitted into it.
+
+For a focused `framework` invocation, use an existing article map when one exists. When it does not, require a selected premise plus enough writer-owned advice to understand what the reader should be able to do. Ask one concrete question when that practical movement is missing; do not invent advice from `PREMISE.md` alone and do not silently start the entire guided workflow.
 
 ## Detect a genuine opportunity
 
-After the article map is resolved and before the working outline, privately inspect the writer's advice for:
+Before creating the article map, privately inspect the writer's advice for:
 
 - several elements that work together;
 - an order of operations or maturity path;
@@ -17,7 +19,7 @@ After the article map is resolved and before the working outline, privately insp
 - distinct situations requiring different treatment; or
 - conditional actions.
 
-Continue directly to the outline without mentioning frameworks when none would make the advice easier to understand, remember, apply, or transmit. Do not create a checkpoint merely to report that no opportunity exists.
+Continue directly to the article map without mentioning frameworks when none would make the advice easier to understand, remember, apply, or transmit. Do not create a checkpoint merely to report that no opportunity exists.
 
 When a genuine opportunity exists, describe the concrete benefit rather than naming a framework taxonomy. Then use structured input when available:
 
@@ -74,17 +76,17 @@ Do not apply a Tier 2 technique or run a Tier 2 checkpoint in this release. Pres
    - **Revise the logic**
    - **Try another structure**
 7. Use the same choices as a plain-text fallback. Apply these branches exactly:
-   - **Develop it:** explicitly approves the structure just shown. Add it to the existing article map and continue automatically to the working outline.
+   - **Develop it:** explicitly approves the structure just shown. In the guided workflow, hold it for insertion into the article map created next and continue automatically to that map. In focused mode with an existing map, add it there.
    - **Revise the logic:** ask what is wrong or missing, update the same proposed structure, and repeat this confirmation checkpoint. Do not persist it yet.
    - **Try another structure:** discard the proposed organizing logic, choose a genuinely different Tier 1 structure, show the new concrete proposal, and repeat this checkpoint. Do not persist the rejected proposal.
-8. Accept a free-form request to **Keep it as prose** at this checkpoint. Persist no framework, mark the stage skipped, and continue to the outline.
+8. Accept a free-form request to **Keep it as prose** at this checkpoint. Persist no framework, mark the stage skipped, and continue to the article map.
 9. Revise until the writer explicitly approves through **Develop it** or returns to prose.
 
 Never interpret enthusiasm, silence, or a request to see the possibility as approval. Do not add a proposed framework to an artifact until the writer chooses **Develop it** for the concrete structure currently shown.
 
 ## Persist it in the article map
 
-Add an approved framework to the existing article map, not `PREMISE.md` and not a separate framework artifact:
+Insert an approved framework into the article map when it is created, or add it to the existing map in focused mode. Never write it to `PREMISE.md` or a separate framework artifact:
 
 ```markdown
 ## Practical framework: [Provisional descriptive title]
