@@ -182,7 +182,7 @@ python3 <skill-directory>/scripts/create_article_map.py "<descriptive topic>" --
 
 Replace `pending` in `PREMISE.md` with the returned relative draft path. The map contains brief temporary guidance, one CriticMarkup question for opening, argument, ending, and CTA, plus three visual planning positions: a header image, a proof visual, and a comprehension or story visual. Adapt the map to the premise: add or remove claim blocks, move the two in-article visual positions beside the sections they would strengthen, and remove a CTA or in-article visual when none belongs.
 
-Before opening the map, replace `[Add the confirmed response direction before review.]` with the confirmed response direction. Insert the approved framework at `[Add the approved framework here, or remove this section when skipped.]`, or remove the framework section when skipped. Do not place either in `PREMISE.md`. If the response or framework names evidence that does not yet exist, preserve it as a specific proof need rather than a fact.
+Before opening the map, replace `[Add the confirmed response direction before review.]` with the confirmed response direction. Replace `[Add the approved framework body here, or remove only this heading and marker when skipped.]` with the body-only approved-framework block from `framework-design.md`. When framework work was skipped, remove only the `## Practical framework` heading and its marker; preserve and rehome the independent `## Comprehension or story visual` position wherever a framework, process, distinction, interface, comparison, or personal scene would benefit the reader. Do not create a second framework heading or a separate framework visual. Do not place the response or framework in `PREMISE.md`. If either names evidence that does not yet exist, preserve it as a specific proof need rather than a fact.
 
 Before opening it, explain the three interaction modes, then use the runtime's structured user-input control when available:
 
@@ -216,7 +216,19 @@ Mark the map complete. Explain that Remarkable will now identify what the conseq
 
 Read [references/prove.md](references/prove.md) and [references/evidence-design.md](references/evidence-design.md). Extract the map's consequential claims and add a compact claim-to-evidence plan to the same map. For each claim, identify what is already supported, what the writer may own, what can be researched, and what must be narrowed if proof is unavailable. Assign the proof visual to the strongest claim that readers should be able to see for themselves.
 
-When consequential evidence is missing, use structured input when available with exactly three choices: **Add my evidence**, **Research the gaps**, or **Keep explicit placeholders**. Use the same plain-text fallback. Ask before materially expanding into connected private sources. Public research may proceed when the writer chooses research or explicitly requested it. Stop before the outline when a central claim cannot be supported truthfully; otherwise preserve non-central gaps specifically and continue.
+When consequential evidence is missing, make the checkpoint match the severity of the gap:
+
+- If any central claim is unsupported, use exactly three choices: **Add my evidence**, **Research the gaps**, or **Narrow or remove the claim**. A central unsupported claim cannot pass into the outline as a placeholder.
+- If only non-central gaps remain, use exactly three choices: **Add my evidence**, **Research the gaps**, or **Keep explicit placeholders**.
+
+Use the same plain-text fallback. STOP and wait. Apply the selected branch explicitly:
+
+- **Add my evidence:** ask one focused question at a time for the relevant source, example, observation, or result; update the plan and reassess support without upgrading unverified material.
+- **Research the gaps:** research the named public gaps, cite what each source supports, and update, narrow, or remove claims accordingly. Ask before materially expanding into connected private sources.
+- **Narrow or remove the claim:** propose the strongest wording the available evidence can carry, obtain confirmation when it materially changes the premise, then update the map and proof plan.
+- **Keep explicit placeholders:** preserve specific non-central gaps in the map and outline. Never use this branch for a central unsupported claim.
+
+Repeat the checkpoint while a central claim remains unsupported. Continue to the outline only when central support is adequate or the claim has been narrowed or removed honestly.
 
 ### 9. Create and approve the working outline
 
