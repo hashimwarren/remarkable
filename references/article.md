@@ -1,6 +1,6 @@
 # Persuasive Article Drafting
 
-Treat the selected premise as a contract. Preserve its reader realization, present stakes, persuasive angle, and intended consequence from opening through ending. Do not drift into a broader topic survey or switch to a more convenient argument.
+Treat the selected premise as a contract. Preserve its reader realization, present stakes, persuasive angle, and intended consequence from opening through ending. Read [narrative-tension.md](narrative-tension.md) and preserve an approved outline's consequential question, reveal point, answer, and framework role. Do not drift into a broader topic survey or switch to a more convenient argument.
 
 ## Set the drafting target
 
@@ -15,7 +15,14 @@ Before drafting, reduce the selected option to four controls:
 
 Make every major passage establish, prove, deepen, complicate, or apply one of those controls. Remove tangents that merely relate to the topic.
 
-## Open on the premise
+When the outline contains a genuine question-and-resolution design, also hold two narrative controls:
+
+- **Question:** what consequential situation the reader should want explained.
+- **Resolution:** the exact answer, its planned reveal point, and what the framework contributes.
+
+Before the reveal, deepen the question, raise its stakes, test an incomplete explanation, or narrow what the answer must explain. Do not leak the complete answer through an early summary, heading, transition, or explanatory aside. After the reveal, explain, prove, demonstrate, qualify, or apply the answer rather than merely announcing it.
+
+## Let the premise govern the opening
 
 Establish these elements early and naturally:
 
@@ -23,7 +30,9 @@ Establish these elements early and naturally:
 - the article's promise;
 - what makes this argument different;
 - why the idea matters now; and
-- the governing premise.
+- enough of the governing premise to create an honest expectation the article can fulfill.
+
+The complete answer may arrive later when the opening establishes a consequential question. Give the reader all necessary context and withhold only the mechanism or insight the planned reveal will resolve. Do not confuse delayed resolution with vagueness.
 
 Avoid throat-clearing, generic industry background, “In today's rapidly evolving landscape,” and definitions that precede any reason to care. Begin where the reader's situation meets the article's claim.
 
@@ -67,7 +76,7 @@ Do not turn style into the product. Avoid generic AI prose, inflated transitions
 
 ## Complete the premise
 
-End by completing the argument rather than mechanically recapping it. Choose the ending that best fits the selected premise:
+End by completing the argument rather than mechanically recapping it. When the article began from an unexplained situation, return to it and show what the answer now makes visible. Choose the ending that best fits the selected premise:
 
 - deepen the consequence;
 - transfer responsibility to the reader;
@@ -94,6 +103,7 @@ Confirm that the draft:
 - stays within 800–1,200 words unless the user requested otherwise;
 - makes the selected premise recognizable in the opening, body logic, and ending without mechanically repeating it;
 - establishes the reader's situation, the differentiated promise, and the present stakes;
+- when a reveal is planned, preserves its timing, answers the exact consequential question raised, and demonstrates why the resolution is credible;
 - develops major claims through proof and consequence;
 - invents no evidence and clearly qualifies or marks unresolved gaps;
 - follows discovered style constraints without imposing a new voice;
