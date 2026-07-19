@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Read the Remarkable workflow
+    url: https://github.com/hashimwarren/remarkable/blob/main/SKILL.md
+    about: Check the complete workflow and focused modes before opening an issue.

@@ -1,0 +1,57 @@
+name: Workflow feedback
+description: Tell us where Remarkable helped, slowed you down, or surprised you.
+title: "[Workflow]: "
+body:
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Which stage is this about?
+      options:
+        - Premise
+        - Objection
+        - Personal Authority
+        - Framework
+        - Article map
+        - Proof
+        - Outline
+        - Draft
+        - Slopless
+        - Critique and review
+        - The complete workflow
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: What were you trying to write?
+      description: A short description is enough. Do not include confidential material.
+    validations:
+      required: true
+  - type: textarea
+    id: useful
+    attributes:
+      label: What was most useful?
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: Where did you feel friction or fatigue?
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What would make the workflow more remarkable?
+    validations:
+      required: true
+  - type: dropdown
+    id: share
+    attributes:
+      label: May we follow up or use an anonymized excerpt from this feedback?
+      options:
+        - Yes, you may follow up and quote anonymously
+        - You may follow up, but do not quote
+        - No
+    validations:
+      required: true

@@ -1,0 +1,50 @@
+name: Bug report
+description: Report a reproducible problem with Remarkable.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping make Remarkable more reliable.
+  - type: input
+    id: version
+    attributes:
+      label: Remarkable version
+      description: The version shown in SKILL.md or reported by your agent.
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      options:
+        - Codex
+        - ChatGPT
+        - Claude Code
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How can we reproduce it?
+      description: Include the invocation, workflow stage, and relevant output. Remove private or sensitive material.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment details
+      description: Operating system, optional-tool versions, and anything else that may matter.

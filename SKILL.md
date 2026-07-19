@@ -7,7 +7,7 @@ description: Build persuasive long-form articles through premise discovery, open
 
 Give AI agents the architecture of persuasion. Style governs how writing sounds; Remarkable governs what the writing helps a reader believe, feel, and do.
 
-Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `0.13-beta`.
+Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `1.0.0`.
 
 ## Preserve the product boundary
 
@@ -258,7 +258,9 @@ Open the outline in watched Roughdraft mode with only a small number of conseque
 python3 <skill-directory>/scripts/open_roughdraft.py <absolute-outline-path> --project-root "$PWD"
 ```
 
-After **Done Reviewing**, incorporate the feedback and use the runtime's structured user-input control when available with exactly three choices: **Draft this structure**, **Revise the outline**, or **Help me answer the missing questions**. Use the same choices as a plain-text fallback. STOP and wait. Do not treat an ambiguous response as approval.
+Read the wrapper's JSON status. On `review_completed`, incorporate the feedback. On `missing` or `unsupported`, say that Roughdraft is unavailable, keep the outline as the canonical reviewable Markdown, and continue with the approval checkpoint in chat. On `error`, `review_ended`, or `review_abandoned`, preserve the file and explain that no completed Roughdraft handoff was received; offer to retry or continue in chat. Roughdraft failure must never strand the article or imply approval.
+
+Then use the runtime's structured user-input control when available with exactly three choices: **Draft this structure**, **Revise the outline**, or **Help me answer the missing questions**. Use the same choices as a plain-text fallback. When reviewing in chat, precede the choices with a compact structural summary and surface any consequential inline questions there. STOP and wait. Do not treat an ambiguous response as approval.
 
 - For **Draft this structure**, require no Blocking items, set `Status: approved`, and continue.
 - For **Revise the outline**, ask what should change, update it, set `Status: working`, reopen watched Roughdraft, and repeat the approval checkpoint.
@@ -328,6 +330,8 @@ Before running the watched command, explain:
 
 Wait for the wrapper to report `review_completed`. Read the reviewed Markdown and summarize what the writer accepted, rejected, or clarified. When critique ran, use the three-choice revision-authority checkpoint in `references/critique.md`; do not apply substantive rhetorical recommendations merely because review completed. Preserve the premise, evidence constraints, and the writer's accepted judgment. Patch the existing draft. After substantive revisions, rerun Slopless and reopen watched Roughdraft for final review.
 
+If the wrapper instead reports `missing` or `unsupported`, say that Roughdraft is unavailable and keep the annotated Markdown as the canonical review surface. Present the critique decisions or a compact final-review checkpoint directly in chat. If it reports `error`, `review_ended`, or `review_abandoned`, preserve the file and offer to retry or continue that same review in chat. Never treat an unavailable or incomplete Roughdraft session as approval. After substantive revisions, rerun Slopless and return to the same available review surface.
+
 At every natural stopping point after final review, follow `references/wayfinding.md`: say the current version is ready, then offer continued work through structured input when available. Always include another purposeful Remarkable critique alongside strengthening one section, producing proof or visuals, and preparing the publishable version.
 
 ## Critique independently
@@ -346,7 +350,7 @@ Name Slopless transparently. When it found issues, use real numbers:
 
 If the first run was clean, say so without implying revisions. If deliberate exceptions remain, report their real number and explain why. Never output a long list of individual edits unless asked.
 
-## Keep beta boundaries
+## Keep release boundaries
 
 - Produce article-oriented long-form writing, not homepage, email, social, or generic copy modes.
 - Create evidence specifications, not production media, unless explicitly requested. Low-fidelity outline concepts and placeholders are part of the normal outline workflow and are permitted under `references/visual-placeholders.md`.

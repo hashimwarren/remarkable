@@ -1,1 +1,0 @@
-Build Remarkable: a writing skill inspired by Impeccable. Favor persistent briefs, named revision moves, anti-slop checks, evidence-first structure, selection-scoped edits, and visible diffs so long-form writing gets sharper, not just longer.

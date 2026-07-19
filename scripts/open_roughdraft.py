@@ -128,7 +128,7 @@ def main() -> int:
         emit(
             {
                 "status": "unsupported",
-                "message": "Installed Roughdraft does not advertise the required review modes; update it before using the beta handoff.",
+                "message": "Installed Roughdraft does not advertise the required review modes; update it before using this document handoff.",
                 "install_command": INSTALL_COMMAND,
             }
         )
