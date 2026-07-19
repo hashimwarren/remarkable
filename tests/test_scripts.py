@@ -52,7 +52,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("0.13-beta", skill)
+        self.assertIn("1.0.0", skill)
         self.assertIn("five-scout premise council", skill)
         scout_preamble = skill.split("Before delegation, tell the user:", 1)[1].split(
             "If subagents are unavailable", 1
@@ -581,7 +581,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("structured user-input control", skill)
         self.assertIn("Make these bolder", skill)
         self.assertIn("selection by letter, direction name", skill)
-        self.assertIn("Treat this release as `0.13-beta`", skill)
+        self.assertIn("Treat this release as `1.0.0`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("## Likely Objection", skill)
@@ -615,6 +615,9 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("click **Done Reviewing**", skill)
         self.assertIn("Do not use `--no-watch` for this handoff", skill)
         self.assertIn("Wait for the wrapper to report `review_completed`", skill)
+        self.assertIn("Roughdraft failure must never strand the article", skill)
+        self.assertIn("continue that same review in chat", skill)
+        self.assertIn("Never treat an unavailable or incomplete Roughdraft session as approval", skill)
         self.assertIn("create_article_map.py", skill)
         self.assertIn("**Open Roughdraft**", skill)
         self.assertIn("STOP and wait for the user's selection", skill)
@@ -694,6 +697,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("same choices as a short plain-text fallback", critique)
         self.assertIn("at most three buttons", wayfinding)
         self.assertIn("Low-fidelity outline concepts and placeholders", skill)
+        self.assertNotIn("beta boundaries", skill.casefold())
         self.assertIn("references/framework-design.md", skill)
         self.assertIn("Develop the framework", skill)
         self.assertIn("Keep it as prose", skill)
