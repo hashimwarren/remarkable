@@ -84,6 +84,17 @@ Do not apply a Tier 2 technique or run a Tier 2 checkpoint in this release. Pres
 
 Never interpret enthusiasm, silence, or a request to see the possibility as approval. Do not add a proposed framework to an artifact until the writer chooses **Develop it** for the concrete structure currently shown.
 
+## Test the framework's role in the resolution
+
+After approval, read [narrative-tension.md](narrative-tension.md) and privately classify how the framework relates to the article's consequential question:
+
+- **Answer:** the framework's structure directly explains the unresolved situation.
+- **Embodiment:** a diagnosis or insight answers the question, and the framework makes that answer concrete and transferable.
+- **Application:** the answer arrives first, and the framework helps the reader act on it.
+- **None:** the framework is useful but does not belong in the question's resolution.
+
+Do not add another user checkpoint. Do not force the framework to become the answer or delay a prior diagnosis merely to save the framework for a reveal. Record the classification in the article map's temporary narrative markers, then let the working outline place the answer and framework where each performs its actual job.
+
 ### Focused mode without an article map
 
 After approval, present the final framework in chat and state plainly that no durable artifact has been changed. Then offer exactly two structured choices when available: **Create an article map** or **Keep it in chat**. Use the same plain-text fallback and STOP and wait. Create a map only after explicit consent; otherwise end the focused invocation with the approved framework in chat. Never silently start the full guided workflow or invent a standalone framework file.
@@ -104,7 +115,7 @@ Insert an approved framework into the article map when it is created, or add it 
 - Proof or author input still needed: [Specific gap, or none.]
 ```
 
-Adapt the fields to the chosen structure rather than filling irrelevant bullets. Record its recommended visual form by refining the map's single independent comprehension-or-story visual position; do not add a fourth visual slot. The approved framework then flows into the working outline and draft.
+Adapt the fields to the chosen structure rather than filling irrelevant bullets. Record its recommended visual form by refining the map's single independent comprehension-or-story visual position; do not add a fourth visual slot. Preserve its classified narrative role so the outline does not automatically treat every framework as the article's answer. The approved framework then flows into the working outline and draft.
 
 ## Reject framework-shaped slop
 
