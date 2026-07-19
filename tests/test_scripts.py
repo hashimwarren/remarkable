@@ -52,7 +52,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("0.12-beta", skill)
+        self.assertIn("0.13-beta", skill)
         self.assertIn("five-scout premise council", skill)
         scout_preamble = skill.split("Before delegation, tell the user:", 1)[1].split(
             "If subagents are unavailable", 1
@@ -219,9 +219,77 @@ Calendars increasingly choose the family's defaults.
             self.assertIn("[HEADER IMAGE PLACEHOLDER:", text)
             self.assertIn("[PROOF VISUAL PLACEHOLDER:", text)
             self.assertIn("[COMPREHENSION OR STORY VISUAL PLACEHOLDER:", text)
+            self.assertIn("The article should make the reader want to understand", text)
+            self.assertIn("The answer becomes clear", text)
+            self.assertIn("How the article resolves it", text)
+            self.assertNotIn("Framework's role", text)
+            self.assertIn("otherwise state the premise directly", text)
+            self.assertNotIn("consequential or surprising", text)
+            self.assertNotIn("Approved Personal Authority", text)
+            self.assertNotIn("open loop", text.casefold())
             self.assertIn("## Ending", text)
             self.assertIn("## Call to action", text)
             self.assertEqual(text.count("{>>"), 4)
+
+    def test_carries_only_the_approved_personal_authority_story(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "PREMISE.md").write_text(
+                """# Premise
+
+## Audience
+Startup founders
+
+## Desired Movement
+Direct AI as an editorial process before polishing prose.
+
+## Premise
+Great AI writing depends on editorial direction, not merely better prompting.
+
+## Likely Objection
+The model should infer the structure from a detailed recording.
+
+## Why Now
+More founders are using the same capable models with very different results.
+
+## Personal Authority
+
+Approach: Earned Discovery
+
+**Approved story:**
+I could get useful copy from the same kind of AI that produced an unusable article for a startup founder.
+The difference was the editorial process I carried in my head.
+""",
+                encoding="utf-8",
+            )
+            result = run_script("create_article_map.py", "Editorial direction", "--root", str(root))
+            self.assertEqual(result.returncode, 0, result.stderr)
+            text = Path(json.loads(result.stdout)["path"]).read_text(encoding="utf-8")
+            self.assertIn("Approved Personal Authority", text)
+            self.assertIn("I could get useful copy from the same kind of AI", text)
+            self.assertIn("The difference was the editorial process", text)
+            self.assertNotIn("Approach: Earned Discovery", text)
+            self.assertNotIn("open loop", text.casefold())
+
+    def test_ignores_personal_authority_without_an_approved_story(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "PREMISE.md").write_text(
+                """## Premise
+A useful premise.
+
+## Personal Authority
+Approach: Earned Discovery
+
+Unconfirmed notes that must not enter the map.
+""",
+                encoding="utf-8",
+            )
+            result = run_script("create_article_map.py", "Article", "--root", str(root))
+            self.assertEqual(result.returncode, 0, result.stderr)
+            text = Path(json.loads(result.stdout)["path"]).read_text(encoding="utf-8")
+            self.assertNotIn("Approved Personal Authority", text)
+            self.assertNotIn("Unconfirmed notes", text)
 
     def test_article_map_never_overwrites_an_existing_draft(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -513,7 +581,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("structured user-input control", skill)
         self.assertIn("Make these bolder", skill)
         self.assertIn("selection by letter, direction name", skill)
-        self.assertIn("Treat this release as `0.12-beta`", skill)
+        self.assertIn("Treat this release as `0.13-beta`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("## Likely Objection", skill)
@@ -583,6 +651,9 @@ class InstructionContractTests(unittest.TestCase):
         prove = (SKILL_DIR / "references" / "prove.md").read_text(encoding="utf-8")
         outline = (SKILL_DIR / "references" / "outline.md").read_text(encoding="utf-8")
         critique = (SKILL_DIR / "references" / "critique.md").read_text(encoding="utf-8")
+        narrative = (SKILL_DIR / "references" / "narrative-tension.md").read_text(
+            encoding="utf-8"
+        )
         wayfinding = (SKILL_DIR / "references" / "wayfinding.md").read_text(encoding="utf-8")
         visuals = (SKILL_DIR / "references" / "visual-placeholders.md").read_text(encoding="utf-8")
         frameworks = (SKILL_DIR / "references" / "framework-design.md").read_text(encoding="utf-8")
@@ -640,6 +711,10 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("Never write it to `PREMISE.md` or a separate framework artifact", frameworks)
         self.assertIn("converts ordinary bullets into an acronym", frameworks)
         self.assertIn("approved practical framework", outline)
+        self.assertIn("where that answer becomes clear", outline)
+        self.assertIn("Before the answer, every section must", outline)
+        self.assertIn("After the answer, every section must", outline)
+        self.assertIn("Do not default to a literal question", outline)
         self.assertIn("approved practical framework", visuals)
         self.assertIn("**Develop it:** explicitly approves", frameworks)
         self.assertIn("**Revise the logic:**", frameworks)
@@ -661,6 +736,23 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("**Narrow or remove the claim**", skill)
         self.assertIn("STOP and wait. Apply the selected branch explicitly", skill)
         self.assertIn("Never use this branch for a central unsupported claim", skill)
+        self.assertIn("references/narrative-tension.md", skill)
+        self.assertIn("Do not add a user checkpoint", skill)
+        self.assertIn("question-and-resolution design", skill)
+        self.assertIn("Preserve the outline's planned question, reveal timing, and resolution", skill)
+        self.assertIn("Use question-and-resolution design internally", narrative)
+        self.assertIn("When no genuine question emerges", narrative)
+        self.assertIn("Framework role: [Answer, embodiment, application, or none.]", narrative)
+        self.assertIn("whether a heading, summary, transition", critique)
+        self.assertIn("answers the exact consequential question raised", article)
+        self.assertIn("**Answer:**", frameworks)
+        self.assertIn("**Embodiment:**", frameworks)
+        self.assertIn("**Application:**", frameworks)
+        self.assertIn("Do not add another user checkpoint", frameworks)
+        self.assertIn("privately revalidate the article question", skill)
+        self.assertIn("If the supported question disappears", skill)
+        self.assertIn("remove its question-and-resolution planning lines", skill)
+        self.assertIn("Before outlining, revalidate", outline)
         self.assertLess(skill.index("### 5. Check for a framework opportunity"), skill.index("### 6. Create and open the article map"))
         self.assertLess(skill.index("### 7. Follow the chosen interaction mode"), skill.index("### 8. Strengthen the proof"))
         self.assertLess(skill.index("### 8. Strengthen the proof"), skill.index("### 9. Create and approve the working outline"))
