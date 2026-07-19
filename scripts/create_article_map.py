@@ -20,12 +20,35 @@ def section(markdown: str, name: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+def approved_personal_story(markdown: str) -> str:
+    personal = section(markdown, "Personal Authority")
+    if not personal:
+        return ""
+    match = re.search(
+        r"^\*\*Approved story:\*\*\s*$\n(.*?)(?=^\*\*|\Z)",
+        personal,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    return match.group(1).strip() if match else ""
+
+
+def quote_context(label: str, value: str) -> str:
+    if not value:
+        return ""
+    lines = value.splitlines()
+    quoted = [f"> **{label}:** {lines[0]}"]
+    quoted.extend(f"> {line}" for line in lines[1:])
+    return "\n".join(quoted) + "\n>\n"
+
+
 def build_map(premise_markdown: str) -> str:
     premise = section(premise_markdown, "Premise") or "[Selected premise]"
     audience = section(premise_markdown, "Audience") or "[Intended reader]"
     desired = section(premise_markdown, "Desired Movement") or "[Desired reader movement]"
     why_now = section(premise_markdown, "Why Now") or "[Why this matters now]"
     objection = section(premise_markdown, "Likely Objection") or "[Confirmed likely objection]"
+    personal_story = approved_personal_story(premise_markdown)
+    personal_context = quote_context("Approved Personal Authority", personal_story)
     return f"""# [Working title]
 
 [HEADER IMAGE PLACEHOLDER: Create a concept that expresses the central tension or promise of this premise without pretending to be evidence: {premise}]
@@ -37,12 +60,18 @@ def build_map(premise_markdown: str) -> str:
 > **Reader:** {audience}
 >
 > **Desired movement:** {desired}
+>
+{personal_context}> **The article should make the reader want to understand:** [State the consequential question this article should make the reader want answered.]
+>
+> **The answer becomes clear:** [Name the specific answer and the body movement where it should become clear.]
+>
+> **How the article resolves it:** [Describe how the answer and any approved framework work together without naming an internal classification.]
 
 ## Opening
 
-[Establish the reader's situation, the article's promise, what makes this argument different, and why it matters now: {why_now}]
+[Establish the reader's situation, the article's promise, what makes this argument different, and why it matters now. When the map contains a genuine article question, preserve its planned answer timing; otherwise state the premise directly: {why_now}]
 
-{{>>What does the reader need to recognize immediately for this premise to feel important now?<<}}
+{{>>Does this capture the situation and stakes accurately, or is an important fact missing?<<}}
 
 ## Argument
 
