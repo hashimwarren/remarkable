@@ -4,7 +4,9 @@ The working outline lets the writer judge the argument before prose makes struct
 
 ## Build the outline
 
-Use `PREMISE.md`, the resolved article map, its claim-to-evidence plan, any approved practical framework in the map, the confirmed objection response, approved Personal Authority, project context, existing evidence or proof artifacts, and any existing article prose. Save it beside the article as `<article-stem>.outline.md`.
+Use `PREMISE.md`, the resolved article map, its claim-to-evidence plan, any approved practical framework in the map, the confirmed objection response, approved Personal Authority, project context, existing evidence or proof artifacts, and any existing article prose. Read [narrative-tension.md](narrative-tension.md). Save the outline beside the article as `<article-stem>.outline.md`.
+
+Before outlining, revalidate the map's article question, answer, reveal point, and framework role against the resolved feedback and current proof plan. Update the design when a claim was narrowed, removed, contradicted, or newly supported. If the question is no longer genuine or the answer is no longer supported, use a direct structure instead of preserving stale narrative machinery.
 
 Read [visual-placeholders.md](visual-placeholders.md). Start the visual subagent after the headline and major section jobs are stable, then continue building the outline while it works.
 
@@ -15,6 +17,7 @@ For a normal long-form article, use 300–700 words and a small number of major 
 - a working headline;
 - a generated header-image placeholder immediately after the headline;
 - the governing premise, reader, and desired movement;
+- the consequential question the article will make the reader want answered, where it emerges, the specific answer, and where that answer becomes clear, when a genuine question belongs;
 - major section headings;
 - one italic sentence explaining each section's rhetorical job;
 - bullets for claims, examples, transitions, objection handling, and intended movement;
@@ -32,6 +35,23 @@ Classify unresolved needs:
 - **Researchable:** Remarkable can investigate it through `prove`.
 
 Do not turn the outline into a questionnaire, write polished paragraphs, perform sentence-level editing, or generate alternative outlines unless asked.
+
+## Shape the question-and-resolution progression
+
+Use the headings, rhetorical-job notes, and bullets to make the article move rather than merely sort its subject matter. When a genuine consequential question belongs:
+
+1. Establish the situation the reader needs to understand.
+2. Make the contrast, contradiction, surprising outcome, or failed expectation visible.
+3. Deepen the stakes or test an incomplete explanation without repeating the same problem.
+4. Reveal the specific answer at the planned point.
+5. Explain, prove, qualify, demonstrate, or apply that answer.
+6. Return to the opening situation and show what the resolution now changes.
+
+Before the answer, every section must deepen the question, raise its stakes, eliminate an incomplete explanation, or narrow what the answer must explain. After the answer, every section must help the reader understand, believe, test, remember, or use it. Remove passages that only postpone the answer.
+
+Choose whether the question emerges in the first sentence, after the approved story, or after the problem and stakes. Do not default to a literal question. Prefer headings that perform the progression—situation, mistaken explanation, discovery, mechanism, demonstration, application—over generic headings such as “Background,” “Problem,” or “Solution.”
+
+If no honest consequential question emerges, use a direct argument structure and omit question-and-reveal fields. Never force a Personal Authority story, mystery, or framework into the outline.
 
 ## Review the structure
 
