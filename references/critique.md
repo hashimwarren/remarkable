@@ -3,15 +3,27 @@
 Diagnose in this priority order:
 
 1. Premise
-2. Argument structure
-3. Evidence gaps
-4. Reader momentum
-5. Comprehension
-6. Sentence craft
+2. Question and resolution
+3. Argument structure
+4. Evidence gaps
+5. Reader momentum
+6. Comprehension
+7. Sentence craft
 
 Use five primary principles: reader momentum; concrete before clever; claim, proof, consequence; no orphan claims; lead with the change.
 
 Use supporting principles only after structural issues: frictionless comprehension, one job per sentence, specific beats emphatic, answer the reader's next question, and prefer a sharp noun with a strong verb.
+
+When the article uses question-and-resolution architecture, read [narrative-tension.md](narrative-tension.md) and test:
+
+- whether the opening creates a meaningful question from the premise and supported situation rather than generic curiosity;
+- whether a heading, summary, transition, or explanatory aside gives away the complete answer before the planned reveal;
+- whether the reveal answers the exact question raised instead of switching to a neighboring claim;
+- whether the answer is specific, proportionate to the proof, and consequential;
+- whether the framework acts as answer, embodiment, or application rather than being appended automatically; and
+- whether the sections after the reveal demonstrate, qualify, or apply the answer sufficiently for the resolution to feel earned.
+
+When no genuine question belongs, do not manufacture one as a critique recommendation. Diagnose the direct argument on its own terms.
 
 First return a high-level diagnosis, the three most consequential problems, and a prioritized revision sequence. Do not rewrite the whole article until the writer accepts the direction.
 
