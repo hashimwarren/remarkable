@@ -32,4 +32,4 @@ If the writer's answer exposes a missing qualification, consequential distinctio
 
 ## Preserve the boundary
 
-Confirm both the objection and response direction. Store only the objection in `PREMISE.md`. Carry the response direction into the article map under `Author's response direction`; preserve unsupported evidence as a proof need. A widened, intensified, combined, or otherwise changed premise requires a fresh objection and response checkpoint.
+Confirm both the objection and response direction. Store only the objection in `PREMISE.md`. Carry the response direction into article-route reasoning and the working outline; preserve unsupported evidence as a proof need. A widened, intensified, combined, or otherwise changed premise requires a fresh objection and response checkpoint.

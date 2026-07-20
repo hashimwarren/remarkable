@@ -4,13 +4,13 @@ The premise governs what the reader should believe. A framework may package what
 
 ## Enter the mode safely
 
-In the guided workflow, begin after objection pressure-testing and Personal Authority, before creating the article map. Use the selected premise, confirmed objection response, approved story when present, writer-owned advice, and available context. This lets the framework shape the map instead of being retrofitted into it.
+In the guided workflow, begin after objection pressure-testing and Personal Authority, before article-route selection. Use the selected premise, confirmed objection response, approved story when present, writer-owned advice, and available context. This lets the framework inform the article's route instead of being retrofitted into prose.
 
-For a focused `framework` invocation, use an existing article map when one exists. When it does not, require a selected premise plus enough writer-owned advice to understand what the reader should be able to do. Ask one concrete question when that practical movement is missing; do not invent advice from `PREMISE.md` alone and do not silently start the entire guided workflow.
+For a focused `framework` invocation, use an existing working outline when one exists. When it does not, require a selected premise plus enough writer-owned advice to understand what the reader should be able to do. Ask one concrete question when that practical movement is missing; do not invent advice from `PREMISE.md` alone and do not silently start the entire guided workflow.
 
 ## Detect a genuine opportunity
 
-Before creating the article map, privately inspect the writer's advice for:
+Before article-route selection, privately inspect the writer's advice for:
 
 - several elements that work together;
 - an order of operations or maturity path;
@@ -19,7 +19,7 @@ Before creating the article map, privately inspect the writer's advice for:
 - distinct situations requiring different treatment; or
 - conditional actions.
 
-Continue directly to the article map without mentioning frameworks when none would make the advice easier to understand, remember, apply, or transmit. Do not create a checkpoint merely to report that no opportunity exists.
+Continue directly to article-route selection without mentioning frameworks when none would make the advice easier to understand, remember, apply, or transmit. Do not create a checkpoint merely to report that no opportunity exists.
 
 When a genuine opportunity exists, describe the concrete benefit rather than naming a framework taxonomy. Then use structured input when available:
 
@@ -76,10 +76,10 @@ Do not apply a Tier 2 technique or run a Tier 2 checkpoint in this release. Pres
    - **Revise the logic**
    - **Try another structure**
 7. Use the same choices as a plain-text fallback. Apply these branches exactly:
-   - **Develop it:** explicitly approves the structure just shown. In the guided workflow, hold it for insertion into the article map created next and continue automatically to that map. In focused mode with an existing map, add it there. In focused mode without a map, return the approved framework in chat and use the no-map handoff below.
+   - **Develop it:** explicitly approves the structure just shown. In the guided workflow, hold it for article-route reasoning and insertion into the working outline. In focused mode with an existing outline, add it there when it improves the argument. In focused mode without an outline, return the approved framework in chat and use the no-outline handoff below.
    - **Revise the logic:** ask what is wrong or missing, update the same proposed structure, and repeat this confirmation checkpoint. Do not persist it yet.
    - **Try another structure:** discard the proposed organizing logic, choose a genuinely different Tier 1 structure, show the new concrete proposal, and repeat this checkpoint. Do not persist the rejected proposal.
-8. Accept a free-form request to **Keep it as prose** at this checkpoint. Persist no framework, mark the stage skipped, and continue to the article map.
+8. Accept a free-form request to **Keep it as prose** at this checkpoint. Persist no framework, mark the stage skipped, and continue to article-route selection.
 9. Revise until the writer explicitly approves through **Develop it** or returns to prose.
 
 Never interpret enthusiasm, silence, or a request to see the possibility as approval. Do not add a proposed framework to an artifact until the writer chooses **Develop it** for the concrete structure currently shown.
@@ -93,15 +93,15 @@ After approval, read [narrative-tension.md](narrative-tension.md) and privately 
 - **Application:** the answer arrives first, and the framework helps the reader act on it.
 - **None:** the framework is useful but does not belong in the question's resolution.
 
-Do not add another user checkpoint. Do not force the framework to become the answer or delay a prior diagnosis merely to save the framework for a reveal. Record the classification in the article map's temporary narrative markers, then let the working outline place the answer and framework where each performs its actual job.
+Do not add another user checkpoint. Do not force the framework to become the answer or delay a prior diagnosis merely to save the framework for a reveal. Carry the classification privately into article-route reasoning, then let the working outline place the answer and framework where each performs its actual job.
 
-### Focused mode without an article map
+### Focused mode without a working outline
 
-After approval, present the final framework in chat and state plainly that no durable artifact has been changed. Then offer exactly two structured choices when available: **Create an article map** or **Keep it in chat**. Use the same plain-text fallback and STOP and wait. Create a map only after explicit consent; otherwise end the focused invocation with the approved framework in chat. Never silently start the full guided workflow or invent a standalone framework file.
+After approval, present the final framework in chat and state plainly that no durable artifact has been changed. Then offer exactly two structured choices when available: **Choose an article route** or **Keep it in chat**. Use the same plain-text fallback and STOP and wait. Continue to route selection only after explicit consent; otherwise end the focused invocation with the approved framework in chat. Never silently start the full guided workflow or invent a standalone framework file.
 
-## Persist it in the article map
+## Carry it into the working outline
 
-Insert an approved framework into the article map when it is created, or add it to the existing map in focused mode. In a generated scaffold, keep the existing `## Practical framework` heading and replace only its marker with this body-only block. If an existing map has no framework section, create the heading once and place this block beneath it. Never write it to `PREMISE.md` or a separate framework artifact:
+Hold an approved framework in the guided workflow until the article route is selected, then place it in the working outline where it performs a real argumentative or practical job. In focused mode with an existing outline, add it there after approval. Never write it to `PREMISE.md` or a separate framework artifact:
 
 ```markdown
 ### [Provisional descriptive title]
@@ -115,7 +115,7 @@ Insert an approved framework into the article map when it is created, or add it 
 - Proof or author input still needed: [Specific gap, or none.]
 ```
 
-Adapt the fields to the chosen structure rather than filling irrelevant bullets. Record its recommended visual form by refining the map's single independent comprehension-or-story visual position; do not add a fourth visual slot. Preserve its classified narrative role so the outline does not automatically treat every framework as the article's answer. The approved framework then flows into the working outline and draft.
+Adapt the fields to the chosen structure rather than filling irrelevant bullets. Record its recommended visual form by refining the outline's single independent comprehension-or-story visual position; do not add a fourth visual slot. Preserve its classified narrative role so the outline does not automatically treat every framework as the article's answer. The approved framework then flows into the draft only where the approved outline uses it.
 
 ## Reject framework-shaped slop
 
