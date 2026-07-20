@@ -19,6 +19,16 @@ Give every scout the same bounded packet, supplemented with its specific assigne
 
 Do not pass another scout's candidates into its context. Independent search is the point.
 
+Before delegation, the main agent privately develops one compact audience-fit view from the writer's answer and available context:
+
+- **Audience frame:** the reader's existing situation, beliefs, identity, aspirations, or frustrations that provide an honest entry into the subject;
+- **Worldview fit:** what the reader is likely to recognize as true now and what meaningful change in perception the premise asks them to make; and
+- **Language fit:** the concrete language the audience uses for the problem, avoiding generic marketing terminology that distances the premise from the reader.
+
+When the writer's answer and project context are insufficient, research is available, and public research would materially sharpen the audience-fit view, run one bounded research pass across credible public sources where the audience discusses the problem. Prefer audience-native sources and primary material over generic persona summaries. Track audience inputs internally as `supplied`, `researched`, or `inferred`. Research may sharpen the writer's description but must not silently replace it. Ask one focused follow-up only when a material conflict would change the premise options.
+
+Add this audience-fit view to the shared packet so every scout receives the same frame, worldview, language context, and provenance boundaries. Each scout must test its candidates against that view; do not make five scouts repeat the same audience research.
+
 Assign the ten appeals exactly once across five deliberately tense pairs:
 
 1. **Future and stakes:** Encourage their dreams + Agitate their fears.
@@ -36,8 +46,9 @@ Require this compact return shape for each candidate:
 - **Causal logic:** the explanation that makes the premise govern a whole article;
 - **Appeal:** the primary assigned appeal;
 - **Fascination:** the advantage or archetype and underlying pair;
-- **Truth boundary:** the strongest responsible version of the claim and what would overstate it; and
-- **Support fit:** what supplied or obtainable evidence could support it.
+- **Truth boundary:** the strongest responsible version of the claim and what would overstate it;
+- **Support fit:** what supplied or obtainable evidence could support it; and
+- **Audience fit:** how its frame, requested belief shift, and language meet this reader without merely echoing them.
 
 Wait until all five assigned scouts have returned before synthesis. Limited concurrency changes only how many waves run; it must not reduce the council’s membership or independence. Pool all returned candidates and ignore the scouts' relative confidence when selecting finalists. The main agent is the editor-in-chief.
 
@@ -69,13 +80,15 @@ Identify the obvious/default cluster and discard it. Fingerprint surviving candi
 - appeal; and
 - fascination posture.
 
-Before presenting finalists, compare A vs. B, A vs. C, and B vs. C. Replace a candidate when substantially the same article body or evidence could support both members of a pair, or when believing either would lead to the same reader decision. Select for both quality and distance: truth, specificity, surprise, consequence, supportability, generative power, and difference from the other finalists.
+Before presenting finalists, compare A vs. B, A vs. C, and B vs. C. Replace a candidate when substantially the same article body or evidence could support both members of a pair, or when believing either would lead to the same reader decision. Select for both quality and distance: truth, specificity, surprise, consequence, supportability, generative power, worldview fit, language fit, and difference from the other finalists.
 
 Choose the appeal and fascination posture after establishing genuinely different governing ideas. A different emotional wrapper does not make the same claim a different premise.
 
 ## Select the three finalists
 
-The main agent evaluates the entire candidate pool. Score candidates privately for truth, specificity, surprise, consequence, supportability, generative power across a full article, and distance from the other finalists. Reject a candidate that is interesting only because of its headline, emotional temperature, or fascination label.
+The main agent evaluates the entire candidate pool. Score candidates privately for truth, specificity, surprise, consequence, supportability, worldview fit, language fit, generative power across a full article, and distance from the other finalists. Reject a candidate that is interesting only because of its headline, emotional temperature, or fascination label.
+
+Run a whole-article test on every finalist: confirm that the premise can govern an opening, necessary claims, proof, objection response, conclusion, and plausible reader action without abandoning its audience frame or changing what the reader is being asked to see differently.
 
 Do not select one candidate from each scout as a fairness exercise. Select the strongest portfolio of three. Prefer different core claims and causal models over superficial coverage of more appeals.
 
