@@ -2,7 +2,7 @@
 
 Extract consequential claims and decide what proof each requires. Truth constrains persuasion: narrow, qualify, or remove a claim when available evidence cannot carry it.
 
-In the guided workflow, run this stage after the article map is resolved and before the working outline. The map establishes what the article needs to say; proof development determines what it may say credibly. Update the same map with a compact claim-to-evidence plan so the outline inherits verified support, explicit gaps, and honest limits.
+In the guided workflow, run this stage after the initial working outline and before outline review. The selected route and outline establish what the article intends to say; proof development determines what it may say credibly. Add a compact claim-to-evidence plan to the same outline, then revise the structure when evidence narrows, contradicts, or removes a planned claim.
 
 Use this evidence order:
 
@@ -25,6 +25,6 @@ For a normal guided article, keep the plan compact:
   - **Visible proof:** [Specific asset job, or none]
 ```
 
-Attach the proof visual to the strongest fitting claim rather than creating a freestanding decorative evidence section. Stop before the outline when a central claim remains unsupported. Preserve non-central gaps as explicit placeholders when the writer chooses to proceed.
+Attach the proof visual to the strongest fitting claim rather than creating a freestanding decorative evidence section. Stop before outline approval when a central claim remains unsupported. Preserve non-central gaps as explicit placeholders when the writer chooses to proceed.
 
 When invoked on a complete article, return a compact claim-to-evidence map before editing. Ask approval before conducting expansive connected-source research or changing a central claim beyond the user's stated intent.

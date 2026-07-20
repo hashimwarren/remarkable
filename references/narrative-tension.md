@@ -4,7 +4,7 @@ Use question-and-resolution design internally to give a persuasive article forwa
 
 ## Derive the article question
 
-After framework work is approved or skipped and before creating the article map, privately inspect:
+After framework work is approved or skipped and while developing article routes, privately inspect:
 
 - the governing premise;
 - the approved Personal Authority story when present;
@@ -21,7 +21,7 @@ Reveal: [The section or movement where the answer should become clear.]
 Framework role: [Answer, embodiment, application, or none.]
 ```
 
-Do not persist this block in `PREMISE.md`. Carry its substance into the article map and working outline in ordinary reader-facing language. When no genuine question emerges, use a direct tension-and-resolution structure and remove question-specific markers rather than manufacturing curiosity.
+Do not persist this block in `PREMISE.md` or create a separate artifact. Carry its substance into article-route reasoning and the working outline in ordinary reader-facing language. When no genuine question emerges, use a direct tension-and-resolution structure and omit question-specific markers rather than manufacturing curiosity.
 
 ## Choose where the question emerges
 

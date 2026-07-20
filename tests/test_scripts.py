@@ -52,7 +52,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("1.1.0", skill)
+        self.assertIn("1.2.0", skill)
         self.assertIn("five-scout premise council", skill)
         scout_preamble = skill.split("Before delegation, tell the user:", 1)[1].split(
             "If subagents are unavailable", 1
@@ -67,6 +67,45 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         self.assertIn("Begin finalist selection only after all five territories", transformation)
         self.assertIn("fully single-context fallback only when subagents cannot be spawned", transformation)
         self.assertIn("The main agent is the editor-in-chief", transformation)
+
+
+class ArticleRouteInstructionTests(unittest.TestCase):
+    def test_two_advocated_routes_gate_outline_and_proof(self) -> None:
+        skill = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
+        routes = (SKILL_DIR / "references" / "article-routes.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertEqual(routes.count("### A. [Concrete route name]"), 1)
+        self.assertEqual(routes.count("### B. [Concrete route name]"), 1)
+        self.assertNotIn("### C. [Concrete route name]", routes)
+        self.assertIn("Present exactly:", routes)
+        self.assertIn("Advocate for both routes", routes)
+        self.assertIn("Which direction should govern the outline: A or B?", routes)
+        self.assertIn("STOP and wait", routes)
+        self.assertIn("combination, revision, or another direction", routes)
+        self.assertIn("reconfirm the revised route before outlining", routes)
+        self.assertIn("Do not create a separate route artifact", routes)
+        self.assertIn("Create the working outline directly from this brief", routes)
+
+        route_stage = skill.index("### 6. Choose the article route and create the working outline")
+        proof_stage = skill.index("### 7. Strengthen the outline's proof")
+        approval_stage = skill.index("### 8. Review and approve the working outline")
+        stop = skill.index("STOP and wait for the user's choice", route_stage)
+        reserve = skill.index("scripts/reserve_draft.py", route_stage)
+        self.assertLess(route_stage, stop)
+        self.assertLess(stop, reserve)
+        self.assertLess(reserve, proof_stage)
+        self.assertLess(proof_stage, approval_stage)
+
+    def test_visual_generation_waits_for_stable_proof(self) -> None:
+        skill = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
+        proof_stage = skill.index("### 7. Strengthen the outline's proof")
+        visual_generation = skill.index("use a dedicated visual subagent", proof_stage)
+        proof_resolution = skill.index("Repeat the checkpoint while a central claim remains unsupported", proof_stage)
+        approval_stage = skill.index("### 8. Review and approve the working outline")
+        self.assertLess(proof_resolution, visual_generation)
+        self.assertLess(visual_generation, approval_stage)
 
 
 class ContextDiscoveryTests(unittest.TestCase):
@@ -176,134 +215,6 @@ class OutlineReservationTests(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("symbolic link", result.stderr)
             self.assertEqual(target.read_text(encoding="utf-8"), "Keep me")
-
-
-class ArticleMapTests(unittest.TestCase):
-    def test_creates_a_premise_grounded_roughdraft_map(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            (root / "PREMISE.md").write_text(
-                """# Premise
-
-## Audience
-Christian parents
-
-## Desired Movement
-Choose repeatable practices.
-
-## Premise
-Household rhythms form children's loves.
-
-## Likely Objection
-Small repeated practices cannot overcome the wider culture.
-
-## Why Now
-Calendars increasingly choose the family's defaults.
-""",
-                encoding="utf-8",
-            )
-            result = run_script("create_article_map.py", "Household liturgies", "--root", str(root))
-            self.assertEqual(result.returncode, 0, result.stderr)
-            payload = json.loads(result.stdout)
-            draft = Path(payload["path"])
-            text = draft.read_text(encoding="utf-8")
-            self.assertIn("Household rhythms form children's loves.", text)
-            self.assertIn("Small repeated practices cannot overcome the wider culture.", text)
-            self.assertIn("[Add the confirmed response direction before review.]", text)
-            self.assertIn("## Opening", text)
-            self.assertIn("## Argument", text)
-            self.assertIn("## Practical framework", text)
-            self.assertIn("[Add the approved framework body here, or remove only this heading and marker when skipped.]", text)
-            self.assertIn("## Comprehension or story visual", text)
-            self.assertIn("## Proof needs", text)
-            self.assertIn("[HEADER IMAGE PLACEHOLDER:", text)
-            self.assertIn("[PROOF VISUAL PLACEHOLDER:", text)
-            self.assertIn("[COMPREHENSION OR STORY VISUAL PLACEHOLDER:", text)
-            self.assertIn("The article should make the reader want to understand", text)
-            self.assertIn("The answer becomes clear", text)
-            self.assertIn("How the article resolves it", text)
-            self.assertNotIn("Framework's role", text)
-            self.assertIn("otherwise state the premise directly", text)
-            self.assertNotIn("consequential or surprising", text)
-            self.assertNotIn("Approved Personal Authority", text)
-            self.assertNotIn("open loop", text.casefold())
-            self.assertIn("## Ending", text)
-            self.assertIn("## Call to action", text)
-            self.assertEqual(text.count("{>>"), 4)
-
-    def test_carries_only_the_approved_personal_authority_story(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            (root / "PREMISE.md").write_text(
-                """# Premise
-
-## Audience
-Startup founders
-
-## Desired Movement
-Direct AI as an editorial process before polishing prose.
-
-## Premise
-Great AI writing depends on editorial direction, not merely better prompting.
-
-## Likely Objection
-The model should infer the structure from a detailed recording.
-
-## Why Now
-More founders are using the same capable models with very different results.
-
-## Personal Authority
-
-Approach: Earned Discovery
-
-**Approved story:**
-I could get useful copy from the same kind of AI that produced an unusable article for a startup founder.
-The difference was the editorial process I carried in my head.
-""",
-                encoding="utf-8",
-            )
-            result = run_script("create_article_map.py", "Editorial direction", "--root", str(root))
-            self.assertEqual(result.returncode, 0, result.stderr)
-            text = Path(json.loads(result.stdout)["path"]).read_text(encoding="utf-8")
-            self.assertIn("Approved Personal Authority", text)
-            self.assertIn("I could get useful copy from the same kind of AI", text)
-            self.assertIn("The difference was the editorial process", text)
-            self.assertNotIn("Approach: Earned Discovery", text)
-            self.assertNotIn("open loop", text.casefold())
-
-    def test_ignores_personal_authority_without_an_approved_story(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            (root / "PREMISE.md").write_text(
-                """## Premise
-A useful premise.
-
-## Personal Authority
-Approach: Earned Discovery
-
-Unconfirmed notes that must not enter the map.
-""",
-                encoding="utf-8",
-            )
-            result = run_script("create_article_map.py", "Article", "--root", str(root))
-            self.assertEqual(result.returncode, 0, result.stderr)
-            text = Path(json.loads(result.stdout)["path"]).read_text(encoding="utf-8")
-            self.assertNotIn("Approved Personal Authority", text)
-            self.assertNotIn("Unconfirmed notes", text)
-
-    def test_article_map_never_overwrites_an_existing_draft(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            (root / "PREMISE.md").write_text("## Premise\nA premise.\n", encoding="utf-8")
-            drafts = root / "drafts"
-            drafts.mkdir()
-            existing = drafts / "article.md"
-            existing.write_text("Keep me", encoding="utf-8")
-            result = run_script("create_article_map.py", "Article", "--root", str(root))
-            self.assertEqual(result.returncode, 0, result.stderr)
-            payload = json.loads(result.stdout)
-            self.assertEqual(payload["relative_path"], "drafts/article-2.md")
-            self.assertEqual(existing.read_text(encoding="utf-8"), "Keep me")
 
 
 class SloplessTests(unittest.TestCase):
@@ -585,7 +496,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("structured user-input control", skill)
         self.assertIn("Make these bolder", skill)
         self.assertIn("selection by letter, direction name", skill)
-        self.assertIn("Treat this release as `1.1.0`", skill)
+        self.assertIn("Treat this release as `1.2.0`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("## Likely Objection", skill)
@@ -598,14 +509,13 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("references/outline.md", skill)
         self.assertIn("Yes — I’ll answer", skill)
         self.assertIn("reserve_outline.py", skill)
-        self.assertIn("Complete the map", skill)
+        self.assertIn("exactly two advocated article routes", skill)
         self.assertNotIn("**Draft it**", skill)
         self.assertIn("Draft this structure", skill)
         self.assertIn("If no outline exists, route to `outline`", skill)
         self.assertIn("never infer approval from file existence", skill)
         self.assertIn("Status: approved", skill)
         self.assertIn("reopen watched Roughdraft", skill)
-        self.assertIn("resolved CriticMarkup questions", skill)
         self.assertIn("[EVIDENCE NEEDED: ...]", skill)
         self.assertIn("derive a fresh strongest intelligent likely objection", skill)
         self.assertNotIn("[When a personal story was approved", skill)
@@ -622,10 +532,8 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("Roughdraft failure must never strand the article", skill)
         self.assertIn("continue that same review in chat", skill)
         self.assertIn("Never treat an unavailable or incomplete Roughdraft session as approval", skill)
-        self.assertIn("create_article_map.py", skill)
-        self.assertIn("**Open Roughdraft**", skill)
-        self.assertIn("STOP and wait for the user's selection", skill)
-        self.assertIn("stop the watched process", skill)
+        self.assertNotIn("create_article_map.py", skill)
+        self.assertIn("STOP and wait for the user's choice", skill)
         self.assertIn("Go wider", skill)
         self.assertIn("pairwise distinctness", skill)
         self.assertIn("A. Run Remarkable critique", skill)
@@ -677,15 +585,16 @@ class InstructionContractTests(unittest.TestCase):
         wayfinding = (SKILL_DIR / "references" / "wayfinding.md").read_text(encoding="utf-8")
         visuals = (SKILL_DIR / "references" / "visual-placeholders.md").read_text(encoding="utf-8")
         frameworks = (SKILL_DIR / "references" / "framework-design.md").read_text(encoding="utf-8")
+        routes = (SKILL_DIR / "references" / "article-routes.md").read_text(encoding="utf-8")
         self.assertIn("Store only the objection in `PREMISE.md`", objection)
         self.assertIn("A widened, intensified, combined", objection)
         self.assertIn("Objection pressure-testing is still premise formation", objection)
-        self.assertIn("after the article map is resolved and before the working outline", prove)
+        self.assertIn("after the initial working outline and before outline review", prove)
         self.assertIn("## Claim-to-evidence plan", prove)
         self.assertIn("300–700", outline)
         self.assertIn("Blocking", outline)
         self.assertIn("AUTHOR INPUT NEEDED", outline)
-        self.assertIn("generated header-image placeholder", outline)
+        self.assertIn("header-image concept", outline)
         self.assertIn("Review revisions one by one", critique)
         self.assertIn("Apply recommended revisions", critique)
         self.assertIn("Leave the draft unchanged", critique)
@@ -695,7 +604,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("● Premise", wayfinding)
         self.assertIn("○ Slopless", wayfinding)
         self.assertIn("○ Framework", wayfinding)
-        self.assertIn("○ Map → ○ Proof → ○ Outline", wayfinding)
+        self.assertIn("○ Route → ○ Outline → ○ Proof → ○ Approval", wayfinding)
         self.assertIn("Slopless current", skill)
         self.assertIn("Mark Slopless complete", skill)
         self.assertIn("skipped with `–` for a non-English draft", skill)
@@ -727,7 +636,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("Decision Tree", frameworks)
         self.assertIn("Do not apply a Tier 2 technique", frameworks)
         self.assertIn("run a Tier 2 checkpoint in this release", frameworks)
-        self.assertIn("Continue directly to the article map without mentioning frameworks", frameworks)
+        self.assertIn("Continue directly to article-route selection without mentioning frameworks", frameworks)
         self.assertIn("Never interpret enthusiasm, silence", frameworks)
         self.assertIn("Never write it to `PREMISE.md` or a separate framework artifact", frameworks)
         self.assertIn("converts ordinary bullets into an acronym", frameworks)
@@ -745,20 +654,16 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("same choices as a plain-text fallback", frameworks)
         self.assertIn("free-form request to **Keep it as prose**", frameworks)
         self.assertIn("Persist no framework", frameworks)
-        self.assertIn("before creating the article map", frameworks)
-        self.assertIn("hold it for insertion into the article map created next", frameworks)
-        self.assertIn("Focused mode without an article map", frameworks)
-        self.assertIn("**Create an article map** or **Keep it in chat**", frameworks)
-        self.assertIn("body-only block", frameworks)
+        self.assertIn("before article-route selection", frameworks)
+        self.assertIn("hold it for article-route reasoning and insertion into the working outline", frameworks)
+        self.assertIn("Focused mode without a working outline", frameworks)
+        self.assertIn("**Choose an article route** or **Keep it in chat**", frameworks)
         self.assertNotIn("[FRAMEWORK VISUAL PLACEHOLDER:", frameworks)
-        self.assertIn("remove only the `## Practical framework` heading and its marker", skill)
-        self.assertIn("preserve and rehome the independent `## Comprehension or story visual`", skill)
         self.assertIn("A central unsupported claim cannot pass into the outline as a placeholder", skill)
         self.assertIn("**Narrow or remove the claim**", skill)
         self.assertIn("STOP and wait. Apply the selected branch explicitly", skill)
         self.assertIn("Never use this branch for a central unsupported claim", skill)
         self.assertIn("references/narrative-tension.md", skill)
-        self.assertIn("Do not add a user checkpoint", skill)
         self.assertIn("question-and-resolution design", skill)
         self.assertIn("Preserve the outline's planned question, reveal timing, and resolution", skill)
         self.assertIn("Use question-and-resolution design internally", narrative)
@@ -770,13 +675,32 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("**Embodiment:**", frameworks)
         self.assertIn("**Application:**", frameworks)
         self.assertIn("Do not add another user checkpoint", frameworks)
-        self.assertIn("privately revalidate the article question", skill)
+        self.assertIn("privately revalidate the selected route", skill)
         self.assertIn("If the supported question disappears", skill)
-        self.assertIn("remove its question-and-resolution planning lines", skill)
-        self.assertIn("Before outlining, revalidate", outline)
-        self.assertLess(skill.index("### 5. Check for a framework opportunity"), skill.index("### 6. Create and open the article map"))
-        self.assertLess(skill.index("### 7. Follow the chosen interaction mode"), skill.index("### 8. Strengthen the proof"))
-        self.assertLess(skill.index("### 8. Strengthen the proof"), skill.index("### 9. Create and approve the working outline"))
+        self.assertIn("Choose the article's invisible persuasive architecture", routes)
+        self.assertIn("unaware, problem-aware, solution-aware, product-aware, or most aware", routes)
+        self.assertIn("PAS — Problem, Agitate, Solve", routes)
+        self.assertIn("AIDA — Attention, Interest, Desire, Action", routes)
+        self.assertIn("4Ps — Promise, Picture, Proof, Push", routes)
+        self.assertIn("HSO — Hook, Story, Offer", routes)
+        self.assertIn("FAB — Features, Advantages, Benefits", routes)
+        self.assertIn("ACCA — Awareness, Comprehension, Conviction, Action", routes)
+        self.assertIn("not an exhaustive taxonomy or topic-to-template mapping", routes)
+        self.assertIn("Do not rotate structures", routes)
+        self.assertIn("exactly", routes)
+        self.assertIn("### A. [Concrete route name]", routes)
+        self.assertIn("### B. [Concrete route name]", routes)
+        self.assertIn("Advocate for both routes", routes)
+        self.assertIn("Which direction should govern the outline: A or B?", routes)
+        self.assertIn("Do not create a separate route artifact", routes)
+        self.assertNotIn("article map", skill.casefold())
+        self.assertNotIn("article map", outline.casefold())
+        self.assertIn("reuse it", skill)
+        self.assertIn("legacy article-map file", skill)
+        self.assertIn("legacy map may supply confirmed writer-owned context", outline)
+        self.assertLess(skill.index("### 5. Check for a framework opportunity"), skill.index("### 6. Choose the article route and create the working outline"))
+        self.assertLess(skill.index("### 6. Choose the article route and create the working outline"), skill.index("### 7. Strengthen the outline's proof"))
+        self.assertLess(skill.index("### 7. Strengthen the outline's proof"), skill.index("### 8. Review and approve the working outline"))
         self.assertIn("allow_implicit_invocation: false", interface)
 
 

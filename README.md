@@ -24,7 +24,7 @@ You can also focus the work with requests such as `$remarkable premise`, `$remar
 
 Remarkable guides an article through:
 
-**Premise → Objection → Personal Authority → Framework → Map → Proof → Outline → Draft → Slopless → Critique**
+**Premise → Objection → Personal Authority → Framework → Article route → Outline → Proof → Approval → Draft → Slopless → Critique**
 
 Instead of polishing a generic claim such as “better prompts produce better AI writing,” Remarkable looks for a premise with consequence, such as:
 

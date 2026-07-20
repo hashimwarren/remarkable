@@ -1,32 +1,27 @@
 # Working Outline
 
-The working outline lets the writer judge the argument before prose makes structural change expensive. It is not a high-level draft.
+The working outline lets the writer judge the argument before prose makes structural change expensive. It is not a high-level draft or a questionnaire.
 
-## Build the outline
+## Build from the selected route
 
-Use `PREMISE.md`, the resolved article map, its claim-to-evidence plan, any approved practical framework in the map, the confirmed objection response, approved Personal Authority, project context, existing evidence or proof artifacts, and any existing article prose. Read [narrative-tension.md](narrative-tension.md). Save the outline beside the article as `<article-stem>.outline.md`.
+Use `PREMISE.md`, the confirmed article-route brief, confirmed objection response, approved Personal Authority, approved practical framework when present, project context, existing evidence, and any existing article prose. A legacy map may supply confirmed writer-owned context, but its old scaffold and questions do not govern the new outline. Read [narrative-tension.md](narrative-tension.md) and [visual-placeholders.md](visual-placeholders.md). Save the outline beside the reserved article as `<article-stem>.outline.md`.
 
-Before outlining, revalidate the map's article question, answer, reveal point, and framework role against the resolved feedback and current proof plan. Update the design when a claim was narrowed, removed, contradicted, or newly supported. If the question is no longer genuine or the answer is no longer supported, use a direct structure instead of preserving stale narrative machinery.
-
-Read [visual-placeholders.md](visual-placeholders.md). Start the visual subagent after the headline and major section jobs are stable, then continue building the outline while it works.
-
-Begin the artifact with `Status: working`. Change it to `Status: approved` only after the user explicitly chooses **Draft this structure**. Any material revision resets it to `Status: working`; file existence alone never means approval.
+Begin with `Status: working`. Change it to `Status: approved` only after the user explicitly chooses **Draft this structure**. Any material revision resets it to `Status: working`; file existence alone never means approval.
 
 For a normal long-form article, use 300–700 words and a small number of major sections. Include:
 
 - a working headline;
-- a generated header-image placeholder immediately after the headline;
+- a header-image concept immediately after the headline;
 - the governing premise, reader, and desired movement;
-- the consequential question the article will make the reader want answered, where it emerges, the specific answer, and where that answer becomes clear, when a genuine question belongs;
+- the chosen route expressed as the article's movement, without naming its internal architecture;
+- the consequential question, where it emerges, the specific answer, and where that answer becomes clear when a genuine question belongs;
 - major section headings;
 - one italic sentence explaining each section's rhetorical job;
 - bullets for claims, examples, transitions, objection handling, and intended movement;
-- an approved practical framework when one exists, preserving its governing logic, demonstration, and limit;
+- approved Personal Authority and a practical framework only where the route gives them real jobs;
 - proof placeholders attached to the claims they must support;
 - explicit requests for missing author information; and
 - a closing or CTA plan, omitting a CTA when none belongs.
-
-Carry forward the map's proof and comprehension or story positions when their jobs remain useful. Attach each to the section where it performs that job. Include a relative Markdown image path, concise concept alt text, and one italic production note. Remove a position whose job disappeared, and do not add decorative placeholders merely to reach three images.
 
 Classify unresolved needs:
 
@@ -34,11 +29,11 @@ Classify unresolved needs:
 - **Helpful:** an answer improves specificity, but drafting may proceed.
 - **Researchable:** Remarkable can investigate it through `prove`.
 
-Do not turn the outline into a questionnaire, write polished paragraphs, perform sentence-level editing, or generate alternative outlines unless asked.
+Do not write polished paragraphs, perform sentence-level editing, or expose awareness labels and copywriting-framework names. The invisible architecture should create momentum without turning the outline into a fill-in-the-blanks formula.
 
 ## Shape the question-and-resolution progression
 
-Use the headings, rhetorical-job notes, and bullets to make the article move rather than merely sort its subject matter. When a genuine consequential question belongs:
+Use headings, rhetorical-job notes, and bullets to make the article move rather than merely sort its subject matter. When a genuine consequential question belongs:
 
 1. Establish the situation the reader needs to understand.
 2. Make the contrast, contradiction, surprising outcome, or failed expectation visible.
@@ -49,11 +44,17 @@ Use the headings, rhetorical-job notes, and bullets to make the article move rat
 
 Before the answer, every section must deepen the question, raise its stakes, eliminate an incomplete explanation, or narrow what the answer must explain. After the answer, every section must help the reader understand, believe, test, remember, or use it. Remove passages that only postpone the answer.
 
-Choose whether the question emerges in the first sentence, after the approved story, or after the problem and stakes. Do not default to a literal question. Prefer headings that perform the progression—situation, mistaken explanation, discovery, mechanism, demonstration, application—over generic headings such as “Background,” “Problem,” or “Solution.”
+Choose whether the question emerges in the first sentence, after the approved story, or after the problem and stakes. Do not default to a literal question. Prefer headings that perform the selected route—situation, mistaken explanation, discovery, mechanism, demonstration, application—over generic headings such as “Background,” “Problem,” or “Solution.”
 
-If no honest consequential question emerges, use a direct argument structure and omit question-and-reveal fields. Never force a Personal Authority story, mystery, or framework into the outline.
+If no honest consequential question emerges, use a direct argument structure. Never force a Personal Authority story, mystery, or framework into the outline.
 
-## Review the structure
+## Strengthen proof before review
+
+After the initial outline exists, read [prove.md](prove.md). Add its compact claim-to-evidence plan to the same outline. Resolve central gaps, then revise headings, claims, route execution, proof assignments, and visual positions when evidence changes what the article can responsibly say.
+
+Keep `Status: working` throughout proof development. A central unsupported claim cannot pass to approval as a placeholder. Preserve explicitly accepted non-central gaps as `[EVIDENCE NEEDED: ...]`.
+
+## Review the evidence-strengthened structure
 
 Open the outline in watched Roughdraft mode. Add only consequential inline questions about the opening situation, necessary claim order, missing proof or experience, fair treatment of the objection, and ending movement.
 
@@ -66,11 +67,11 @@ After `review_completed`, incorporate explicit feedback and offer exactly three 
 Use the runtime's structured user-input control when available and the same three choices as a plain-text fallback. Require an explicit choice:
 
 - **Draft this structure:** require no Blocking items, set `Status: approved`, and continue to prose.
-- **Revise the outline:** ask what should change, update the artifact, set `Status: working`, reopen watched Roughdraft, and repeat this checkpoint.
-- **Help me answer the missing questions:** work through the unresolved needs, update or reclassify them, set `Status: working`, reopen watched Roughdraft, and repeat this checkpoint. Do not fall through to prose.
+- **Revise the outline:** ask what should change, update it, set `Status: working`, reopen watched Roughdraft, and repeat this checkpoint.
+- **Help me answer the missing questions:** work through unresolved needs, update or reclassify them, set `Status: working`, reopen watched Roughdraft, and repeat the checkpoint. Do not fall through to prose.
 
 ## Draft from it
 
-Draft only when the outline says `Status: approved` and no Blocking item remains. If approval is absent or may no longer apply, show a compact structural summary and ask the same three-choice question again; never infer approval from file existence. Preserve the claim order, proof assignments, objection response, reader movement, and deliberate gaps. Keep `[AUTHOR INPUT NEEDED: ...]` markers for missing personal material. Patch the existing article Markdown rather than making a parallel full draft.
+Draft only when the outline says `Status: approved` and no Blocking item remains. If approval is absent or may no longer apply, show a compact structural summary and ask the same three-choice question again; never infer approval from file existence. Preserve the selected route, claim order, proof assignments, objection response, reader movement, and deliberate gaps. Keep `[AUTHOR INPUT NEEDED: ...]` markers for missing personal material. Patch the reserved article Markdown rather than making a parallel full draft.
 
-As the map becomes prose, remove resolved CriticMarkup questions, temporary bracketed scaffold guidance, unused generic claim blocks, and unused asset or CTA placeholders. Preserve deliberate, specific gaps such as `[AUTHOR INPUT NEEDED: ...]` and `[EVIDENCE NEEDED: ...]`.
+Do not copy outline-only material into the article: status, rhetorical-purpose notes, planning labels, claim-to-evidence plan, unresolved CriticMarkup, or unused asset and CTA concepts.

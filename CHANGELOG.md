@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0 — 2026-07-20
+
+### Changed
+
+- Replaced the article-map interview with one compact decision between two advocated article routes.
+- Added private reader-awareness inference and flexible persuasive-architecture guidance before outlining.
+- Created the working outline directly from the selected route, then strengthened its claims through proof before approval.
+- Removed the article-map generator and updated workflow guidance, visuals, documentation, and tests around the new progression.
+
 ## 1.1.0 — 2026-07-20
 
 ### Changed

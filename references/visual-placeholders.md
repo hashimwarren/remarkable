@@ -1,8 +1,8 @@
 # Visual Placeholders
 
-Begin visual planning in the article map, then turn the surviving positions into low-fidelity concepts in the working outline. These are concepts, not evidence and not finished editorial art.
+Begin visual planning in the working outline after the article route and major section jobs are stable. These are concepts, not evidence and not finished editorial art.
 
-## Reserve the positions in the article map
+## Reserve positions in the outline
 
 Create three planning positions:
 
@@ -12,15 +12,15 @@ Create three planning positions:
 
 Write a specific suggested form and one-sentence rhetorical job under each position. Move both in-article positions beside the claims or sections they would strengthen. The header is standard; the other two are opportunities, not a quota. Remove either in-article position when it would be decorative.
 
-During proof development, refine the proof visual against verified evidence. A chart-shaped placeholder must contain no invented values. During framework design, let the framework's natural form inform the comprehension position.
+During proof development, refine the proof visual against verified evidence and revise its placement when the argument changes. A chart-shaped placeholder must contain no invented values. During framework design, let the framework's natural form inform the comprehension position.
 
 ## Choose useful placements
 
-Carry the map's header-image concept immediately after the working headline. Then carry forward up to two additional placements: a proof visual beside a claim, and a comprehension or story visual where a scene, process, comparison, or interface would become easier to understand or remember.
+Place the header-image concept immediately after the working headline. Add up to two additional placements: a proof visual beside a claim, and a comprehension or story visual where a scene, process, comparison, or interface would become easier to understand or remember.
 
-Under each visual, add one short italic sentence stating its rhetorical job and suggesting the finished form. Re-evaluate rather than mechanically copying a position whose job disappeared while the map or proof changed.
+Under each visual, add one short italic sentence stating its rhetorical job and suggesting the finished form. Re-evaluate rather than mechanically preserving a position whose job disappeared during proof development.
 
-When the article map contains an approved practical framework, evaluate its natural diagram as one of the two in-article opportunities. Use a system map, scorecard, progression, category map, or decision tree only when it reveals the framework's actual logic.
+When an approved practical framework belongs in the selected route, evaluate its natural diagram as one of the two in-article opportunities. Use a system map, scorecard, progression, category map, or decision tree only when it reveals the framework's actual logic.
 
 ## Delegate image creation
 
