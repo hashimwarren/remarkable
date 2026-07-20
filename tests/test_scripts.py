@@ -52,7 +52,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("1.0.0", skill)
+        self.assertIn("1.1.0", skill)
         self.assertIn("five-scout premise council", skill)
         scout_preamble = skill.split("Before delegation, tell the user:", 1)[1].split(
             "If subagents are unavailable", 1
@@ -575,13 +575,17 @@ class InstructionContractTests(unittest.TestCase):
         )
         interface = (SKILL_DIR / "agents" / "openai.yaml").read_text(encoding="utf-8")
 
-        self.assertIn("What do you want the reader to realize", skill)
+        self.assertIn(
+            "Who’s this for? What should they see differently—and why does that matter now?",
+            skill,
+        )
+        self.assertNotIn("What do you want the reader to realize", skill)
         self.assertIn("exactly three", skill.casefold())
         self.assertIn("Which premise should govern the article: A, B, or C?", skill)
         self.assertIn("structured user-input control", skill)
         self.assertIn("Make these bolder", skill)
         self.assertIn("selection by letter, direction name", skill)
-        self.assertIn("Treat this release as `1.0.0`", skill)
+        self.assertIn("Treat this release as `1.1.0`", skill)
         self.assertIn("Create or update `PREMISE.md`", skill)
         self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
         self.assertIn("## Likely Objection", skill)
@@ -643,6 +647,19 @@ class InstructionContractTests(unittest.TestCase):
         self.assertNotIn("**Recommended placement:**", personal)
         self.assertEqual(personal.count("```markdown"), 2)
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(encoding="utf-8")
+        self.assertIn("Audience frame", transformation)
+        self.assertIn("Worldview fit", transformation)
+        self.assertIn("Language fit", transformation)
+        self.assertIn("`supplied`, `researched`, or `inferred`", transformation)
+        self.assertIn("public research would materially sharpen", transformation)
+        self.assertIn("every scout receives the same frame, worldview, language context", transformation)
+        self.assertIn("do not make five scouts repeat the same audience research", transformation)
+        self.assertIn("**Audience fit:**", transformation)
+        self.assertIn("worldview fit, language fit, generative power", transformation)
+        self.assertIn("whole-article test", transformation)
+        self.assertIn("**Reader:** [Concise audience interpretation]", premise)
+        self.assertIn("**What they should see differently:** [Desired belief shift]", premise)
+        self.assertIn("**Why now:** [Why that belief shift matters now]", premise)
         self.assertIn("Privately generate 12–20", transformation)
         self.assertIn("Make a premise bolder", transformation)
         self.assertIn("Use the fascination trigger as the control", transformation)

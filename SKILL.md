@@ -7,7 +7,7 @@ description: Build persuasive long-form articles through premise discovery, open
 
 Give AI agents the architecture of persuasion. Style governs how writing sounds; Remarkable governs what the writing helps a reader believe, feel, and do.
 
-Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `1.0.0`.
+Use this positioning: **Bring your own style. Remarkable strengthens the persuasion.** When comparing it with Impeccable, use: **Impeccable gives agents visual rhetoric. Remarkable gives agents verbal rhetoric.** Treat this release as `1.1.0`.
 
 ## Preserve the product boundary
 
@@ -60,9 +60,9 @@ Orient the writer to premise discovery and say that objection pressure-testing c
 
 If the user has not answered it in substance, ask exactly:
 
-> What do you want the reader to realize, and why should that matter to them right now?
+> Who’s this for? What should they see differently—and why does that matter now?
 
-Infer the likely audience, stakes, urgency, and persuasive directions. Ask at most one follow-up and only when the missing information materially changes the premise options.
+Treat the response as the writer's audience description. Extract the reader, the desired change in perception, and why that change matters now; let “that” keep the present stakes attached to the belief shift rather than turning `Why now` into a generic trend summary. Use available project context to sharpen—not silently replace—the writer's description. Ask at most one follow-up and only when a conflict or missing detail would materially change the premise options.
 
 ### 2. Offer three compact premises
 
@@ -78,7 +78,7 @@ Before the options, explain:
 
 > I’m going to show you three genuinely different ways this article could move the reader. Each premise combines the central claim with a different persuasive approach. Focus on which realization feels most important and generative—the headline is only an illustration.
 
-State the shared realization and why-now context once at the top. Then label the directions `A`, `B`, and `C`. Each option contains only:
+State the shared understanding once at the top as **Reader**, **What they should see differently**, and **Why now**. Keep `Why now` tied to the proposed belief shift. Then label the directions `A`, `B`, and `C`. Each option contains only:
 
 1. **Premise**
 2. **Likely objection**

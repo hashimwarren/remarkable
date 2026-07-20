@@ -78,16 +78,17 @@ Do not invent an underlying pair for an additional name when the source matrix i
 
 ## Return exactly three options
 
-State the shared intent once before the options:
+State the shared understanding once before the options:
 
 ```markdown
-**What you want the reader to realize:** [Shared realization]
-**Why it matters now:** [Shared present stakes]
+**Reader:** [Concise audience interpretation]
+**What they should see differently:** [Desired belief shift]
+**Why now:** [Why that belief shift matters now]
 
 I’m going to show you three genuinely different ways this article could move the reader. Each premise combines the central claim with a different persuasive approach. Focus on which realization feels most important and generative—the headline is only an illustration.
 ```
 
-Do not repeat the shared realization or why-now context inside every option. Assign the options the letters `A`, `B`, and `C`, keeping the letter attached to the direction name.
+Do not repeat the shared reader, belief shift, or why-now context inside every option. Assign the options the letters `A`, `B`, and `C`, keeping the letter attached to the direction name.
 
 Use this compact structure:
 
