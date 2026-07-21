@@ -12,6 +12,16 @@ Most AI writing tools start with prose. Remarkable starts with the decision that
 npx skills add https://github.com/hashimwarren/remarkable --skill remarkable
 ```
 
+For an update, remove the existing Remarkable skill first and reinstall it into a clean skill directory. Updating files in place can leave stale references behind in runtimes that cache or overlay skill bundles. Start a new conversation after reinstalling.
+
+To verify a local checkout or installed skill directory:
+
+```bash
+python3 scripts/verify_bundle.py
+```
+
+A successful installation reports `"status": "verified"` and release `1.2.2`. A mismatch means the complete bundle should be removed and reinstalled.
+
 Then start naturally:
 
 ```text
