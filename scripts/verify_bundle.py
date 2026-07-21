@@ -49,7 +49,7 @@ def main() -> int:
         if not candidate.is_file():
             failures.append({"path": relative, "error": "missing"})
             continue
-        actual_hash = hashlib.sha256(candidate.read_bytes()).hexdigest()
+        data = candidate.read_bytes()\n        actual_hash = hashlib.sha1(\n            f"blob {len(data)}\\0".encode("ascii") + data\n        ).hexdigest()
         if actual_hash != expected_hash:
             failures.append(
                 {
