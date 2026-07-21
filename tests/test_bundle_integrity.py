@@ -44,6 +44,15 @@ class ReleaseBundleIntegrityTests(unittest.TestCase):
             self.assertEqual(payload["release"], "1.2.2")
             self.assertGreaterEqual(payload["checked_files"], 27)
 
+    def test_crlf_checkout_verifies(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = self.copy_bundle(Path(directory))
+            premise = root / "references" / "premise.md"
+            content = premise.read_text(encoding="utf-8")
+            premise.write_bytes(content.replace("\n", "\r\n").encode("utf-8"))
+            result = self.verify(root)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_mixed_reference_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = self.copy_bundle(Path(directory))
