@@ -1,0 +1,20 @@
+{
+  "name": "guided 1.2 happy path with recoverable review fallbacks",
+  "events": [
+    {"type": "premise_selected", "owner": "references/premise.md", "observable": "candidate intelligent objection is ready for pressure-testing", "candidate_objection": "A capable model should infer the structure without editorial direction."},
+    {"type": "objection_confirmed", "owner": "references/objection-response.md", "observable": "explicitly confirmed", "response_direction": "Show the same model producing different results under different editorial processes."},
+    {"type": "personal_authority_skipped", "owner": "references/personal-authority.md", "observable": "sole writer for the initial durable premise artifact", "artifact": "PREMISE.md"},
+    {"type": "framework_skipped", "owner": "references/framework-design.md", "observable": "no genuine opportunity"},
+    {"type": "route_confirmed", "owner": "references/article-routes.md", "observable": "One article route is explicitly confirmed"},
+    {"type": "outline_written", "owner": "references/outline.md", "observable": "Status: working", "artifact": "drafts/article.outline.md", "status": "working"},
+    {"type": "proof_resolved", "owner": "references/prove.md", "observable": "Every central claim is supported", "central_claims_resolved": true},
+    {"type": "outline_review_fallback", "owner": "references/roughdraft-handoff.md", "observable": "`missing` or `unsupported`", "tool": "open_roughdraft.py", "result": "missing"},
+    {"type": "outline_approved", "owner": "references/outline.md", "observable": "Status: approved", "artifact": "drafts/article.outline.md", "status": "approved"},
+    {"type": "slopless_preflight", "owner": "references/slopless.md", "observable": "--preflight", "tool": "run_slopless.py --preflight", "result": "ready"},
+    {"type": "article_written", "owner": "references/article.md", "observable": "canonical article Markdown", "artifact": "drafts/article.md"},
+    {"type": "slopless_clean", "owner": "references/slopless.md", "observable": "clean result", "tool": "run_slopless.py drafts/article.md", "result": "clean"},
+    {"type": "critique_skipped", "owner": "references/critique.md", "observable": "B. Open the draft as-is"},
+    {"type": "final_review_fallback", "owner": "references/roughdraft-handoff.md", "observable": "chat/Markdown fallback", "tool": "open_roughdraft.py", "result": "missing"},
+    {"type": "ready", "owner": "references/wayfinding.md", "observable": "This version is ready for you to use"}
+  ]
+}

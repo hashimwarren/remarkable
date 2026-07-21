@@ -64,7 +64,7 @@ When subagents cannot run, use the single-context fallback in `premise-transform
 
 ## Completion criterion
 
-One complete governing premise and its newly derived strongest intelligent objection are explicitly confirmed. A widened, intensified, combined, or materially qualified premise resets this criterion.
+One governing premise is explicitly selected and its newly derived strongest candidate intelligent objection is ready for pressure-testing. A widened, intensified, combined, or materially qualified premise resets this criterion.
 
 ## Next-stage handoff
 

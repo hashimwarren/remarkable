@@ -639,6 +639,97 @@ class InstructionContractTests(unittest.TestCase):
             skill.index("11. **Critique and review.**"),
         )
 
+    def test_guided_1_2_trace_replays_observable_state_and_writes(self) -> None:
+        fixture = json.loads(
+            self.read("tests/fixtures/guided_workflow_1_2.json")
+        )
+        state = {
+            "premise_selected": False,
+            "objection_confirmed": False,
+            "outline_status": None,
+            "proof_resolved": False,
+            "preflight_ready": False,
+            "article_written": False,
+            "slopless_clean": False,
+            "ready": False,
+        }
+        tool_calls: list[str] = []
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for event in fixture["events"]:
+                owner = self.read(event["owner"])
+                self.assertIn(event["observable"], owner, event["type"])
+                event_type = event["type"]
+
+                if event_type == "premise_selected":
+                    state["premise_selected"] = True
+                    state["candidate_objection"] = event["candidate_objection"]
+                    self.assertFalse(state["objection_confirmed"])
+                elif event_type == "objection_confirmed":
+                    self.assertTrue(state["premise_selected"])
+                    state["objection_confirmed"] = True
+                elif event_type == "personal_authority_skipped":
+                    self.assertTrue(state["objection_confirmed"])
+                    (root / event["artifact"]).write_text(
+                        "# Premise\n\n## Likely Objection\n"
+                        + state["candidate_objection"]
+                        + "\n",
+                        encoding="utf-8",
+                    )
+                elif event_type == "outline_written":
+                    path = root / event["artifact"]
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_text("Status: working\n", encoding="utf-8")
+                    state["outline_status"] = "working"
+                elif event_type == "proof_resolved":
+                    state["proof_resolved"] = event["central_claims_resolved"]
+                elif event_type == "outline_review_fallback":
+                    tool_calls.append(event["tool"])
+                    self.assertEqual(event["result"], "missing")
+                    self.assertEqual(state["outline_status"], "working")
+                elif event_type == "outline_approved":
+                    self.assertTrue(state["proof_resolved"])
+                    path = root / event["artifact"]
+                    path.write_text("Status: approved\n", encoding="utf-8")
+                    state["outline_status"] = "approved"
+                elif event_type == "slopless_preflight":
+                    self.assertEqual(state["outline_status"], "approved")
+                    tool_calls.append(event["tool"])
+                    state["preflight_ready"] = event["result"] == "ready"
+                elif event_type == "article_written":
+                    self.assertTrue(state["preflight_ready"])
+                    path = root / event["artifact"]
+                    path.write_text("# Article\n", encoding="utf-8")
+                    state["article_written"] = True
+                elif event_type == "slopless_clean":
+                    self.assertTrue(state["article_written"])
+                    tool_calls.append(event["tool"])
+                    state["slopless_clean"] = event["result"] == "clean"
+                elif event_type == "final_review_fallback":
+                    tool_calls.append(event["tool"])
+                    self.assertEqual(event["result"], "missing")
+                elif event_type == "ready":
+                    self.assertTrue(state["slopless_clean"])
+                    state["ready"] = True
+
+            self.assertTrue((root / "PREMISE.md").is_file())
+            self.assertEqual(
+                (root / "drafts/article.outline.md").read_text(encoding="utf-8"),
+                "Status: approved\n",
+            )
+            self.assertTrue((root / "drafts/article.md").is_file())
+            self.assertTrue(state["ready"])
+            self.assertEqual(
+                tool_calls,
+                [
+                    "open_roughdraft.py",
+                    "run_slopless.py --preflight",
+                    "run_slopless.py drafts/article.md",
+                    "open_roughdraft.py",
+                ],
+            )
+
     def test_slopless_contract_preserves_transparency_and_failure_gate(self) -> None:
         slopless = self.read("references/slopless.md")
         self.assertIn("slopless@0.2.23", slopless)
