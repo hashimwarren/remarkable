@@ -28,7 +28,7 @@ Ask the writer which premise should govern the article. Accept A, B, C, `Go wide
 
 ## Artifact or state effects
 
-After a premise is selected and later stages confirm its objection and optional Personal Authority, create or update `PREMISE.md` at the project root with only this durable schema:
+This stage owns the canonical schema below but does not write it yet. Hold the selected audience, current belief, desired movement, premise, likely objection, and why-now context as transient state until objection pressure-testing and Personal Authority complete. Then [personal-authority.md](personal-authority.md) performs the single atomic create or update at the project root using only this schema:
 
 ```markdown
 # Premise
@@ -68,7 +68,7 @@ One complete governing premise and its newly derived strongest intelligent objec
 
 ## Next-stage handoff
 
-Pass the confirmed premise and likely objection to [objection-response.md](objection-response.md). Do not skip pressure-testing or write the final durable artifact before the objection and optional story decisions are complete.
+Pass the confirmed premise, likely objection, audience fields, why-now context, and the unwritten canonical schema to [objection-response.md](objection-response.md). Do not skip pressure-testing or write the durable artifact before the objection and optional story decisions are complete.
 
 ## Return exactly three options
 

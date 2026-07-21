@@ -22,6 +22,13 @@ Use this compact offer:
 >
 > **B. Open the draft as-is**
 
+Apply the branches exactly:
+
+- **A. Run Remarkable critique:** produce the diagnosis and localized interventions, then launch the annotated canonical article through `roughdraft-handoff.md`. After completed review or its explicit chat fallback, use the revision-authority checkpoint below.
+- **B. Open the draft as-is:** add no Remarkable interventions. Launch the unannotated canonical article through `roughdraft-handoff.md`. After completed review or its explicit chat fallback, reread the canonical Markdown, summarize what the writer changed or clarified, and proceed to the ready-state handoff in [wayfinding.md](wayfinding.md). If the review produced a request for substantive rhetorical revision, confirm that request before applying it and rerun [slopless.md](slopless.md) afterward.
+
+Neither branch may end at the A/B choice or treat review completion as approval of unrequested edits.
+
 ## User checkpoint
 
 After review, obtain revision authority through **Review revisions one by one**, **Apply recommended revisions**, or **Leave the draft unchanged**. Require one-by-one approval for any premise, proof-burden, major-claim, reader-movement, or CTA change even under blanket approval.

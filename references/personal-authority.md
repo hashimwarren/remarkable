@@ -20,7 +20,7 @@ First offer **Yes — I’ll tell you**, **Help me find it**, and **Not for this
 
 ## Artifact or state effects
 
-Append the lean `## Personal Authority` section below to `PREMISE.md` only after approval. Omit it entirely on skip. Create no separate story artifact.
+This stage is the sole writer for the initial durable premise artifact. After explicit story approval or skip, atomically create or update `PREMISE.md` from the complete confirmed schema in [premise.md](premise.md): audience, current belief, desired movement, governing premise, confirmed likely objection, and why now. Append the lean `## Personal Authority` section below only after story approval; omit it entirely on skip. Create no separate story artifact. If `PREMISE.md` belongs to another article, obtain permission before overwriting it.
 
 ## Degraded and failure behavior
 
@@ -113,7 +113,7 @@ Adapt the language to the actual approach rather than forcing every sentence. Re
 
 ## Preserve the approved architecture
 
-Append a lean section to `PREMISE.md` only after approval:
+As part of the atomic create or update above, append this lean section only after approval:
 
 ```markdown
 ## Personal Authority

@@ -20,7 +20,7 @@ Use the three-choice pressure test below and require explicit confirmation of bo
 
 ## Artifact or state effects
 
-Store only the confirmed objection in `PREMISE.md`. Hold the confirmed response direction for article-route reasoning and the working outline; do not create a separate artifact.
+Keep the confirmed objection and response direction transient during this stage. Pass only the objection into the pending `PREMISE.md` data; hold the response direction for article-route reasoning and the working outline. Make no file write and create no separate artifact.
 
 ## Degraded and failure behavior
 
@@ -64,4 +64,4 @@ If the writer's answer exposes a missing qualification, consequential distinctio
 
 ## Preserve the boundary
 
-Confirm both the objection and response direction. Store only the objection in `PREMISE.md`. Carry the response direction into article-route reasoning and the working outline; preserve unsupported evidence as a proof need. A widened, intensified, combined, or otherwise changed premise requires a fresh objection and response checkpoint.
+Confirm both the objection and response direction. Pass only the objection into the pending `PREMISE.md` data. Carry the response direction into article-route reasoning and the working outline; preserve unsupported evidence as a proof need. A widened, intensified, combined, or otherwise changed premise requires a fresh objection and response checkpoint.

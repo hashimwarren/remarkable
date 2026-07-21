@@ -511,7 +511,9 @@ class InstructionContractTests(unittest.TestCase):
         skill = self.read("SKILL.md")
         self.assertLess(len(skill.splitlines()), 120)
         self.assertLess(len(skill.split()), 1600)
-        for target in re.findall(r"\\]\\((references/[^)]+\\.md)\\)", skill):
+        targets = re.findall(r"\]\((references/[^)]+\.md)\)", skill)
+        self.assertGreater(len(targets), 10)
+        for target in targets:
             self.assertTrue((SKILL_DIR / target).is_file(), target)
         for owner in self.STAGE_OWNERS:
             self.assertIn(f"references/{owner}", skill)
@@ -519,8 +521,19 @@ class InstructionContractTests(unittest.TestCase):
     def test_every_stage_owner_uses_the_shared_contract_shape(self) -> None:
         for owner in self.STAGE_OWNERS:
             content = self.read(f"references/{owner}")
-            positions = [content.index(heading) for heading in self.CONTRACT_HEADINGS]
-            self.assertEqual(positions, sorted(positions), owner)
+            positions = []
+            for heading in self.CONTRACT_HEADINGS:
+                self.assertIn(
+                    heading,
+                    content,
+                    f"Heading '{heading}' is missing in references/{owner}",
+                )
+                positions.append(content.index(heading))
+            self.assertEqual(
+                positions,
+                sorted(positions),
+                f"Headings are out of order in references/{owner}",
+            )
 
     def test_detailed_contracts_live_outside_the_router(self) -> None:
         skill = self.read("SKILL.md")
@@ -595,6 +608,36 @@ class InstructionContractTests(unittest.TestCase):
             self.assertIn(status, handoff)
         self.assertIn("Review completion alone never", handoff)
         self.assertIn("chat/Markdown fallback", handoff)
+
+    def test_fragile_transitions_have_observable_contracts(self) -> None:
+        skill = self.read("SKILL.md")
+        premise = self.read("references/premise.md")
+        objection = self.read("references/objection-response.md")
+        personal = self.read("references/personal-authority.md")
+        routes = self.read("references/article-routes.md")
+        outline = self.read("references/outline.md")
+        prove = self.read("references/prove.md")
+        article = self.read("references/article.md")
+        slopless = self.read("references/slopless.md")
+        critique = self.read("references/critique.md")
+
+        self.assertIn("Pass the confirmed premise", premise)
+        self.assertIn("explicitly confirmed", objection)
+        self.assertIn("sole writer for the initial durable premise artifact", personal)
+        self.assertIn("Pass the route brief", routes)
+        self.assertIn("Status: working", outline)
+        self.assertIn("Every central claim is supported", prove)
+        self.assertIn("Status: approved", outline)
+        self.assertIn("working outline with `Status: approved`", article)
+        self.assertIn("Run [slopless.md]", article)
+        self.assertIn("Offer Remarkable critique", slopless)
+        self.assertIn("B. Open the draft as-is", critique)
+        self.assertIn("Launch the unannotated canonical article", critique)
+        self.assertIn("chat fallback", critique)
+        self.assertLess(
+            skill.index("1. **Premise.**"),
+            skill.index("11. **Critique and review.**"),
+        )
 
     def test_slopless_contract_preserves_transparency_and_failure_gate(self) -> None:
         slopless = self.read("references/slopless.md")
