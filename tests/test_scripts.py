@@ -53,7 +53,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("1.2.1", skill)
+        self.assertIn("1.2.2", skill)
         self.assertIn("five-scout premise council", transformation)
         scout_preamble = transformation.split("Before delegation, tell the writer:", 1)[1].split(
             "Give every scout", 1
