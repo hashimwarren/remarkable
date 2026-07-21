@@ -1,10 +1,51 @@
 # Working Outline
 
-The working outline lets the writer judge the argument before prose makes structural change expensive. It is not a high-level draft or a questionnaire.
+## Purpose
+
+Let the writer judge an evidence-strengthened argument before prose makes structural change expensive. The working outline is not a high-level draft or questionnaire.
+
+## Required inputs
+
+- `PREMISE.md` and the confirmed private route brief.
+- Confirmed objection response, approved Personal Authority, and approved framework when present.
+- Project context, existing evidence, and any existing article prose or legacy map material.
+
+## Process
+
+Reserve or reuse the canonical paths, build the scan-friendly structure, incorporate the claim-to-evidence plan from [prove.md](prove.md), then review the evidence-strengthened outline. The detailed rules below own structure and approval.
+
+## User checkpoint
+
+After review, offer exactly **Draft this structure**, **Revise the outline**, or **Help me answer the missing questions**. Require an explicit choice. Only the first choice may approve the outline, and only when no Blocking item remains.
+
+## Artifact or state effects
+
+Save one `<article-stem>.outline.md` beside the canonical article. Begin with `Status: working`; set `Status: approved` only after explicit approval. Material revision resets it to working. Do not create route, story, framework, proof, or alternate outline artifacts.
+
+## Degraded and failure behavior
+
+Use the chat/Markdown path from [roughdraft-handoff.md](roughdraft-handoff.md) when Roughdraft is missing, unsupported, incomplete, or fails. Preserve specific `[AUTHOR INPUT NEEDED: ...]` and accepted non-central `[EVIDENCE NEEDED: ...]` gaps. Stop when a central claim or Blocking item remains unresolved.
+
+## Completion criterion
+
+The writer explicitly chooses **Draft this structure**, the outline says `Status: approved`, and no Blocking item or unsupported central claim remains.
+
+## Next-stage handoff
+
+Pass the approved canonical outline to [article.md](article.md). Never infer approval from file existence or review completion.
 
 ## Build from the selected route
 
 Use `PREMISE.md`, the confirmed article-route brief, confirmed objection response, approved Personal Authority, approved practical framework when present, project context, existing evidence, and any existing article prose. A legacy map may supply confirmed writer-owned context, but its old scaffold and questions do not govern the new outline. Read [narrative-tension.md](narrative-tension.md) and [visual-placeholders.md](visual-placeholders.md). Save the outline beside the reserved article as `<article-stem>.outline.md`.
+
+Reuse the valid article path already named in `PREMISE.md`. Reserve a collision-safe path only when it is `pending`, absent, or invalid:
+
+```bash
+python3 <skill-directory>/scripts/reserve_draft.py "<descriptive topic>" --root "$PWD"
+python3 <skill-directory>/scripts/reserve_outline.py <absolute-article-path> --root "$PWD"
+```
+
+Update `PREMISE.md` with a newly reserved relative article path. If outline reservation reports `existing`, update that outline rather than creating a parallel version.
 
 Begin with `Status: working`. Change it to `Status: approved` only after the user explicitly chooses **Draft this structure**. Any material revision resets it to `Status: working`; file existence alone never means approval.
 
@@ -56,9 +97,9 @@ Keep `Status: working` throughout proof development. A central unsupported claim
 
 ## Review the evidence-strengthened structure
 
-Open the outline in watched Roughdraft mode. Add only consequential inline questions about the opening situation, necessary claim order, missing proof or experience, fair treatment of the objection, and ending movement.
+Read [roughdraft-handoff.md](roughdraft-handoff.md), then open the outline through its watched lifecycle. Add only consequential inline questions about the opening situation, necessary claim order, missing proof or experience, fair treatment of the objection, and ending movement.
 
-After `review_completed`, incorporate explicit feedback and offer exactly three choices:
+After the handoff returns completed review or the writer chooses its chat fallback, incorporate explicit feedback and offer exactly three choices:
 
 - **Draft this structure**
 - **Revise the outline**

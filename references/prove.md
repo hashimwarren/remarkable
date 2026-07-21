@@ -1,6 +1,38 @@
 # Prove Claims
 
+## Purpose
+
 Extract consequential claims and decide what proof each requires. Truth constrains persuasion: narrow, qualify, or remove a claim when available evidence cannot carry it.
+
+## Required inputs
+
+- The initial working outline and selected route.
+- Writer-owned and discovered evidence with provenance and confidence.
+- The premise, objection response, and explicit truth boundaries.
+
+## Process
+
+Build the compact claim-to-evidence plan below inside the outline, resolve central gaps through the evidence order, and revise structure whenever evidence changes what the article may responsibly claim.
+
+## User checkpoint
+
+For an unsupported central claim, offer **Add my evidence**, **Research the gaps**, or **Narrow or remove the claim**. For only non-central gaps, replace the third option with **Keep explicit placeholders**. Require an explicit choice and repeat while any central gap remains.
+
+## Artifact or state effects
+
+Write the claim-to-evidence plan and accepted placeholders into the canonical working outline. Create no separate proof artifact in this release.
+
+## Degraded and failure behavior
+
+Ask before materially expanding into connected private sources. If proof remains unavailable, narrow or remove the claim rather than manufacturing support. Never allow a central unsupported claim to pass as a placeholder.
+
+## Completion criterion
+
+Every central claim is supported, honestly narrowed, or removed; each remaining non-central gap is explicit and writer-accepted.
+
+## Next-stage handoff
+
+After claim and section jobs are stable, read [visual-placeholders.md](visual-placeholders.md) and use its dedicated visual subagent when available to develop the surviving low-fidelity header, proof, and comprehension or story concepts without blocking main-thread outline work. Then return the corrected outline, proof state, and strongest visible-proof assignment to [outline.md](outline.md) for structural review and approval.
 
 In the guided workflow, run this stage after the initial working outline and before outline review. The selected route and outline establish what the article intends to say; proof development determines what it may say credibly. Add a compact claim-to-evidence plan to the same outline, then revise the structure when evidence narrows, contradicts, or removes a planned claim.
 

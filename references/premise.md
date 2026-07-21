@@ -1,80 +1,74 @@
 # Premise Generation
 
-Treat the premise as the governing persuasive idea, not a topic, thesis label, or headline. Use the reader's own intent, the intended audience, the present stakes, and available project evidence as inputs.
+## Purpose
 
-Read [premise-transformation.md](premise-transformation.md) before generating or refining options. Follow its wide-generation, anti-cluster, fingerprint, and pairwise-distinctness process privately; show only the three finalists.
+Establish the governing persuasive idea—not a topic, thesis label, or headline—and let the writer choose among three strategically different directions.
 
-Generate **exactly three** premise options. Make them strategically different: ask the reader to make different realizations, care for different reasons, or respond to different consequences. Reject options that merely rename the same idea.
+## Required inputs
 
-## Choose the persuasive appeal
+- The writer's audience, desired change in perception, and present stakes.
+- Relevant project context and evidence boundaries.
+- The private candidate pool produced by [premise-transformation.md](premise-transformation.md).
 
-Use one fitting appeal as the main reason the reader should care. Explore the set; do not mechanically cycle through it. Keep the appeal private unless the user explicitly asks how Remarkable developed the premise.
+## Process
 
-1. **Encourage their dreams.** Show how the idea helps the reader reach a desired future, gain freedom, succeed, or become who they want to be.
-2. **Warn against the destruction of their dreams.** Show what could prevent, delay, or quietly undermine that desired future.
-3. **Justify their failures.** Explain why past disappointment was understandable, misdiagnosed, or caused by a flawed system rather than personal inadequacy.
-4. **Imply they are their own worst enemy.** Reveal how the reader's habits, assumptions, or decisions may be producing the result they dislike.
-5. **Allay their fears.** Show that a feared outcome is avoidable, manageable, misunderstood, or less likely than assumed.
-6. **Agitate their fears.** Make a real risk vivid and consequential; never fabricate danger or intensify it beyond the evidence.
-7. **Confirm their suspicions.** Articulate and substantiate something the reader already senses but cannot yet explain or prove.
-8. **Thwart their conventional wisdom.** Challenge a common belief, standard practice, or accepted explanation and replace it with a stronger one.
-9. **Help them throw rocks at their enemies.** Name the force, system, habit, incumbent, or ideology frustrating the audience and give them a credible way to resist it.
-10. **Shock them with unusual praise for their enemies.** Reveal a useful lesson, hidden benefit, or unexpected advantage in an apparent opponent, obstacle, or disliked practice.
+If the writer has not answered in substance, ask exactly:
 
-Choose only appeals that fit the topic and available evidence. Preserve truth, fairness, and fidelity to the user's intent over emotional force.
+> Who’s this for? What should they see differently—and why does that matter now?
 
-## Choose the fascination posture
+Extract the reader, desired perception change, and why that change matters now. Use context to sharpen rather than replace the answer. Ask at most one follow-up, only when a conflict or omission would materially change the options.
 
-Use fascination to make the idea difficult to ignore. Treat it as persuasive posture, never as the user's personality or as a substitute for voice and style.
+Read [premise-transformation.md](premise-transformation.md), run its private council or fallback, and receive the complete candidate pool. Generate exactly three finalists that ask the reader to make different realizations, care for different reasons, or respond to different consequences. Reject lexical variants of the same idea.
 
-- **Innovation:** lead with creativity, novelty, possibility, or changing the game.
-- **Passion:** lead with emotion, connection, warmth, or relationship.
-- **Power:** lead with command, confidence, control, or decisive leadership.
-- **Prestige:** lead with excellence, aspiration, status, or higher standards.
-- **Trust:** lead with stability, familiarity, reliability, or consistency.
-- **Mystique:** lead with substance, restraint, curiosity, selective revelation, or hidden insight.
-- **Alert:** lead with details, care, vigilance, risk prevention, or precision.
+Use the public presentation and audit below. Keep appeals, Fascinate methodology, audience provenance, scoring, and scout assignments private unless the writer asks how the options were developed.
 
-Choose a primary advantage for the dominant energy and, when useful, a secondary advantage to shape it. Prefer a named archetype when a listed combination fits. Use the pairing privately to shape the premise; do not display its name or underlying pair by default. Use one clear advantage alone when a pairing would be forced.
+## User checkpoint
 
-### High-value archetypes
+Ask the writer which premise should govern the article. Accept A, B, C, `Go wider`, a bolder request, or a combination. Use structured input when available with compact A/B/C labels and the same plain-text fallback. Never choose for the writer or infer approval.
 
-- **The Detective — Mystique + Alert:** expose a hidden cause through careful, accurate investigation.
-- **The Secret Weapon — Mystique + Innovation:** reveal an overlooked advantage or unconventional solution.
-- **The Avant-Garde — Innovation + Prestige:** present a new direction as the standard for people who intend to lead.
-- **The Change Agent — Innovation + Power:** frame the idea as a decisive break from an ineffective norm.
-- **The Evolutionary — Innovation + Mystique:** reveal a new possibility through curiosity and adaptable thinking.
-- **The Provocateur — Prestige + Innovation:** challenge assumptions with polished, contemporary insight.
-- **The Mastermind — Mystique + Power:** show the deeper strategy behind outcomes that appear accidental.
-- **The Architect — Mystique + Prestige:** present a restrained, coherent system built on high standards.
-- **The Defender — Alert + Power:** warn about a consequential risk and provide a strong response.
-- **The Scholar — Alert + Prestige:** build authority through disciplined evidence and rigorous standards.
-- **The Good Citizen — Alert + Trust:** persuade through responsibility, preparedness, and conscientious action.
-- **The Authentic — Passion + Trust:** build belief through approachability, sincerity, and dependability.
-- **The People's Champion — Passion + Power:** connect emotionally, then mobilize the reader toward action.
-- **The Ringleader — Passion + Innovation:** energize an audience around an unexpected possibility.
-- **The Connoisseur — Passion + Prestige:** help the reader recognize quality and make a more discerning choice.
-- **The Victor — Power + Prestige:** emphasize competitive achievement and respected results.
-- **The Gravitas — Power + Trust:** lead through stability, seriousness, and earned confidence.
-- **The Ace — Power + Mystique:** make a decisive, direct argument backed by substance.
-- **The Trendsetter — Prestige + Innovation:** show what cutting-edge, high-standard practitioners are doing next.
-- **The Blue Chip — Prestige + Trust:** persuade through proven quality, durability, and established excellence.
-- **The Guardian — Trust + Power:** protect what matters through credible, sure-footed leadership.
-- **The Anchor — Trust + Alert:** create confidence through analysis, care, and protection.
-- **The Wise Owl — Mystique + Trust:** offer calm, observant guidance that carries weight without hype.
-- **The Composer — Innovation + Alert:** combine creativity with fine-tuned judgment and practical detail.
+## Artifact or state effects
 
-Additional archetype names from the source matrix may supply creative directions when the high-value set does not fit:
+This stage owns the canonical schema below but does not write it yet. Hold the selected audience, current belief, desired movement, premise, likely objection, and why-now context as transient state until objection pressure-testing and Personal Authority complete. Then [personal-authority.md](personal-authority.md) performs the single atomic create or update at the project root using only this schema:
 
-- **Innovation-primary:** The Anarchy, The Catalyst, The Change Agent, The Avant-Garde, The Evolutionary, The Secret Weapon, The Composer.
-- **Passion-primary:** The Rockstar, The Drama, The Ringleader, The Connoisseur, The Authentic, The Subtle Touch, The Coordinator.
-- **Power-primary:** The Maverick Leader, The People's Champion, The Aggressor, The Victor, The Gravitas, The Veiled Strength, The Ace.
-- **Prestige-primary:** The Trendsetter, The Talent, The Maestro, The Imperial, The Diplomat, The Royal Guard, The Editor-in-Chief.
-- **Trust-primary:** The Artisan, The Beloved, The Guardian, The Blue Chip, The Old Guard, The Wise Owl, The Mediator.
-- **Mystique-primary:** The Provocateur, The Intrigue, The Mastermind, The Architect, The Anchor, The Deadbolt, The Detective.
-- **Alert-primary:** The Quick-Start, The Orchestrator, The Defender, The Scholar, The Good Citizen, The Archer, The Control Freak.
+```markdown
+# Premise
 
-Do not invent an underlying pair for an additional name when the source matrix is unavailable. Use the seven advantages directly instead.
+Draft: [relative draft path, or pending]
+Status: selected
+Updated: [YYYY-MM-DD]
+
+## Audience
+[Who the reader is and the relevant context they bring.]
+
+## Current Belief
+[What the reader currently believes, assumes, or overlooks.]
+
+## Desired Movement
+[What the reader should come to believe, feel, or become ready to do.]
+
+## Premise
+[The single controlling idea.]
+
+## Likely Objection
+[The strongest intelligent resistance the intended reader is likely to have.]
+
+## Why Now
+[Why the idea matters now.]
+```
+
+Append only the approved Personal Authority shape from [personal-authority.md](personal-authority.md). Do not store appeals, Fascinate metadata, response direction, argument, proof plan, evidence list, headline, opening, CTA, or polished prose. Do not overwrite a file belonging to another article without permission.
+
+## Degraded and failure behavior
+
+When subagents cannot run, use the single-context fallback in `premise-transformation.md` and disclose it briefly. Limited concurrency is not unavailability. Never fabricate scout participation, evidence, audience research, or approval.
+
+## Completion criterion
+
+One governing premise is explicitly selected and its newly derived strongest candidate intelligent objection is ready for pressure-testing. A widened, intensified, combined, or materially qualified premise resets this criterion.
+
+## Next-stage handoff
+
+Pass the confirmed premise, likely objection, audience fields, why-now context, and the unwritten canonical schema to [objection-response.md](objection-response.md). Do not skip pressure-testing or write the durable artifact before the objection and optional story decisions are complete.
 
 ## Return exactly three options
 

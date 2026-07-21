@@ -1,6 +1,38 @@
 # Framework Design
 
-The premise governs what the reader should believe. A framework may package what the reader should do next. Do not force every article to have one.
+## Purpose
+
+Test whether the writer's advice benefits from an operational structure before article-route selection. The premise governs belief; an approved framework may package what the reader should do next.
+
+## Required inputs
+
+- Selected premise and confirmed objection response.
+- Approved Personal Authority when present.
+- Writer-owned advice, project context, and any existing working outline in focused mode.
+
+## Process
+
+Detect a genuine opportunity, choose a Tier 1 structure internally, develop only writer-owned advice and supported implications, and test the framework's role in the article's resolution. Do not force every article to have one.
+
+## User checkpoint
+
+When a real opportunity exists, offer **Develop the framework**, **Show me the possibility**, or **Keep it as prose**. After showing concrete logic, obtain explicit approval through **Develop it**, **Revise the logic**, or **Try another structure**. The detailed branches below are authoritative.
+
+## Artifact or state effects
+
+In the guided workflow, hold only an approved framework until route selection, then place it in the working outline where it has a real job. Never write it to `PREMISE.md` or create a separate framework artifact.
+
+## Degraded and failure behavior
+
+Continue without mention when no framework improves understanding, memory, application, or transmission. Preserve prose when the writer declines. Reject arbitrary acronyms, false precision, invented components, and framework-shaped slop.
+
+## Completion criterion
+
+A concrete framework is explicitly approved, the writer explicitly keeps the advice as prose, or private evaluation finds no genuine opportunity.
+
+## Next-stage handoff
+
+Pass the approved framework or skip state, plus its private narrative role when present, to [article-routes.md](article-routes.md).
 
 ## Enter the mode safely
 

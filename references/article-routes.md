@@ -1,6 +1,39 @@
 # Article Routes
 
-Choose the article's invisible persuasive architecture after framework work and before creating the working outline. The writer chooses between two concrete routes, not between copywriting acronyms.
+## Purpose
+
+Choose the article's invisible persuasive architecture after framework work and before creating the working outline. Let the writer choose between two compelling reading experiences, not copywriting acronyms.
+
+## Required inputs
+
+- Governing premise, reader, current belief, desired movement, and why-now stakes.
+- Confirmed objection and response direction.
+- Approved Personal Authority and framework when present.
+- Available evidence, project context, and truth boundaries.
+
+## Process
+
+Infer awareness privately, develop several coherent architectures from the vocabulary below, reject weak or duplicative candidates, and advocate the two routes most likely to advance the premise.
+
+## User checkpoint
+
+Present exactly two advocated routes and ask which should govern the outline. Require an explicit choice or confirmation of a materially revised route.
+
+## Artifact or state effects
+
+Hold one compact private route brief containing the starting point, belief sequence, objection placement, story placement, framework or answer reveal, proof needs, and ending movement. Do not create a route artifact or write its label to `PREMISE.md`.
+
+## Degraded and failure behavior
+
+Ask one follow-up only when audience uncertainty would produce fundamentally different articles. If both candidates imply the same reading experience, replace one before presentation. If the writer rejects both, develop and reconfirm a materially different route.
+
+## Completion criterion
+
+One article route is explicitly confirmed and its compact private route brief is available.
+
+## Next-stage handoff
+
+Pass the route brief to [outline.md](outline.md), using [narrative-tension.md](narrative-tension.md) only when shaping an honest question and resolution.
 
 ## Assemble the rhetorical brief
 
