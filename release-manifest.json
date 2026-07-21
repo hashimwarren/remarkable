@@ -31,6 +31,6 @@
     "scripts/reserve_draft.py": "3736c05daab2d9141e21b44f61ef01192021c5bb",
     "scripts/reserve_outline.py": "e0820e9acd65800498672bc21f93c0921b3bcf53",
     "scripts/run_slopless.py": "5e08b93a43d5cfd4ffee8ed8a1de23a40db0de26",
-    "scripts/verify_bundle.py": "6c4a4168ee30cfab12ef9bd312ed19974c353779"
+    "scripts/verify_bundle.py": "0e62552ef374d843fb23624859e0e9e774cc3a6b"
   }
 }
