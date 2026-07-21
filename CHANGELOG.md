@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.2 — 2026-07-21
+
+### Fixed
+
+- Added a release manifest covering the complete runtime contract and helper bundle.
+- Added a verifier that detects missing, stale, or mixed-version installed files.
+- Added clean-directory installation tests and a regression test for stale reference overlays.
+- Documented clean reinstallation and post-install verification for existing users.
+
 ## 1.2.1 — 2026-07-20
 
 ### Changed
