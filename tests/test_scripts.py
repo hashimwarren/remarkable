@@ -518,6 +518,24 @@ class InstructionContractTests(unittest.TestCase):
         for owner in self.STAGE_OWNERS:
             self.assertIn(f"references/{owner}", skill)
 
+    def test_focused_outline_and_draft_load_authoritative_contracts(self) -> None:
+        skill = self.read("SKILL.md")
+        outline_route = next(
+            line for line in skill.splitlines() if line.startswith("- `outline`:")
+        )
+        draft_route = next(
+            line for line in skill.splitlines() if line.startswith("- `draft`:")
+        )
+        for owner in (
+            "article-routes.md",
+            "outline.md",
+            "prove.md",
+            "roughdraft-handoff.md",
+        ):
+            self.assertIn(f"references/{owner}", outline_route)
+        for owner in ("outline.md", "article.md", "slopless.md"):
+            self.assertIn(f"references/{owner}", draft_route)
+
     def test_every_stage_owner_uses_the_shared_contract_shape(self) -> None:
         for owner in self.STAGE_OWNERS:
             content = self.read(f"references/{owner}")

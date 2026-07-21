@@ -25,8 +25,8 @@ Interpret natural phrasing and route to the smallest useful mode. A focused mode
 
 - `start` or no mode: run the guided lifecycle below.
 - `premise`: run premise generation or refinement through [references/premise.md](references/premise.md) and its private transformation stage.
-- `outline`: select an article route when needed, build the working outline, strengthen proof, and obtain structural approval.
-- `draft`: require an approved outline, draft the article, and run Slopless.
+- `outline`: select a route through [references/article-routes.md](references/article-routes.md), build through [references/outline.md](references/outline.md), strengthen claims through [references/prove.md](references/prove.md), then use [references/roughdraft-handoff.md](references/roughdraft-handoff.md) for structural review and explicit approval.
+- `draft`: verify approval through [references/outline.md](references/outline.md), draft through [references/article.md](references/article.md), and follow [references/slopless.md](references/slopless.md) for preflight and post-draft hygiene.
 - `opening`: build or diagnose the reader contract with [references/opening.md](references/opening.md).
 - `develop`: develop claims through proof and consequence with [references/develop.md](references/develop.md).
 - `framework`: evaluate or develop an operational framework with [references/framework-design.md](references/framework-design.md).
