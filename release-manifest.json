@@ -31,6 +31,6 @@
     "scripts/reserve_draft.py": "8a5461ca10aaf50615ad1754b302cae006d6ac4d1573cb9b31cd6852c2270d8c",
     "scripts/reserve_outline.py": "2c4595ec552dd134607eb1c9be6c7ce9ada7c873721ee7ebc8c0e29cfb36ac15",
     "scripts/run_slopless.py": "c2c53efbd9d0a1488e26b46a0cfaeaf0e5151b28ddfc1bfeac628fedcdc7fd4b",
-    "scripts/verify_bundle.py": "1b67503bfb80ac0a1c3c836d9d34ac07bba04b707871ab65b3a7d1483b6bc8ab"
+    "scripts/verify_bundle.py": "5aaf7a374d2c9d07bee0b0a285ef7f11d2bbbe035ff6f3a07ea178b9f8376432"
   }
 }
