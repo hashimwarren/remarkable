@@ -51,7 +51,7 @@ def main() -> int:
             continue
         data = candidate.read_bytes()
         actual_hash = hashlib.sha1(
-            f"blob {len(data)}\\0".encode("ascii") + data
+            f"blob {len(data)}\0".encode("ascii") + data
         ).hexdigest()
         if actual_hash != expected_hash:
             failures.append(
