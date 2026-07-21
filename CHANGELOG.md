@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.1 — 2026-07-20
+
+### Changed
+
+- Refactored `SKILL.md` into a low-resolution lifecycle router with observable stage completion conditions.
+- Gave each persuasive stage one authoritative contract for inputs, process, checkpoint, state effects, degradation, completion, and handoff.
+- Centralized watched Roughdraft review and Slopless execution in shared references without changing the 1.2 workflow.
+- Added structural tests for pointer integrity, contract ownership, durable artifact boundaries, human-only invocation, and fragile transitions.
+
 ## 1.2.0 — 2026-07-20
 
 ### Changed

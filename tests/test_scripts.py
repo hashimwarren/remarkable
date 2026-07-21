@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import stat
 import subprocess
 import sys
@@ -52,10 +53,10 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("1.2.0", skill)
-        self.assertIn("five-scout premise council", skill)
-        scout_preamble = skill.split("Before delegation, tell the user:", 1)[1].split(
-            "If subagents are unavailable", 1
+        self.assertIn("1.2.1", skill)
+        self.assertIn("five-scout premise council", transformation)
+        scout_preamble = transformation.split("Before delegation, tell the writer:", 1)[1].split(
+            "Give every scout", 1
         )[0]
         self.assertNotIn("appeal", scout_preamble.casefold())
         self.assertNotIn("fascination", scout_preamble.casefold())
@@ -88,24 +89,25 @@ class ArticleRouteInstructionTests(unittest.TestCase):
         self.assertIn("Do not create a separate route artifact", routes)
         self.assertIn("Create the working outline directly from this brief", routes)
 
-        route_stage = skill.index("### 6. Choose the article route and create the working outline")
-        proof_stage = skill.index("### 7. Strengthen the outline's proof")
-        approval_stage = skill.index("### 8. Review and approve the working outline")
-        stop = skill.index("STOP and wait for the user's choice", route_stage)
-        reserve = skill.index("scripts/reserve_draft.py", route_stage)
-        self.assertLess(route_stage, stop)
-        self.assertLess(stop, reserve)
-        self.assertLess(reserve, proof_stage)
+        route_stage = skill.index("5. **Article route.**")
+        outline_stage = skill.index("6. **Working outline.**")
+        proof_stage = skill.index("7. **Proof.**")
+        approval_stage = skill.index("8. **Outline approval.**")
+        self.assertLess(route_stage, outline_stage)
+        self.assertLess(outline_stage, proof_stage)
         self.assertLess(proof_stage, approval_stage)
+        self.assertIn("reserve_draft.py", self.read_outline())
 
     def test_visual_generation_waits_for_stable_proof(self) -> None:
-        skill = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
-        proof_stage = skill.index("### 7. Strengthen the outline's proof")
-        visual_generation = skill.index("use a dedicated visual subagent", proof_stage)
-        proof_resolution = skill.index("Repeat the checkpoint while a central claim remains unsupported", proof_stage)
-        approval_stage = skill.index("### 8. Review and approve the working outline")
-        self.assertLess(proof_resolution, visual_generation)
-        self.assertLess(visual_generation, approval_stage)
+        prove = (SKILL_DIR / "references" / "prove.md").read_text(encoding="utf-8")
+        visuals = (SKILL_DIR / "references" / "visual-placeholders.md").read_text(encoding="utf-8")
+        self.assertIn("After claim and section jobs are stable", prove)
+        self.assertIn("dedicated visual subagent", prove)
+        self.assertIn("spawn one dedicated visual subagent", visuals)
+
+    @staticmethod
+    def read_outline() -> str:
+        return (SKILL_DIR / "references" / "outline.md").read_text(encoding="utf-8")
 
 
 class ContextDiscoveryTests(unittest.TestCase):
@@ -477,230 +479,177 @@ print(json.dumps({"event": "review.abandoned"}))
 
 
 class InstructionContractTests(unittest.TestCase):
-    def test_core_acceptance_contract_is_present(self) -> None:
-        skill = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
-        premise = (SKILL_DIR / "references" / "premise.md").read_text(encoding="utf-8")
-        article = (SKILL_DIR / "references" / "article.md").read_text(encoding="utf-8")
-        personal = (SKILL_DIR / "references" / "personal-authority.md").read_text(
-            encoding="utf-8"
-        )
-        interface = (SKILL_DIR / "agents" / "openai.yaml").read_text(encoding="utf-8")
+    STAGE_OWNERS = (
+        "premise.md",
+        "premise-transformation.md",
+        "objection-response.md",
+        "personal-authority.md",
+        "framework-design.md",
+        "article-routes.md",
+        "outline.md",
+        "prove.md",
+        "article.md",
+        "critique.md",
+        "roughdraft-handoff.md",
+        "slopless.md",
+    )
+    CONTRACT_HEADINGS = (
+        "## Purpose",
+        "## Required inputs",
+        "## Process",
+        "## User checkpoint",
+        "## Artifact or state effects",
+        "## Degraded and failure behavior",
+        "## Completion criterion",
+        "## Next-stage handoff",
+    )
 
-        self.assertIn(
-            "Who’s this for? What should they see differently—and why does that matter now?",
-            skill,
+    def read(self, relative_path: str) -> str:
+        return (SKILL_DIR / relative_path).read_text(encoding="utf-8")
+
+    def test_router_is_low_resolution_and_all_pointers_resolve(self) -> None:
+        skill = self.read("SKILL.md")
+        self.assertLess(len(skill.splitlines()), 120)
+        self.assertLess(len(skill.split()), 1600)
+        for target in re.findall(r"\\]\\((references/[^)]+\\.md)\\)", skill):
+            self.assertTrue((SKILL_DIR / target).is_file(), target)
+        for owner in self.STAGE_OWNERS:
+            self.assertIn(f"references/{owner}", skill)
+
+    def test_every_stage_owner_uses_the_shared_contract_shape(self) -> None:
+        for owner in self.STAGE_OWNERS:
+            content = self.read(f"references/{owner}")
+            positions = [content.index(heading) for heading in self.CONTRACT_HEADINGS]
+            self.assertEqual(positions, sorted(positions), owner)
+
+    def test_detailed_contracts_live_outside_the_router(self) -> None:
+        skill = self.read("SKILL.md")
+        premise = self.read("references/premise.md")
+        objection = self.read("references/objection-response.md")
+        framework = self.read("references/framework-design.md")
+        routes = self.read("references/article-routes.md")
+        outline = self.read("references/outline.md")
+        prove = self.read("references/prove.md")
+        critique = self.read("references/critique.md")
+        roughdraft = self.read("references/roughdraft-handoff.md")
+        slopless = self.read("references/slopless.md")
+
+        self.assertNotIn("Who’s this for?", skill)
+        self.assertIn("Who’s this for? What should they see differently", premise)
+        self.assertNotIn("Yes — I’ll answer", skill)
+        self.assertIn("Yes — I’ll answer", objection)
+        self.assertNotIn("Develop the framework", skill)
+        self.assertIn("Develop the framework", framework)
+        self.assertNotIn("Which direction should govern the outline", skill)
+        self.assertIn("Which direction should govern the outline", routes)
+        self.assertNotIn("Draft this structure", skill)
+        self.assertIn("Draft this structure", outline)
+        self.assertNotIn("Narrow or remove the claim", skill)
+        self.assertIn("Narrow or remove the claim", prove)
+        self.assertNotIn("Run Remarkable critique", skill)
+        self.assertIn("Run Remarkable critique", critique)
+        self.assertNotIn("click **Done Reviewing**", skill)
+        self.assertIn("click **Done Reviewing**", roughdraft)
+        self.assertNotIn("run_slopless.py --preflight", skill)
+        self.assertIn("run_slopless.py --preflight", slopless)
+
+    def test_lifecycle_order_and_completion_gates_are_explicit(self) -> None:
+        skill = self.read("SKILL.md")
+        labels = (
+            "1. **Premise.**",
+            "2. **Objection.**",
+            "3. **Personal Authority.**",
+            "4. **Framework.**",
+            "5. **Article route.**",
+            "6. **Working outline.**",
+            "7. **Proof.**",
+            "8. **Outline approval.**",
+            "9. **Draft.**",
+            "10. **Slopless.**",
+            "11. **Critique and review.**",
         )
-        self.assertNotIn("What do you want the reader to realize", skill)
-        self.assertIn("exactly three", skill.casefold())
-        self.assertIn("Which premise should govern the article: A, B, or C?", skill)
-        self.assertIn("structured user-input control", skill)
-        self.assertIn("Make these bolder", skill)
-        self.assertIn("selection by letter, direction name", skill)
-        self.assertIn("Treat this release as `1.2.0`", skill)
-        self.assertIn("Create or update `PREMISE.md`", skill)
-        self.assertIn("Do not put an argument, proof plan, evidence list, headline", skill)
-        self.assertIn("## Likely Objection", skill)
-        self.assertNotIn("Appeal: [one of the ten appeals]", skill)
-        self.assertNotIn("Fascination: [advantage or archetype", skill)
-        self.assertIn("Is there something you discovered, struggled through", skill)
-        self.assertIn("Yes — I’ll tell you", skill)
-        self.assertIn("references/personal-authority.md", skill)
-        self.assertIn("references/objection-response.md", skill)
-        self.assertIn("references/outline.md", skill)
-        self.assertIn("Yes — I’ll answer", skill)
-        self.assertIn("reserve_outline.py", skill)
-        self.assertIn("exactly two advocated article routes", skill)
-        self.assertNotIn("**Draft it**", skill)
-        self.assertIn("Draft this structure", skill)
-        self.assertIn("If no outline exists, route to `outline`", skill)
-        self.assertIn("never infer approval from file existence", skill)
-        self.assertIn("Status: approved", skill)
-        self.assertIn("reopen watched Roughdraft", skill)
-        self.assertIn("[EVIDENCE NEEDED: ...]", skill)
-        self.assertIn("derive a fresh strongest intelligent likely objection", skill)
-        self.assertNotIn("[When a personal story was approved", skill)
-        self.assertIn("800–1,200", skill)
-        self.assertIn("Slopless", skill)
-        self.assertIn("run_slopless.py --preflight", skill)
-        self.assertIn("Never silently produce an unlinted English article", skill)
-        self.assertIn("It flagged [initial count] issues", skill)
-        self.assertIn("ran Slopless [run count] times in total", skill)
-        self.assertIn("leave inline comments, or suggest changes", skill)
-        self.assertIn("click **Done Reviewing**", skill)
-        self.assertIn("Do not use `--no-watch` for this handoff", skill)
-        self.assertIn("Wait for the wrapper to report `review_completed`", skill)
-        self.assertIn("Roughdraft failure must never strand the article", skill)
-        self.assertIn("continue that same review in chat", skill)
-        self.assertIn("Never treat an unavailable or incomplete Roughdraft session as approval", skill)
-        self.assertNotIn("create_article_map.py", skill)
-        self.assertIn("STOP and wait for the user's choice", skill)
-        self.assertIn("Go wider", skill)
-        self.assertIn("pairwise distinctness", skill)
-        self.assertIn("A. Run Remarkable critique", skill)
-        self.assertIn("STOP and wait for the user's choice", skill)
-        self.assertIn("automatically resume here with your feedback", skill)
-        self.assertIn("Roughdraft", skill)
-        self.assertIn("strategically different", premise)
+        positions = [skill.index(label) for label in labels]
+        self.assertEqual(positions, sorted(positions))
+        self.assertGreaterEqual(skill.count("Complete when"), 7)
+        self.assertIn("Complete only when", skill)
+        self.assertIn("Complete on a clean result", skill)
+        self.assertIn("Resume at the earliest unmet observable completion condition", skill)
+
+    def test_durable_artifact_ownership_is_single_and_bounded(self) -> None:
+        skill = self.read("SKILL.md")
+        premise = self.read("references/premise.md")
+        context = self.read("references/context-artifacts.md")
+        self.assertEqual(premise.count("# Premise\n\nDraft:"), 1)
+        self.assertNotIn("# Premise\n\nDraft:", skill)
+        self.assertNotIn("appeal, and fascination", context)
+        self.assertIn("only durable stores of article decisions", skill)
+        self.assertIn("Do not create a route artifact", self.read("references/article-routes.md"))
+        self.assertIn("Create no separate proof artifact", self.read("references/prove.md"))
+        self.assertIn("create a separate framework artifact", self.read("references/framework-design.md"))
+
+    def test_roughdraft_contract_is_watched_and_recoverable(self) -> None:
+        handoff = self.read("references/roughdraft-handoff.md")
+        self.assertIn("--no-watch", handoff)
+        self.assertIn("review_completed", handoff)
+        for status in ("missing", "unsupported", "error", "review_ended", "review_abandoned"):
+            self.assertIn(status, handoff)
+        self.assertIn("Review completion alone never", handoff)
+        self.assertIn("chat/Markdown fallback", handoff)
+
+    def test_slopless_contract_preserves_transparency_and_failure_gate(self) -> None:
+        slopless = self.read("references/slopless.md")
+        self.assertIn("slopless@0.2.23", slopless)
+        self.assertIn("Never silently produce an unlinted English article", slopless)
+        self.assertIn("It flagged [initial count] issues", slopless)
+        self.assertIn("ran Slopless [run count] times in total", slopless)
+        self.assertIn("deliberate exceptions", slopless)
+        self.assertIn("non-English", slopless)
+
+    def test_premise_divergence_and_existing_product_contracts_survive(self) -> None:
+        premise = self.read("references/premise.md")
+        transformation = self.read("references/premise-transformation.md")
+        personal = self.read("references/personal-authority.md")
+        framework = self.read("references/framework-design.md")
+        routes = self.read("references/article-routes.md")
+        outline = self.read("references/outline.md")
+        prove = self.read("references/prove.md")
+        article = self.read("references/article.md")
+        critique = self.read("references/critique.md")
+
+        self.assertIn("exactly three", premise)
         self.assertIn("## [A, B, or C]. [Distinctive direction name]", premise)
-        self.assertIn("Do not add `Reader realization`", premise)
-        self.assertIn("**Premise**", premise)
-        self.assertIn("**Likely objection**", premise)
-        self.assertNotIn("**Fascination —", premise)
-        self.assertNotIn("**Risk**", premise)
+        self.assertIn("Go wider", premise)
+        self.assertIn("five assigned scouts", transformation)
+        self.assertIn("capacity-aware waves", transformation)
+        self.assertIn("Audience frame", transformation)
+        self.assertIn("worldview fit, language fit, generative power", transformation)
+        self.assertIn("whole-article test", transformation)
+        self.assertIn("pairwise", transformation)
         self.assertIn("Earned Discovery", personal)
         self.assertIn("Shared Struggle", personal)
         self.assertIn("Transformation", personal)
-        self.assertIn("must never be a specific person—public or private—or a vulnerable group", personal)
-        self.assertIn("If the writer skips Personal Authority, omit the entire section", personal)
-        self.assertNotIn("**Recommended placement:**", personal)
-        self.assertEqual(personal.count("```markdown"), 2)
-        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(encoding="utf-8")
-        self.assertIn("Audience frame", transformation)
-        self.assertIn("Worldview fit", transformation)
-        self.assertIn("Language fit", transformation)
-        self.assertIn("`supplied`, `researched`, or `inferred`", transformation)
-        self.assertIn("public research would materially sharpen", transformation)
-        self.assertIn("every scout receives the same frame, worldview, language context", transformation)
-        self.assertIn("do not make five scouts repeat the same audience research", transformation)
-        self.assertIn("**Audience fit:**", transformation)
-        self.assertIn("worldview fit, language fit, generative power", transformation)
-        self.assertIn("whole-article test", transformation)
-        self.assertIn("**Reader:** [Concise audience interpretation]", premise)
-        self.assertIn("**What they should see differently:** [Desired belief shift]", premise)
-        self.assertIn("**Why now:** [Why that belief shift matters now]", premise)
-        self.assertIn("Privately generate 12–20", transformation)
-        self.assertIn("Make a premise bolder", transformation)
-        self.assertIn("Use the fascination trigger as the control", transformation)
-        self.assertIn("Never invent", article)
-        self.assertIn("selected premise", article)
-        objection = (SKILL_DIR / "references" / "objection-response.md").read_text(
-            encoding="utf-8"
-        )
-        prove = (SKILL_DIR / "references" / "prove.md").read_text(encoding="utf-8")
-        outline = (SKILL_DIR / "references" / "outline.md").read_text(encoding="utf-8")
-        critique = (SKILL_DIR / "references" / "critique.md").read_text(encoding="utf-8")
-        narrative = (SKILL_DIR / "references" / "narrative-tension.md").read_text(
-            encoding="utf-8"
-        )
-        wayfinding = (SKILL_DIR / "references" / "wayfinding.md").read_text(encoding="utf-8")
-        visuals = (SKILL_DIR / "references" / "visual-placeholders.md").read_text(encoding="utf-8")
-        frameworks = (SKILL_DIR / "references" / "framework-design.md").read_text(encoding="utf-8")
-        routes = (SKILL_DIR / "references" / "article-routes.md").read_text(encoding="utf-8")
-        self.assertIn("Store only the objection in `PREMISE.md`", objection)
-        self.assertIn("A widened, intensified, combined", objection)
-        self.assertIn("Objection pressure-testing is still premise formation", objection)
-        self.assertIn("after the initial working outline and before outline review", prove)
-        self.assertIn("## Claim-to-evidence plan", prove)
+        self.assertIn("Whole / Parts / Whole", framework)
+        self.assertIn("Decision Tree", framework)
+        self.assertIn("PAS — Problem, Agitate, Solve", routes)
+        self.assertIn("exactly two", routes)
         self.assertIn("300–700", outline)
-        self.assertIn("Blocking", outline)
-        self.assertIn("AUTHOR INPUT NEEDED", outline)
-        self.assertIn("header-image concept", outline)
+        self.assertIn("reserve_outline.py", outline)
+        self.assertIn("Status: approved", outline)
+        self.assertIn("central unsupported claim to pass as a placeholder", prove)
+        self.assertIn("800–1,200", article)
+        self.assertIn("Never invent", article)
         self.assertIn("Review revisions one by one", critique)
         self.assertIn("Apply recommended revisions", critique)
         self.assertIn("Leave the draft unchanged", critique)
-        self.assertIn("patch the existing article", critique)
-        self.assertIn("This version is ready for you to use", wayfinding)
-        self.assertIn("Run another Remarkable critique", wayfinding)
-        self.assertIn("● Premise", wayfinding)
-        self.assertIn("○ Slopless", wayfinding)
-        self.assertIn("○ Framework", wayfinding)
-        self.assertIn("○ Route → ○ Outline → ○ Proof → ○ Approval", wayfinding)
-        self.assertIn("Slopless current", skill)
-        self.assertIn("Mark Slopless complete", skill)
-        self.assertIn("skipped with `–` for a non-English draft", skill)
-        self.assertIn("dedicated visual subagent", visuals)
-        self.assertIn("image-generation model", visuals)
-        self.assertIn("public web", visuals)
-        self.assertIn("one asset per turn", visuals)
-        self.assertIn("never invent a path", visuals)
-        self.assertIn("Attribution alone is not permission", visuals)
-        self.assertIn("public-domain, Creative Commons", visuals)
-        self.assertIn("Partial acceptance authorizes only", critique)
-        self.assertIn("blanket approval does not authorize", critique)
-        self.assertIn("make no rhetorical edits", critique)
-        self.assertIn("Ambiguous reply", critique)
-        self.assertIn("no further rhetorical revision is necessary", critique)
-        self.assertIn("same choices as a short plain-text fallback", critique)
-        self.assertIn("at most three buttons", wayfinding)
-        self.assertIn("Low-fidelity outline concepts and placeholders", skill)
-        self.assertNotIn("beta boundaries", skill.casefold())
-        self.assertIn("references/framework-design.md", skill)
-        self.assertIn("Develop the framework", skill)
-        self.assertIn("Keep it as prose", skill)
-        self.assertIn("mark framework skipped with `–`", skill)
-        self.assertIn("Never write it to `PREMISE.md`", skill)
-        self.assertIn("Whole / Parts / Whole", frameworks)
-        self.assertIn("Formula", frameworks)
-        self.assertIn("Progression", frameworks)
-        self.assertIn("Categories", frameworks)
-        self.assertIn("Decision Tree", frameworks)
-        self.assertIn("Do not apply a Tier 2 technique", frameworks)
-        self.assertIn("run a Tier 2 checkpoint in this release", frameworks)
-        self.assertIn("Continue directly to article-route selection without mentioning frameworks", frameworks)
-        self.assertIn("Never interpret enthusiasm, silence", frameworks)
-        self.assertIn("Never write it to `PREMISE.md` or a separate framework artifact", frameworks)
-        self.assertIn("converts ordinary bullets into an acronym", frameworks)
-        self.assertIn("approved practical framework", outline)
-        self.assertIn("where that answer becomes clear", outline)
-        self.assertIn("Before the answer, every section must", outline)
-        self.assertIn("After the answer, every section must", outline)
-        self.assertIn("Do not default to a literal question", outline)
-        self.assertIn("approved practical framework", visuals)
-        self.assertIn("**Develop it:** explicitly approves", frameworks)
-        self.assertIn("**Revise the logic:**", frameworks)
-        self.assertIn("repeat this confirmation checkpoint", frameworks)
-        self.assertIn("**Try another structure:**", frameworks)
-        self.assertIn("genuinely different Tier 1 structure", frameworks)
-        self.assertIn("same choices as a plain-text fallback", frameworks)
-        self.assertIn("free-form request to **Keep it as prose**", frameworks)
-        self.assertIn("Persist no framework", frameworks)
-        self.assertIn("before article-route selection", frameworks)
-        self.assertIn("hold it for article-route reasoning and insertion into the working outline", frameworks)
-        self.assertIn("Focused mode without a working outline", frameworks)
-        self.assertIn("**Choose an article route** or **Keep it in chat**", frameworks)
-        self.assertNotIn("[FRAMEWORK VISUAL PLACEHOLDER:", frameworks)
-        self.assertIn("A central unsupported claim cannot pass into the outline as a placeholder", skill)
-        self.assertIn("**Narrow or remove the claim**", skill)
-        self.assertIn("STOP and wait. Apply the selected branch explicitly", skill)
-        self.assertIn("Never use this branch for a central unsupported claim", skill)
-        self.assertIn("references/narrative-tension.md", skill)
-        self.assertIn("question-and-resolution design", skill)
-        self.assertIn("Preserve the outline's planned question, reveal timing, and resolution", skill)
-        self.assertIn("Use question-and-resolution design internally", narrative)
-        self.assertIn("When no genuine question emerges", narrative)
-        self.assertIn("Framework role: [Answer, embodiment, application, or none.]", narrative)
-        self.assertIn("whether a heading, summary, transition", critique)
-        self.assertIn("answers the exact consequential question raised", article)
-        self.assertIn("**Answer:**", frameworks)
-        self.assertIn("**Embodiment:**", frameworks)
-        self.assertIn("**Application:**", frameworks)
-        self.assertIn("Do not add another user checkpoint", frameworks)
-        self.assertIn("privately revalidate the selected route", skill)
-        self.assertIn("If the supported question disappears", skill)
-        self.assertIn("Choose the article's invisible persuasive architecture", routes)
-        self.assertIn("unaware, problem-aware, solution-aware, product-aware, or most aware", routes)
-        self.assertIn("PAS — Problem, Agitate, Solve", routes)
-        self.assertIn("AIDA — Attention, Interest, Desire, Action", routes)
-        self.assertIn("4Ps — Promise, Picture, Proof, Push", routes)
-        self.assertIn("HSO — Hook, Story, Offer", routes)
-        self.assertIn("FAB — Features, Advantages, Benefits", routes)
-        self.assertIn("ACCA — Awareness, Comprehension, Conviction, Action", routes)
-        self.assertIn("not an exhaustive taxonomy or topic-to-template mapping", routes)
-        self.assertIn("Do not rotate structures", routes)
-        self.assertIn("exactly", routes)
-        self.assertIn("### A. [Concrete route name]", routes)
-        self.assertIn("### B. [Concrete route name]", routes)
-        self.assertIn("Advocate for both routes", routes)
-        self.assertIn("Which direction should govern the outline: A or B?", routes)
-        self.assertIn("Do not create a separate route artifact", routes)
-        self.assertNotIn("article map", skill.casefold())
-        self.assertNotIn("article map", outline.casefold())
-        self.assertIn("reuse it", skill)
-        self.assertIn("legacy article-map file", skill)
-        self.assertIn("legacy map may supply confirmed writer-owned context", outline)
-        self.assertLess(skill.index("### 5. Check for a framework opportunity"), skill.index("### 6. Choose the article route and create the working outline"))
-        self.assertLess(skill.index("### 6. Choose the article route and create the working outline"), skill.index("### 7. Strengthen the outline's proof"))
-        self.assertLess(skill.index("### 7. Strengthen the outline's proof"), skill.index("### 8. Review and approve the working outline"))
+
+    def test_retired_map_and_invocation_contracts(self) -> None:
+        skill = self.read("SKILL.md")
+        outline = self.read("references/outline.md")
+        interface = self.read("agents/openai.yaml")
+        self.assertNotIn("create_article_map.py", skill)
+        self.assertNotIn("create_article_map.py", outline)
+        self.assertIn("legacy map", outline)
+        self.assertIn("Use only when a human explicitly invokes Remarkable", skill)
         self.assertIn("allow_implicit_invocation: false", interface)
 
 

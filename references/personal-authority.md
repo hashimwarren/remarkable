@@ -1,8 +1,40 @@
 # Personal Authority
 
-Personal Authority connects the governing premise to an experience that makes the argument credibly and memorably the writer's. It is rhetorical material, not decorative autobiography or a substitute for evidence.
+## Purpose
 
-Use this stage only after the premise is confirmed. If the writer has no relevant experience or does not want to use one, skip it without pressure and do not create an empty artifact section.
+Connect the governing premise to an experience that makes the argument credibly and memorably the writer's. Personal Authority is rhetorical material, not decorative autobiography or a substitute for evidence.
+
+## Required inputs
+
+- Confirmed premise, objection, and response direction.
+- Relevant writer-owned experience, including fragments.
+- The writer's willingness to use, limit, or skip personal material.
+
+## Process
+
+Ask the exact discovery question below, select the best-fitting approach internally, recover only consequential facts, and read back a compact factual story architecture rather than polished prose.
+
+## User checkpoint
+
+First offer **Yes — I’ll tell you**, **Help me find it**, and **Not for this piece** through structured input when available or plain text. After readback, offer **Approve**, **Revise it**, and **Skip personal story**. Require explicit approval or skip.
+
+## Artifact or state effects
+
+Append the lean `## Personal Authority` section below to `PREMISE.md` only after approval. Omit it entirely on skip. Create no separate story artifact.
+
+## Degraded and failure behavior
+
+Accept incomplete notes, ask only necessary factual follow-ups, and reduce exposure when requested. Never fabricate, heighten drama, or pressure disclosure. A skip is a successful outcome.
+
+## Completion criterion
+
+The writer explicitly approves an accurate factual story architecture or explicitly skips Personal Authority, and `PREMISE.md` reflects only that decision.
+
+## Next-stage handoff
+
+Pass the approved story or explicit skip to [framework-design.md](framework-design.md).
+
+Use this stage only after the premise and objection response are confirmed. If the writer has no relevant experience or does not want to use one, skip it without pressure and do not create an empty artifact section.
 
 ## Discover the experience
 

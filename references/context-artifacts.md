@@ -2,7 +2,7 @@
 
 Read existing context before creating anything. Create or update an artifact only when the work reveals durable information that will help future writing.
 
-- `PREMISE.md`: required for the active article; owns audience, current belief, desired movement, premise, why now, appeal, and fascination.
+- `PREMISE.md`: required for the active article; owns audience, current belief, desired movement, governing premise, likely objection, why now, and approved Personal Authority when present.
 - `AUDIENCE.md`: durable reader beliefs, fears, ambitions, identity, objections, language, and trigger events.
 - `EVIDENCE.md`: reusable approved claims, proof, provenance, confidence, contradictions, media assets, and gaps.
 - `POSITIONING.md`: durable category, alternatives, market frame, differentiation, and enemy.

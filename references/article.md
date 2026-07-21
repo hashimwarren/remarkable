@@ -1,6 +1,38 @@
 # Persuasive Article Drafting
 
-Treat the selected premise as a contract. Preserve its reader realization, present stakes, persuasive angle, and intended consequence from opening through ending. Read [narrative-tension.md](narrative-tension.md) and preserve an approved outline's consequential question, reveal point, answer, and framework role. Do not drift into a broader topic survey or switch to a more convenient argument.
+## Purpose
+
+Turn the explicitly approved working outline into the canonical persuasive article without losing its governing premise, proof assignments, or truth boundary.
+
+## Required inputs
+
+- A working outline with `Status: approved` and no Blocking items.
+- `PREMISE.md`, the canonical article path, discovered style constraints, and verified evidence.
+- A successful English preflight from [slopless.md](slopless.md), or a known non-English skip.
+
+## Process
+
+Treat the selected premise as a contract. Preserve its reader realization, present stakes, persuasive angle, intended consequence, selected route, claim order, and deliberate gaps. Read [narrative-tension.md](narrative-tension.md) when the outline contains a consequential question. Follow the detailed drafting rules below and patch the reserved article Markdown instead of creating a parallel draft.
+
+## User checkpoint
+
+Drafting has no new structural approval checkpoint. If the outline is missing, unapproved, changed materially, or still Blocking, return to [outline.md](outline.md) and require its approval decision. Ask before inventing or replacing missing personal material or making a central unsupported assertion.
+
+## Artifact or state effects
+
+Write only the canonical article Markdown. Do not copy outline status, rhetorical-purpose notes, planning labels, claim-to-evidence plans, unused visual concepts, or resolved questions into prose.
+
+## Degraded and failure behavior
+
+Use `[AUTHOR INPUT NEEDED: ...]` for missing personal material and specific `[EVIDENCE NEEDED: ...]` markers only for accepted non-central gaps. Narrow or stop for unsupported central claims. Follow existing style guidance without manufacturing a house voice.
+
+## Completion criterion
+
+The canonical article is coherent, preserves every approved rhetorical and evidentiary contract, contains no fabricated support, and passes the final integrity check below.
+
+## Next-stage handoff
+
+Run [slopless.md](slopless.md), then offer the critique decision owned by [critique.md](critique.md).
 
 ## Set the drafting target
 
@@ -87,14 +119,7 @@ Do not bolt on a generic “What do you think?” call to action. Leave the read
 
 ## Revise with Slopless
 
-Use Slopless as a deterministic prose-hygiene diagnostic, not as the author or arbiter of persuasion. Consider each finding in context. Accept a change only when it preserves:
-
-- the selected premise;
-- factual meaning and calibrated certainty;
-- applicable project style guidance; and
-- useful rhetorical force.
-
-Reject or rewrite suggestions that flatten specificity, weaken necessary emphasis, distort a claim, erase the user's useful language, or introduce a style conflict. Prefer targeted edits to indiscriminate rewrites. Rerun Slopless after revising, then reread the article as an argument: a mechanically cleaner draft still fails if the premise has blurred.
+Use [slopless.md](slopless.md) as the single hygiene contract. This drafting stage retains authority over meaning: reject or rewrite any lint suggestion that flattens specificity, weakens necessary emphasis, distorts a claim, erases useful writer language, or conflicts with discovered style constraints.
 
 ## Final integrity check
 

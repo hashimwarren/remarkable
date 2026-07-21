@@ -1,6 +1,38 @@
 # Objection Response
 
-Pressure-test the selected premise before developing Personal Authority. The likely objection is the strongest intelligent resistance the intended reader would raise; the response direction is the writer's intended way through that resistance.
+## Purpose
+
+Pressure-test the selected premise early. Confirm the strongest intelligent resistance and the writer's intended way through it before developing Personal Authority.
+
+## Required inputs
+
+- The explicitly selected governing premise.
+- Its newly derived likely objection.
+- Reader context, why-now stakes, and known truth boundaries.
+
+## Process
+
+Show the objection, ask the writer to confirm or revise it, and develop a compact response direction through the paths below. Treat any consequential qualification exposed here as continued premise formation.
+
+## User checkpoint
+
+Use the three-choice pressure test below and require explicit confirmation of both objection and response direction. Never treat interest, a partial answer, or silence as confirmation.
+
+## Artifact or state effects
+
+Store only the confirmed objection in `PREMISE.md`. Hold the confirmed response direction for article-route reasoning and the working outline; do not create a separate artifact.
+
+## Degraded and failure behavior
+
+When the writer cannot answer, offer no more than three truth-preserving response strategies. Do not invent experience or proof. When the premise changes, derive a fresh objection and repeat this stage.
+
+## Completion criterion
+
+The strongest intelligent objection and a compact response direction are explicitly confirmed, and any material premise revision has been reconfirmed.
+
+## Next-stage handoff
+
+Pass the confirmed premise, objection, and response direction to [personal-authority.md](personal-authority.md).
 
 ## Ask the writer
 

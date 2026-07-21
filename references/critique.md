@@ -1,5 +1,47 @@
 # Critique a Complete Article
 
+## Purpose
+
+Diagnose a complete article rhetorically, localize only the highest-value interventions, and leave consequential revision authority with the writer.
+
+## Required inputs
+
+- The canonical article, `PREMISE.md` when available, and approved outline when available.
+- The actual Slopless outcome and unresolved evidence boundaries.
+- The writer's explicit choice to run critique, or a focused `critique` invocation.
+
+## Process
+
+After the first Slopless pass, offer **A. Run Remarkable critique** or **B. Open the draft as-is** and STOP. If critique is chosen, diagnose in the priority order below, share one overall diagnosis plus three prioritized revisions and their sequence, and add at most one document-level diagnosis and five localized CriticMarkup interventions. Read [roughdraft-handoff.md](roughdraft-handoff.md) for watched review.
+
+Use this compact offer:
+
+> Would you like me to run **Remarkable critique** before your final review? It will evaluate the premise, argument, evidence, reader momentum, comprehension, and sentence craft. I’ll summarize the priorities here and add up to five focused inline comments in Roughdraft. I won’t rewrite the article until you approve the direction.
+>
+> **A. Run Remarkable critique**
+>
+> **B. Open the draft as-is**
+
+## User checkpoint
+
+After review, obtain revision authority through **Review revisions one by one**, **Apply recommended revisions**, or **Leave the draft unchanged**. Require one-by-one approval for any premise, proof-burden, major-claim, reader-movement, or CTA change even under blanket approval.
+
+## Artifact or state effects
+
+Patch only the canonical article and only within granted authority. Do not create a second draft or duplicate Slopless's mechanical findings. CriticMarkup may remain in the canonical article until the writer resolves it.
+
+## Degraded and failure behavior
+
+Use the chat/Markdown fallback in [roughdraft-handoff.md](roughdraft-handoff.md) when Roughdraft cannot complete. Make no rhetorical edits on an ambiguous decision. If no consequential revision exists, say so and proceed instead of manufacturing work.
+
+## Completion criterion
+
+The writer's accepted revisions are applied, rejected and undecided passages remain unchanged, Slopless is rerun after substantive edits, and the article returns to the available review surface.
+
+## Next-stage handoff
+
+Follow [wayfinding.md](wayfinding.md) for the ready-state handoff and offer another purposeful critique without implying that it is required.
+
 Diagnose in this priority order:
 
 1. Premise
