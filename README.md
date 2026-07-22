@@ -6,6 +6,8 @@ Most AI writing tools start with prose. Remarkable starts with the decision that
 
 **Bring your own style. Remarkable strengthens the persuasion.**
 
+![How Remarkable works](assets/remarkable-workflow.png)
+
 ## Install
 
 ```bash
