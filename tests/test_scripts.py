@@ -126,10 +126,13 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
 
     def test_public_premise_contract_keeps_private_controls_distinct(self) -> None:
         premise = (SKILL_DIR / "references" / "premise.md").read_text(encoding="utf-8")
+        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
+            encoding="utf-8"
+        )
 
         self.assertIn("selected appeal and private Fascinate attention strategy", premise)
         self.assertIn("Keep the two controls distinct", premise)
-        self.assertNotIn("appeal and fascination posture", premise)
+        self.assertNotIn("fascination posture", (premise + transformation).casefold())
 
 
 class ArticleRouteInstructionTests(unittest.TestCase):
