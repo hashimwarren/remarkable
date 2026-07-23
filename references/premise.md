@@ -90,7 +90,7 @@ Use this compact structure:
 ## [A, B, or C]. [Distinctive direction name]
 
 **Premise**
-[One concise governing persuasive idea with the selected appeal and fascination posture already integrated.]
+[One concise governing persuasive idea with the selected appeal and private Fascinate attention strategy already integrated.]
 
 **Likely objection**
 [The strongest intelligent resistance this premise must answer, qualify, or accommodate.]
@@ -112,6 +112,6 @@ Before presenting the options:
 - Confirm that each option uses a genuinely different persuasive strategy, not lexical variation.
 - Give every option a substantive, reader-specific likely objection. Represent the strongest intelligent response, not a straw man or generic writing risk.
 - Use the objection to expose what the eventual argument must answer, qualify, or accommodate and what proof burden it creates.
-- Privately audit the actual appeal and posture for overclaiming, excessive alarm, weak evidence, audience mismatch, unfair blame, false reassurance, unsupported threat amplification, scapegoating, or distorted praise. Do not expose that machinery as option metadata.
+- Privately audit the actual model-activating appeal and Fascinate attention strategy for overclaiming, excessive alarm, weak evidence, audience mismatch, unfair blame, false reassurance, unsupported threat amplification, scapegoating, or distorted praise. Keep the two controls distinct, and do not expose either as option metadata.
 - Reject or revise any option whose central claim cannot be responsibly supported from supplied or obtainable context.
 - Keep all three options truthful, fair, audience-relevant, and faithful to the user's stated realization and urgency.
