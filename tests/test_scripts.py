@@ -53,7 +53,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("1.2.1", skill)
+        self.assertIn("1.3.0", skill)
         self.assertIn("five-scout premise council", transformation)
         scout_preamble = transformation.split("Before delegation, tell the writer:", 1)[1].split(
             "Give every scout", 1
@@ -68,6 +68,61 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         self.assertIn("Begin finalist selection only after all five territories", transformation)
         self.assertIn("fully single-context fallback only when subagents cannot be spawned", transformation)
         self.assertIn("The main agent is the editor-in-chief", transformation)
+
+    def test_premise_council_uses_model_activating_mirror_pairs(self) -> None:
+        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
+            encoding="utf-8"
+        )
+        appeals = [
+            "FUTURE PACING",
+            "LOSS FRAMING",
+            "CAUSAL REATTRIBUTION",
+            "SELF-SABOTAGE",
+            "COPING APPRAISAL",
+            "THREAT APPRAISAL",
+            "CORROBORATION",
+            "CONCEPTUAL CHANGE",
+            "COLLECTIVE ACTION FRAME",
+            "STEELMAN",
+        ]
+        pair_section = transformation.split(
+            "Assign the ten appeals exactly once across five mirror pairs", 1
+        )[1].split("Each scout must use both assigned appeals", 1)[0]
+        expected_pairs = [
+            "FUTURE PACING + LOSS FRAMING",
+            "CAUSAL REATTRIBUTION + SELF-SABOTAGE",
+            "COPING APPRAISAL + THREAT APPRAISAL",
+            "CORROBORATION + CONCEPTUAL CHANGE",
+            "COLLECTIVE ACTION FRAME + STEELMAN",
+        ]
+
+        for appeal in appeals:
+            self.assertEqual(pair_section.count(appeal), 1, appeal)
+        for pair in expected_pairs:
+            self.assertIn(pair, pair_section)
+        self.assertIn("same five mirror-pair appeal territories", transformation)
+        self.assertIn("model-activating appeal term", transformation)
+        self.assertIn("Fascinate advantage", transformation)
+
+    def test_old_appeal_labels_are_not_active_instructions(self) -> None:
+        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
+            encoding="utf-8"
+        )
+        old_labels = [
+            "Encourage their dreams",
+            "Warn against the destruction of their dreams",
+            "Justify their failures",
+            "Imply they are their own worst enemy",
+            "Allay their fears",
+            "Agitate their fears",
+            "Confirm their suspicions",
+            "Thwart their conventional wisdom",
+            "Help them throw rocks at their enemies",
+            "Shock them with unusual praise for their enemies",
+        ]
+
+        for label in old_labels:
+            self.assertNotIn(label, transformation)
 
 
 class ArticleRouteInstructionTests(unittest.TestCase):
