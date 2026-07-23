@@ -124,6 +124,13 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         for label in old_labels:
             self.assertNotIn(label, transformation)
 
+    def test_public_premise_contract_keeps_private_controls_distinct(self) -> None:
+        premise = (SKILL_DIR / "references" / "premise.md").read_text(encoding="utf-8")
+
+        self.assertIn("selected appeal and private Fascinate attention strategy", premise)
+        self.assertIn("Keep the two controls distinct", premise)
+        self.assertNotIn("appeal and fascination posture", premise)
+
 
 class ArticleRouteInstructionTests(unittest.TestCase):
     def test_two_advocated_routes_gate_outline_and_proof(self) -> None:
