@@ -129,7 +129,7 @@ Treat concurrency and availability as different conditions.
 
 In the fully single-context fallback, privately simulate the same five mirror-pair appeal territories, generate 12–20 candidates, and apply the same selection process below. Briefly disclose fallback or single-context execution. Never claim that scouts ran when they did not.
 
-For `Go wider`, use a fresh council when capacity permits. Give it the rejected candidates' fingerprints as negative territory, not as examples to imitate. For `[letter], but bolder`, use up to three scouts when capacity permits, all preserving the selected claim, appeal, fascination posture, and truth boundary while testing different intensification moves. The main agent selects the strongest responsible revision.
+For `Go wider`, use a fresh council when capacity permits. Give it the rejected candidates' fingerprints as negative territory, not as examples to imitate. For `[letter], but bolder`, use up to three scouts when capacity permits, all preserving the selected claim, appeal, Fascinate attention strategy, and truth boundary while testing different intensification moves. The main agent selects the strongest responsible revision.
 
 ## Generate for divergence
 
