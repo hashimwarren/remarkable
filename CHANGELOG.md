@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 — 2026-07-22
+
+### Changed
+
+- Replaced figurative Warren/Sexton appeal labels with compact, model-activating professional terms and precise operational definitions.
+- Reorganized the five premise scouts around mirror appeal pairs: desired future, responsibility for struggle, response to danger, relationship to belief, and relationship to opposition.
+- Preserved the private Fascinate attention-strategy layer while making the appeal and attention controls explicitly distinct.
+
 ## 1.2.1 — 2026-07-20
 
 ### Changed

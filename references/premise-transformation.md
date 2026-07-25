@@ -28,7 +28,7 @@ Run five assigned scouts in capacity-aware waves. Retry a failed scout once when
 
 ## Completion criterion
 
-All five appeal territories—or their honestly disclosed fallback equivalents—have been explored, the obvious cluster discarded, and at least three candidates pass truth, audience fit, whole-article generative power, and pairwise distinctness tests.
+All five mirror-pair appeal territories—or their honestly disclosed fallback equivalents—have been explored, the obvious cluster discarded, and at least three candidates pass truth, audience fit, whole-article generative power, and pairwise distinctness tests.
 
 ## Next-stage handoff
 
@@ -36,18 +36,18 @@ Return the strongest portfolio to [premise.md](premise.md). The main agent, neve
 
 ## Private persuasive vocabulary
 
-Use one fitting appeal as the primary reason the reader should care:
+Use one fitting appeal as the primary reason the reader should care. Treat the bold professional term as the model-facing retrieval cue and the sentence after it as the controlling definition:
 
-1. **Encourage their dreams.** Make a desired future, freedom, success, or identity more attainable.
-2. **Warn against the destruction of their dreams.** Show the credible obstacle or consequence threatening that future.
-3. **Justify their failures.** Replace a misdiagnosis or broken system without erasing agency.
-4. **Imply they are their own worst enemy.** Reveal a consequential habit or assumption without shaming.
-5. **Allay their fears.** Make reassurance concrete, defensible, and useful.
-6. **Agitate their fears.** Make a supported danger vivid without inflating it.
-7. **Confirm their suspicions.** Articulate and substantiate what the reader already senses.
-8. **Thwart their conventional wisdom.** Challenge an assumption and supply a stronger replacement.
-9. **Help them throw rocks at their enemies.** Name a supported obstructing force without scapegoating.
-10. **Shock them with unusual praise for their enemies.** Reveal a surprising but defensible lesson from an apparent opponent.
+1. **FUTURE PACING.** Place the reader inside a vivid, credible future in which the desired outcome has been achieved.
+2. **LOSS FRAMING.** Present the situation through the valuable future, asset, or advantage that could be lost.
+3. **CAUSAL REATTRIBUTION.** Fairly re-explain past struggle via context and constraints, without erasing agency.
+4. **SELF-SABOTAGE.** Expose the reader's own pattern producing the outcome they dislike.
+5. **COPING APPRAISAL.** Show the feared outcome is manageable: an effective response the reader can actually perform.
+6. **THREAT APPRAISAL.** Make a genuine present danger concrete—severity, exposure, likelihood, timing, and consequences.
+7. **CORROBORATION.** Put independent evidence behind what the reader already senses.
+8. **CONCEPTUAL CHANGE.** Replace an inadequate mental model with one that explains reality more coherently and usefully.
+9. **COLLECTIVE ACTION FRAME.** Name the system or practice working against the reader—never a person or group—and channel frustration into constructive response.
+10. **STEELMAN.** Construct the strongest fair version of an opposing view and extract its genuine insight or advantage.
 
 Choose only appeals that fit the topic and evidence. Preserve truth, fairness, and fidelity to the writer's intent over emotional force.
 
@@ -71,9 +71,9 @@ Before delegation, tell the writer:
 
 > I’m sending the same brief to five independent premise scouts. Each will explore a different persuasive territory. I’ll compare their strongest ideas and show you only the three most promising and genuinely different directions.
 
-Give every scout the same bounded packet, supplemented with its specific assigned pair of appeals:
+Give every scout the same bounded packet, supplemented with its specific assigned mirror pair of appeals:
 
-- its assigned pair of appeals;
+- its assigned mirror pair of appeals, including both model-activating definitions;
 - the reader and relevant audience context;
 - the reader's current belief;
 - the desired movement;
@@ -94,13 +94,13 @@ When the writer's answer and project context are insufficient, research is avail
 
 Add this audience-fit view to the shared packet so every scout receives the same frame, worldview, language context, and provenance boundaries. Each scout must test its candidates against that view; do not make five scouts repeat the same audience research.
 
-Assign the ten appeals exactly once across five deliberately tense pairs:
+Assign the ten appeals exactly once across five mirror pairs. Each pair explores opposing or complementary ways of motivating the same reader concern:
 
-1. **Future and stakes:** Encourage their dreams + Agitate their fears.
-2. **Risk and reassurance:** Warn against the destruction of their dreams + Allay their fears.
-3. **Causal responsibility:** Justify their failures + Imply they are their own worst enemy.
-4. **Recognition and reversal:** Confirm their suspicions + Shock them with unusual praise for their enemies.
-5. **Opposition and replacement:** Thwart their conventional wisdom + Help them throw rocks at their enemies.
+1. **Desired future:** FUTURE PACING + LOSS FRAMING. Attaining the desired future versus losing the desired future, asset, or advantage.
+2. **Responsibility for struggle:** CAUSAL REATTRIBUTION + SELF-SABOTAGE. Explaining contextual forces behind past struggle versus exposing the reader's own counterproductive contribution.
+3. **Response to danger:** COPING APPRAISAL + THREAT APPRAISAL. Establishing the reader's ability to respond versus establishing the seriousness and immediacy of the threat. Keep the Protection Motivation Theory distinction intact: coping appraisal answers “Can I handle this?” while threat appraisal answers “How serious is this?”
+4. **Relationship to belief:** CORROBORATION + CONCEPTUAL CHANGE. Substantiating what the reader already senses versus replacing an inadequate existing mental model.
+5. **Relationship to opposition:** COLLECTIVE ACTION FRAME + STEELMAN. Identifying and constructively resisting an obstructing system or practice versus fairly extracting the strongest insight from an opposing position.
 
 Each scout must use both assigned appeals as separate search territories, test at least three fitting fascination advantages or pairs across its exploration, and generate at least three candidate governing ideas. It returns only its strongest two candidates. Do not force one winner per assigned appeal when both strongest candidates honestly emerge from the same territory.
 
@@ -109,8 +109,8 @@ Require this compact return shape for each candidate:
 - **Premise:** the single governing claim;
 - **Belief shift:** what the reader must stop, start, or change believing;
 - **Causal logic:** the explanation that makes the premise govern a whole article;
-- **Appeal:** the primary assigned appeal;
-- **Fascination:** the advantage or archetype and underlying pair;
+- **Appeal:** the primary assigned model-activating appeal term;
+- **Attention strategy:** the Fascinate advantage or archetype and underlying pair;
 - **Truth boundary:** the strongest responsible version of the claim and what would overstate it;
 - **Support fit:** what supplied or obtainable evidence could support it; and
 - **Audience fit:** how its frame, requested belief shift, and language meet this reader without merely echoing them.
@@ -122,14 +122,14 @@ Wait until all five assigned scouts have returned before synthesis. Limited conc
 Treat concurrency and availability as different conditions.
 
 - When five slots are available, launch all five scouts together.
-- When fewer slots are available, launch scouts in waves without changing their assigned appeal pairs or exposing earlier candidates to later scouts.
+- When fewer slots are available, launch scouts in waves without changing their assigned mirror pairs or exposing earlier candidates to later scouts.
 - Track the five assignments explicitly. Begin finalist selection only after all five territories have reports.
 - If a scout fails, retry it once when practical. If it still fails, simulate only that assignment in the main thread and disclose that substitution.
 - Use the fully single-context fallback only when subagents cannot be spawned at all or repeated spawning fails.
 
-In the fully single-context fallback, privately simulate the same five appeal territories, generate 12–20 candidates, and apply the same selection process below. Briefly disclose fallback or single-context execution. Never claim that scouts ran when they did not.
+In the fully single-context fallback, privately simulate the same five mirror-pair appeal territories, generate 12–20 candidates, and apply the same selection process below. Briefly disclose fallback or single-context execution. Never claim that scouts ran when they did not.
 
-For `Go wider`, use a fresh council when capacity permits. Give it the rejected candidates' fingerprints as negative territory, not as examples to imitate. For `[letter], but bolder`, use up to three scouts when capacity permits, all preserving the selected claim, appeal, fascination posture, and truth boundary while testing different intensification moves. The main agent selects the strongest responsible revision.
+For `Go wider`, use a fresh council when capacity permits. Give it the rejected candidates' fingerprints as negative territory, not as examples to imitate. For `[letter], but bolder`, use up to three scouts when capacity permits, all preserving the selected claim, appeal, Fascinate attention strategy, and truth boundary while testing different intensification moves. The main agent selects the strongest responsible revision.
 
 ## Generate for divergence
 
@@ -143,11 +143,11 @@ Identify the obvious/default cluster and discard it. Fingerprint surviving candi
 - primary consequence;
 - desired action;
 - appeal; and
-- fascination posture.
+- attention strategy.
 
 Before presenting finalists, compare A vs. B, A vs. C, and B vs. C. Replace a candidate when substantially the same article body or evidence could support both members of a pair, or when believing either would lead to the same reader decision. Select for both quality and distance: truth, specificity, surprise, consequence, supportability, generative power, worldview fit, language fit, and difference from the other finalists.
 
-Choose the appeal and fascination posture after establishing genuinely different governing ideas. A different emotional wrapper does not make the same claim a different premise.
+Choose the appeal and Fascinate attention strategy after establishing genuinely different governing ideas. A different emotional wrapper does not make the same claim a different premise.
 
 ## Select the three finalists
 
@@ -172,7 +172,7 @@ For `Go wider`, do not paraphrase rejected candidates. Avoid their core claims, 
 
 ## Make a premise bolder
 
-Preserve the governing claim, selected appeal, fascination posture, and truth boundary by default. Intensify contrast, stakes, consequence, specificity, or the required reader decision through the selected fascination trigger. If a meaningful increase requires changing the claim or posture, explain that and offer alternatives rather than silently switching.
+Preserve the governing claim, selected appeal, Fascinate attention strategy, and truth boundary by default. Intensify contrast, stakes, consequence, specificity, or the required reader decision through the selected attention trigger. If a meaningful increase requires changing the claim or strategy, explain that and offer alternatives rather than silently switching.
 
 Use the fascination trigger as the control:
 
@@ -186,15 +186,15 @@ Use the fascination trigger as the control:
 
 Use the appeal to decide where the additional persuasive pressure lands:
 
-- **Encourage dreams:** make the desired future more specific and meaningful.
-- **Warn against destroying dreams:** clarify the credible obstacle and consequence.
-- **Justify failures:** sharpen the misdiagnosed cause without removing agency.
-- **Their own worst enemy:** expose the consequential behavior or assumption without shaming.
-- **Allay fears:** make reassurance more credible, concrete, and actionable.
-- **Agitate fears:** make a supported danger vivid without inflating it.
-- **Confirm suspicions:** say plainly what the reader senses and substantiate it.
-- **Thwart conventional wisdom:** challenge a deeper assumption and supply a stronger replacement.
-- **Throw rocks at enemies:** name the obstructing force without scapegoating.
-- **Praise enemies:** reveal a more surprising but defensible lesson from the apparent opponent.
+- **FUTURE PACING:** make the desired future more vivid, specific, and credible.
+- **LOSS FRAMING:** clarify the valuable future, asset, or advantage at risk and the credible cause of loss.
+- **CAUSAL REATTRIBUTION:** sharpen the contextual explanation without removing agency.
+- **SELF-SABOTAGE:** expose the consequential behavior or assumption without shaming.
+- **COPING APPRAISAL:** make the effective response more credible, concrete, and performable.
+- **THREAT APPRAISAL:** make severity, exposure, likelihood, timing, or consequences concrete without inflating them.
+- **CORROBORATION:** say plainly what the reader senses and substantiate it independently.
+- **CONCEPTUAL CHANGE:** challenge a deeper mental model and supply a more coherent replacement.
+- **COLLECTIVE ACTION FRAME:** name the obstructing system or practice and strengthen the constructive response without targeting a person or group.
+- **STEELMAN:** make the opposing position stronger and extract a more surprising but defensible insight or advantage.
 
-The appeal determines where persuasive pressure lands. Fascination determines how that pressure becomes difficult to ignore. The premise is the governing claim produced by both.
+The appeal determines where persuasive pressure lands. The Fascinate attention strategy determines how that pressure becomes difficult to ignore. The premise is the governing claim produced by both.
