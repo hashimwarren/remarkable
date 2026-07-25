@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.4.0 — 2026-07-25
+
+### Added
+
+- Added a five-source headline system with a silent outline pass, a final critique pass, and focused `headline` mode.
+- Expanded proof into adversarial research, evidence grading, quantitative validation, and a compact claim ledger kept inside the canonical outline.
+- Added private LENS guidance for earned Legitimacy, Explanation, Numbers, and Steps images after framework and proof work.
+- Added a brief fresh-start orientation explaining the decisions and evidence-supported article the writer will receive.
+
+### Changed
+
+- Unified headline, image, and research guidance around the governing premise without adding new durable artifacts or a post-proof headline checkpoint.
+
 ## 1.3.0 — 2026-07-22
 
 ### Changed

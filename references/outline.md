@@ -12,7 +12,7 @@ Let the writer judge an evidence-strengthened argument before prose makes struct
 
 ## Process
 
-Reserve or reuse the canonical paths, build the scan-friendly structure, incorporate the claim-to-evidence plan from [prove.md](prove.md), then review the evidence-strengthened outline. The detailed rules below own structure and approval.
+Reserve or reuse the canonical paths, build the scan-friendly structure, select the first headline privately through [headline.md](headline.md), incorporate the claim ledger from [prove.md](prove.md), then review the evidence-strengthened outline. The detailed rules below own structure and approval.
 
 ## User checkpoint
 
@@ -36,7 +36,7 @@ Pass the approved canonical outline to [article.md](article.md). Never infer app
 
 ## Build from the selected route
 
-Use `PREMISE.md`, the confirmed article-route brief, confirmed objection response, approved Personal Authority, approved practical framework when present, project context, existing evidence, and any existing article prose. A legacy map may supply confirmed writer-owned context, but its old scaffold and questions do not govern the new outline. Read [narrative-tension.md](narrative-tension.md) and [visual-placeholders.md](visual-placeholders.md). Save the outline beside the reserved article as `<article-stem>.outline.md`.
+Use `PREMISE.md`, the confirmed article-route brief, confirmed objection response, approved Personal Authority, approved practical framework when present, project context, existing evidence, and any existing article prose. A legacy map may supply confirmed writer-owned context, but its old scaffold and questions do not govern the new outline. Read [headline.md](headline.md) for the silent outline pass, [narrative-tension.md](narrative-tension.md), and [visual-placeholders.md](visual-placeholders.md). Save the outline beside the reserved article as `<article-stem>.outline.md`.
 
 Reuse the valid article path already named in `PREMISE.md`. Reserve a collision-safe path only when it is `pending`, absent, or invalid:
 
@@ -51,8 +51,8 @@ Begin with `Status: working`. Change it to `Status: approved` only after the use
 
 For a normal long-form article, use 300–700 words and a small number of major sections. Include:
 
-- a working headline;
-- a header-image concept immediately after the headline;
+- one privately selected working headline;
+- a header-image concept immediately after the headline that deepens rather than repeats its framing;
 - the governing premise, reader, and desired movement;
 - the chosen route expressed as the article's movement, without naming its internal architecture;
 - the consequential question, where it emerges, the specific answer, and where that answer becomes clear when a genuine question belongs;
@@ -91,7 +91,7 @@ If no honest consequential question emerges, use a direct argument structure. Ne
 
 ## Strengthen proof before review
 
-After the initial outline exists, read [prove.md](prove.md). Add its compact claim-to-evidence plan to the same outline. Resolve central gaps, then revise headings, claims, route execution, proof assignments, and visual positions when evidence changes what the article can responsibly say.
+After the initial outline exists, read [prove.md](prove.md). Add its compact claim ledger to the same outline. Resolve central gaps, then revise headings, claims, route execution, proof assignments, and visual positions when evidence changes what the article can responsibly say. Do not run another automatic headline pass here; new findings remain available for the critique pass.
 
 Keep `Status: working` throughout proof development. A central unsupported claim cannot pass to approval as a placeholder. Preserve explicitly accepted non-central gaps as `[EVIDENCE NEEDED: ...]`.
 
@@ -115,4 +115,4 @@ Use the runtime's structured user-input control when available and the same thre
 
 Draft only when the outline says `Status: approved` and no Blocking item remains. If approval is absent or may no longer apply, show a compact structural summary and ask the same three-choice question again; never infer approval from file existence. Preserve the selected route, claim order, proof assignments, objection response, reader movement, and deliberate gaps. Keep `[AUTHOR INPUT NEEDED: ...]` markers for missing personal material. Patch the reserved article Markdown rather than making a parallel full draft.
 
-Do not copy outline-only material into the article: status, rhetorical-purpose notes, planning labels, claim-to-evidence plan, unresolved CriticMarkup, or unused asset and CTA concepts.
+Do not copy outline-only material into the article: status, rhetorical-purpose notes, planning labels, the claim ledger, private visual briefs or scores, unresolved CriticMarkup, or unused asset and CTA concepts. Preserve accepted visual placements, reader-facing captions, verified relative asset paths, and explicit planned-for-later placeholders.

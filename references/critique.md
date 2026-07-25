@@ -12,7 +12,7 @@ Diagnose a complete article rhetorically, localize only the highest-value interv
 
 ## Process
 
-After the first Slopless pass, offer **A. Run Remarkable critique** or **B. Open the draft as-is** and STOP. If critique is chosen, diagnose in the priority order below, share one overall diagnosis plus three prioritized revisions and their sequence, and add at most one document-level diagnosis and five localized CriticMarkup interventions. Read [roughdraft-handoff.md](roughdraft-handoff.md) for watched review.
+After the first Slopless pass, offer **A. Run Remarkable critique** or **B. Open the draft as-is** and STOP. If critique is chosen, diagnose in the priority order below, run the second and final automatic headline pass through [headline.md](headline.md), assess any planned or produced informational images through [informational-images.md](informational-images.md), share one overall diagnosis plus three prioritized revisions and their sequence, and add at most one document-level diagnosis and five localized CriticMarkup interventions. Read [roughdraft-handoff.md](roughdraft-handoff.md) for watched review.
 
 Use this compact offer:
 
@@ -52,11 +52,11 @@ Follow [wayfinding.md](wayfinding.md) for the ready-state handoff and offer anot
 Diagnose in this priority order:
 
 1. Premise
-2. Question and resolution
-3. Argument structure
-4. Evidence gaps
-5. Reader momentum
-6. Comprehension
+2. Headline and opening frame
+3. Question and resolution
+4. Argument structure
+5. Evidence gaps
+6. Reader momentum and visual comprehension
 7. Sentence craft
 
 Use five primary principles: reader momentum; concrete before clever; claim, proof, consequence; no orphan claims; lead with the change.
@@ -73,6 +73,10 @@ When the article uses question-and-resolution architecture, read [narrative-tens
 - whether the sections after the reveal demonstrate, qualify, or apply the answer sufficiently for the resolution to feel earned.
 
 When no genuine question belongs, do not manufacture one as a critique recommendation. Diagnose the direct argument on its own terms.
+
+Read [headline.md](headline.md) and judge the current headline against the completed article. Preserve it when it already earns attention, frames the premise, and stays inside the evidence boundary; optionally offer **Explore alternative headlines**. When it is weak, include source-diverse alternatives and a recommendation in the critique, then require approval before replacing it.
+
+For every planned or produced article image, read [informational-images.md](informational-images.md). Confirm that it performs a Legitimacy, Explanation, Numbers, or Steps job, sits near the claim it advances, adds information beyond the caption, and remains faithful to the evidence. Recommend removal or redesign when prose works better. Never treat visual polish as a substitute for proof.
 
 First return a high-level diagnosis, the three most consequential problems, and a prioritized revision sequence. Do not rewrite the whole article until the writer accepts the direction.
 

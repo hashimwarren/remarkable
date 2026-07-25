@@ -2,6 +2,14 @@
 
 Keep the writer oriented without turning the workflow into another document to read.
 
+## Orient a fresh start
+
+Only for a fresh guided `start`, before the first stage marker and premise question, say:
+
+> Remarkable will help you find the idea that changes how your reader sees the subject, then build the story, argument, and proof that move them to action. You’ll finish with an evidence-supported article ready to review and use.
+
+Do not repeat this orientation when resuming durable state or entering a focused mode.
+
 ## Mark meaningful transitions
 
 At the beginning of each major stage, after returning from Roughdraft, and when entering a revision loop, provide:
