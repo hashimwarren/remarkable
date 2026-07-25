@@ -1,30 +1,33 @@
 # Visual Placeholders
 
-Begin visual planning in the working outline after the article route and major section jobs are stable. These are concepts, not evidence and not finished editorial art.
+Begin visual planning in the working outline after the article route and major section jobs are stable. Read [informational-images.md](informational-images.md) first. These are accepted concepts and briefs, not proof by themselves and not finished editorial art.
 
-## Reserve positions in the outline
+## Reserve earned positions in the outline
 
-Create three planning positions:
+Always create one editorial framing position:
 
-1. **Header image:** express the article's central tension, promise, or emotional posture.
-2. **Proof visual:** make the strongest suitable claim visible through a chart, screenshot, source excerpt, demonstration, quotation, or comparison.
-3. **Comprehension or story visual:** reveal a framework, process, distinction, interface, or consequential personal scene.
+1. **Header image:** deepen the headline's framing by expressing the article's central tension, promise, or emotional posture without merely restating it.
 
-Write a specific suggested form and one-sentence rhetorical job under each position. Move both in-article positions beside the claims or sections they would strengthen. The header is standard; the other two are opportunities, not a quota. Remove either in-article position when it would be decorative.
+Add either in-article position only after the writer accepts the earned offer from `informational-images.md`:
+
+- **Proof visual:** a Legitimacy or Numbers image that makes the strongest suitable verified claim inspectable.
+- **Comprehension visual:** an Explanation or Steps image that reveals a framework, process, distinction, interface, or application.
+
+Write a specific suggested form and one-sentence rhetorical job under each accepted position. Place it beside the claim or section it strengthens. The header is editorial framing, not automatically evidence. The other two are opportunities, not a quota; never create empty positions merely to remove them later.
 
 During proof development, refine the proof visual against verified evidence and revise its placement when the argument changes. A chart-shaped placeholder must contain no invented values. During framework design, let the framework's natural form inform the comprehension position.
 
 ## Choose useful placements
 
-Place the header-image concept immediately after the working headline. Add up to two additional placements: a proof visual beside a claim, and a comprehension or story visual where a scene, process, comparison, or interface would become easier to understand or remember.
+Place the header-image concept immediately after the working headline. Add up to two accepted additional placements: a proof visual beside a claim, and a comprehension visual where a process, comparison, interface, or application becomes easier to understand or remember.
 
 Under each visual, add one short italic sentence stating its rhetorical job and suggesting the finished form. Re-evaluate rather than mechanically preserving a position whose job disappeared during proof development.
 
-When an approved practical framework belongs in the selected route, evaluate its natural diagram as one of the two in-article opportunities. Use a system map, scorecard, progression, category map, or decision tree only when it reveals the framework's actual logic.
+When an approved practical framework belongs in the selected route, evaluate its natural diagram through the Explanation or Steps job. Use a system map, scorecard, progression, category map, or decision tree only when it reveals the framework's actual logic.
 
 ## Delegate image creation
 
-When subagents and the Codex image-generation model are available, spawn one dedicated visual subagent. Give it bounded briefs containing the premise and relevant section, the visual's single job, intended form and aspect ratio, truth boundaries, and low-fidelity requirement.
+Only after the writer chooses **Make this image** or otherwise explicitly requests production, use a dedicated visual subagent when subagents and the Codex image-generation model are available. Give it the compact accepted brief from `informational-images.md`, plus aspect ratio and low-fidelity requirement.
 
 Continue useful outline work while the visual subagent runs. It creates assets only and must not change the premise, claims, evidence, outline structure, captions, or final placement. Because image generation ends the worker's turn and does not accept a guaranteed project output path, assign one asset per turn. Reuse the same worker through follow-up tasks for later assets, or use multiple bounded visual workers when capacity permits.
 

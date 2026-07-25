@@ -53,7 +53,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("1.3.0", skill)
+        self.assertIn("1.4.0", skill)
         self.assertIn("five-scout premise council", transformation)
         scout_preamble = transformation.split("Before delegation, tell the writer:", 1)[1].split(
             "Give every scout", 1
@@ -168,7 +168,7 @@ class ArticleRouteInstructionTests(unittest.TestCase):
         visuals = (SKILL_DIR / "references" / "visual-placeholders.md").read_text(encoding="utf-8")
         self.assertIn("After claim and section jobs are stable", prove)
         self.assertIn("dedicated visual subagent", prove)
-        self.assertIn("spawn one dedicated visual subagent", visuals)
+        self.assertIn("use a dedicated visual subagent", visuals)
 
     @staticmethod
     def read_outline() -> str:
@@ -554,6 +554,7 @@ class InstructionContractTests(unittest.TestCase):
         "outline.md",
         "prove.md",
         "article.md",
+        "headline.md",
         "critique.md",
         "roughdraft-handoff.md",
         "slopless.md",
@@ -627,6 +628,7 @@ class InstructionContractTests(unittest.TestCase):
         outline = self.read("references/outline.md")
         prove = self.read("references/prove.md")
         critique = self.read("references/critique.md")
+        headline = self.read("references/headline.md")
         roughdraft = self.read("references/roughdraft-handoff.md")
         slopless = self.read("references/slopless.md")
 
@@ -644,6 +646,8 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("Narrow or remove the claim", prove)
         self.assertNotIn("Run Remarkable critique", skill)
         self.assertIn("Run Remarkable critique", critique)
+        self.assertNotIn("Premise and tension", skill)
+        self.assertIn("Premise and tension", headline)
         self.assertNotIn("click **Done Reviewing**", skill)
         self.assertIn("click **Done Reviewing**", roughdraft)
         self.assertNotIn("run_slopless.py --preflight", skill)
@@ -682,6 +686,72 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("Do not create a route artifact", self.read("references/article-routes.md"))
         self.assertIn("Create no separate proof artifact", self.read("references/prove.md"))
         self.assertIn("create a separate framework artifact", self.read("references/framework-design.md"))
+        self.assertIn("Create no headline artifact", self.read("references/headline.md"))
+
+    def test_headline_runs_only_at_outline_and_critique(self) -> None:
+        skill = self.read("SKILL.md")
+        outline = self.read("references/outline.md")
+        prove = self.read("references/prove.md")
+        critique = self.read("references/critique.md")
+        headline = self.read("references/headline.md")
+
+        for source in (
+            "Premise and tension",
+            "Personal discovery",
+            "Method or outcome",
+            "Proof or finding",
+            "Reader recognition",
+        ):
+            self.assertIn(source, headline)
+        self.assertIn("silent outline pass", outline)
+        self.assertIn("Do not run another automatic headline pass", outline)
+        self.assertIn("do not recraft the headline automatically here", prove)
+        self.assertIn("second and final automatic headline pass", critique)
+        self.assertIn("- `headline`:", skill)
+
+    def test_proof_and_lens_share_one_outline_state(self) -> None:
+        prove = self.read("references/prove.md")
+        evidence = self.read("references/evidence-design.md")
+        images = self.read("references/informational-images.md")
+        framework = self.read("references/framework-design.md")
+        visuals = self.read("references/visual-placeholders.md")
+
+        for phrase in (
+            "proof burden before searching",
+            "Search for disconfirmation",
+            "competing explanations",
+            "For quantitative evidence",
+            "## Claim ledger",
+        ):
+            self.assertIn(phrase, prove)
+        self.assertIn("Several sources repeating one origin", evidence)
+        for job in ("Legitimacy", "Explanation", "Numbers", "Steps"):
+            self.assertIn(f"**{job}:**", images)
+        self.assertIn("zero for Fidelity blocks", images)
+        self.assertIn("Make this image", images)
+        self.assertIn("Plan it for later", images)
+        self.assertIn("Keep it as prose", images)
+        self.assertIn("must STOP and wait", images)
+        self.assertIn("Only **Make this image**", images)
+        self.assertIn("Explanation or Steps", framework)
+        self.assertIn("Legitimacy and Numbers", prove)
+        self.assertIn("not automatically evidence", visuals)
+        self.assertIn("never create empty positions", visuals)
+        article = self.read("references/article.md")
+        outline = self.read("references/outline.md")
+        self.assertIn("accepted image placements", article)
+        self.assertIn("Omit private visual briefs and scores", article)
+        self.assertIn("Do not copy", outline)
+        self.assertIn("the claim ledger", outline)
+        self.assertIn("Preserve accepted visual placements", outline)
+        self.assertIn("URL or file path plus section or location", prove)
+
+    def test_fresh_start_orientation_is_brief_and_scoped(self) -> None:
+        wayfinding = self.read("references/wayfinding.md")
+        self.assertIn("Only for a fresh guided `start`", wayfinding)
+        self.assertIn("move them to action", wayfinding)
+        self.assertIn("evidence-supported article ready to review and use", wayfinding)
+        self.assertIn("Do not repeat this orientation when resuming", wayfinding)
 
     def test_roughdraft_contract_is_watched_and_recoverable(self) -> None:
         handoff = self.read("references/roughdraft-handoff.md")

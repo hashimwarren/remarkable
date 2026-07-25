@@ -20,7 +20,7 @@ Then start naturally:
 Use $remarkable to turn this idea into a persuasive article.
 ```
 
-You can also focus the work with requests such as `$remarkable premise`, `$remarkable outline`, `$remarkable draft`, `$remarkable prove`, or `$remarkable critique`. Exact command syntax is not required.
+You can also focus the work with requests such as `$remarkable premise`, `$remarkable outline`, `$remarkable draft`, `$remarkable prove`, `$remarkable headline`, or `$remarkable critique`. Exact command syntax is not required.
 
 ## What it does
 
@@ -32,7 +32,7 @@ Instead of polishing a generic claim such as “better prompts produce better AI
 
 > The people who get remarkable writing from AI are not necessarily better prompters; they know how to direct the editorial work that must happen before prose is polished.
 
-The writer chooses the premise and approves consequential decisions. Remarkable keeps a durable `PREMISE.md`, treats truth as a constraint, and distinguishes verified evidence from claims that still need support.
+The writer chooses the premise and approves consequential decisions. Remarkable keeps a durable `PREMISE.md`, treats truth as a constraint, and distinguishes verified evidence from claims that still need support. It also coordinates headlines, research, and informational images so each one advances the same governing premise.
 
 ## Runtime and optional tools
 

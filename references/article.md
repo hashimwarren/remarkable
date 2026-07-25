@@ -7,12 +7,12 @@ Turn the explicitly approved working outline into the canonical persuasive artic
 ## Required inputs
 
 - A working outline with `Status: approved` and no Blocking items.
-- `PREMISE.md`, the canonical article path, discovered style constraints, and verified evidence.
+- `PREMISE.md`, the canonical article path, discovered style constraints, verified evidence, and accepted visual placements when present.
 - A successful English preflight from [slopless.md](slopless.md), or a known non-English skip.
 
 ## Process
 
-Treat the selected premise as a contract. Preserve its reader realization, present stakes, persuasive angle, intended consequence, selected route, claim order, and deliberate gaps. Read [narrative-tension.md](narrative-tension.md) when the outline contains a consequential question. Follow the detailed drafting rules below and patch the reserved article Markdown instead of creating a parallel draft.
+Treat the selected premise as a contract. Preserve its reader realization, present stakes, persuasive angle, intended consequence, selected route, claim order, and deliberate gaps. Read [narrative-tension.md](narrative-tension.md) when the outline contains a consequential question. Preserve accepted image placements, reader-facing captions, verified relative asset paths, and explicit planned-for-later placeholders. Omit private visual briefs and scores. Follow the detailed drafting rules below and patch the reserved article Markdown instead of creating a parallel draft.
 
 ## User checkpoint
 
@@ -20,7 +20,7 @@ Drafting has no new structural approval checkpoint. If the outline is missing, u
 
 ## Artifact or state effects
 
-Write only the canonical article Markdown. Do not copy outline status, rhetorical-purpose notes, planning labels, claim-to-evidence plans, unused visual concepts, or resolved questions into prose.
+Write only the canonical article Markdown. Do not copy outline status, rhetorical-purpose notes, planning labels, the claim ledger, private visual briefs or scores, unused visual concepts, or resolved questions into prose.
 
 ## Degraded and failure behavior
 
@@ -130,6 +130,7 @@ Confirm that the draft:
 - establishes the reader's situation, the differentiated promise, and the present stakes;
 - when a reveal is planned, preserves its timing, answers the exact consequential question raised, and demonstrates why the resolution is credible;
 - develops major claims through proof and consequence;
+- uses each accepted image to frame, substantiate, explain, or operationalize the premise rather than decorate it;
 - invents no evidence and clearly qualifies or marks unresolved gaps;
 - follows discovered style constraints without imposing a new voice;
 - ends by completing the premise rather than summarizing it; and

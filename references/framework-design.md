@@ -32,7 +32,7 @@ A concrete framework is explicitly approved, the writer explicitly keeps the adv
 
 ## Next-stage handoff
 
-Pass the approved framework or skip state, plus its private narrative role when present, to [article-routes.md](article-routes.md).
+After approval, privately evaluate an Explanation or Steps image through [informational-images.md](informational-images.md). Pass the approved framework or skip state, its private narrative role, and any accepted visual brief to [article-routes.md](article-routes.md).
 
 ## Enter the mode safely
 
@@ -116,6 +116,10 @@ Do not apply a Tier 2 technique or run a Tier 2 checkpoint in this release. Pres
 
 Never interpret enthusiasm, silence, or a request to see the possibility as approval. Do not add a proposed framework to an artifact until the writer chooses **Develop it** for the concrete structure currently shown.
 
+## Consider an image only after approval
+
+After the framework is approved, read [informational-images.md](informational-images.md) and privately test whether an Explanation or Steps image would make its logic easier to understand or use. Do not expose LENS terminology. Offer visual work only when you can name the exact framework relationship or decision the image would reveal; otherwise continue without mentioning it. Carry an accepted brief into the working outline rather than creating a separate artifact.
+
 ## Test the framework's role in the resolution
 
 After approval, read [narrative-tension.md](narrative-tension.md) and privately classify how the framework relates to the article's consequential question:
@@ -125,7 +129,7 @@ After approval, read [narrative-tension.md](narrative-tension.md) and privately 
 - **Application:** the answer arrives first, and the framework helps the reader act on it.
 - **None:** the framework is useful but does not belong in the question's resolution.
 
-Do not add another user checkpoint. Do not force the framework to become the answer or delay a prior diagnosis merely to save the framework for a reveal. Carry the classification privately into article-route reasoning, then let the working outline place the answer and framework where each performs its actual job.
+Do not add another user checkpoint for this narrative-role classification. Do not force the framework to become the answer or delay a prior diagnosis merely to save the framework for a reveal. Carry the classification privately into article-route reasoning, then let the working outline place the answer and framework where each performs its actual job.
 
 ### Focused mode without a working outline
 
@@ -165,7 +169,7 @@ A framework does not replace proof, objection handling, limitations, or the writ
 
 ## Carry its visual logic forward
 
-Record the natural visual form as a recommendation for `visual-placeholders.md`:
+Use `informational-images.md` to record an earned visual brief, then pass it to `visual-placeholders.md`:
 
 - Whole / Parts / Whole → system or component map
 - Formula → equation, scorecard, or weighted model
