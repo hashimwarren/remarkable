@@ -2,17 +2,17 @@
 
 ## Purpose
 
-Turn the explicitly approved working outline into the canonical persuasive article without losing its governing premise, proof assignments, or truth boundary.
+Turn the explicitly approved working outline into the canonical persuasive article without losing its governing premise, rhetorical contract, proof assignments, or truth boundary.
 
 ## Required inputs
 
-- A working outline with `Status: approved` and no Blocking items.
+- A working outline with `Status: approved`, explicit rhetorical-contract sentences for consequential sections, and no Blocking items.
 - `PREMISE.md`, the canonical article path, discovered style constraints, verified evidence, and accepted visual placements when present.
 - A successful English preflight from [slopless.md](slopless.md), or a known non-English skip.
 
 ## Process
 
-Treat the selected premise as a contract. Preserve its reader realization, present stakes, persuasive angle, intended consequence, selected route, claim order, and deliberate gaps. Read [narrative-tension.md](narrative-tension.md) when the outline contains a consequential question. Preserve accepted image placements, reader-facing captions, verified relative asset paths, and explicit planned-for-later placeholders. Omit private visual briefs and scores. Follow the detailed drafting rules below and patch the reserved article Markdown instead of creating a parallel draft.
+Read [rhetorical-contract.md](rhetorical-contract.md). Treat the selected premise as the governing claim and the approved outline as the execution contract. Preserve its reader realization, present stakes, selected rhetorical moves, intended effects, route, claim order, and deliberate gaps. Read [narrative-tension.md](narrative-tension.md) when the outline contains a consequential question. Preserve accepted image placements, reader-facing captions, verified relative asset paths, and explicit planned-for-later placeholders. Omit private visual briefs and scores. Follow the detailed drafting rules below and patch the reserved article Markdown instead of creating a parallel draft.
 
 ## User checkpoint
 
@@ -28,7 +28,7 @@ Use `[AUTHOR INPUT NEEDED: ...]` for missing personal material and specific `[EV
 
 ## Completion criterion
 
-The canonical article is coherent, preserves every approved rhetorical and evidentiary contract, contains no fabricated support, and passes the final integrity check below.
+The canonical article is coherent, visibly executes every approved rhetorical and evidentiary contract, contains no fabricated support, and passes the final integrity check below.
 
 ## Next-stage handoff
 
@@ -46,6 +46,8 @@ Before drafting, reduce the selected option to four controls:
 - **Consequence:** what the reader should reconsider, decide, or do if it is true.
 
 Make every major passage establish, prove, deepen, complicate, or apply one of those controls. Remove tangents that merely relate to the topic.
+
+Also hold each consequential section's italic contract sentence from the approved outline. The article must execute the selected move and intended reader effect, not copy that planning sentence into prose. Strengthen weak execution within the chosen direction; do not silently substitute a safer or more conventional direction.
 
 When the outline contains a genuine question-and-resolution design, also hold two narrative controls:
 
@@ -121,12 +123,15 @@ Do not bolt on a generic “What do you think?” call to action. Leave the read
 
 Use [slopless.md](slopless.md) as the single hygiene contract. This drafting stage retains authority over meaning: reject or rewrite any lint suggestion that flattens specificity, weakens necessary emphasis, distorts a claim, erases useful writer language, or conflicts with discovered style constraints.
 
+After Slopless revisions, run the cross-stage integrity check in [rhetorical-contract.md](rhetorical-contract.md). A locally cleaner draft is not complete when its approved opening, turn, proof move, framework role, or closing effect has been weakened.
+
 ## Final integrity check
 
 Confirm that the draft:
 
 - stays within 800–1,200 words unless the user requested otherwise;
 - makes the selected premise recognizable in the opening, body logic, and ending without mechanically repeating it;
+- executes the approved rhetorical move and intended effect in every consequential section;
 - establishes the reader's situation, the differentiated promise, and the present stakes;
 - when a reveal is planned, preserves its timing, answers the exact consequential question raised, and demonstrates why the resolution is credible;
 - develops major claims through proof and consequence;
@@ -134,4 +139,5 @@ Confirm that the draft:
 - invents no evidence and clearly qualifies or marks unresolved gaps;
 - follows discovered style constraints without imposing a new voice;
 - ends by completing the premise rather than summarizing it; and
-- retains its meaning and rhetorical force after accepted Slopless revisions.
+- retains its meaning and rhetorical force after accepted Slopless revisions; and
+- has not silently changed rhetorical direction or drifted toward a generic professional register.

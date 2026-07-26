@@ -12,7 +12,7 @@ Test whether the writer's advice benefits from an operational structure before a
 
 ## Process
 
-Detect a genuine opportunity, choose a Tier 1 structure internally, develop only writer-owned advice and supported implications, and test the framework's role in the article's resolution. Do not force every article to have one.
+Read [rhetorical-contract.md](rhetorical-contract.md). Detect a genuine opportunity, choose a Tier 1 structure internally, develop only writer-owned advice and supported implications, and test the framework's role in the article's resolution. Do not force every article to have one.
 
 ## User checkpoint
 
@@ -38,7 +38,7 @@ After approval, privately evaluate an Explanation or Steps image through [inform
 
 In the guided workflow, begin after objection pressure-testing and Personal Authority, before article-route selection. Use the selected premise, confirmed objection response, approved story when present, writer-owned advice, and available context. This lets the framework inform the article's route instead of being retrofitted into prose.
 
-For a focused `framework` invocation, use an existing working outline when one exists. When it does not, require a selected premise plus enough writer-owned advice to understand what the reader should be able to do. Ask one concrete question when that practical movement is missing; do not invent advice from `PREMISE.md` alone and do not silently start the entire guided workflow.
+For a focused `framework` invocation, read `PREMISE.md`, the existing outline, and the article when available. Diagnose the framework's current role before proposing a change and preserve it when it already executes the approved contract. When no outline exists, require a selected premise plus enough writer-owned advice to understand what the reader should be able to do. Ask one concrete question when that practical movement is missing; do not invent advice from `PREMISE.md` alone and do not silently start the entire guided workflow.
 
 ## Detect a genuine opportunity
 
@@ -114,7 +114,7 @@ Do not apply a Tier 2 technique or run a Tier 2 checkpoint in this release. Pres
 8. Accept a free-form request to **Keep it as prose** at this checkpoint. Persist no framework, mark the stage skipped, and continue to article-route selection.
 9. Revise until the writer explicitly approves through **Develop it** or returns to prose.
 
-Never interpret enthusiasm, silence, or a request to see the possibility as approval. Do not add a proposed framework to an artifact until the writer chooses **Develop it** for the concrete structure currently shown.
+Never interpret enthusiasm, silence, or a request to see the possibility as approval. Do not add a proposed framework to an artifact until the writer chooses **Develop it** for the concrete structure currently shown. In focused mode, explain how each materially different structure would advance the premise and allow the writer to keep the existing framework. If an accepted structure changes the approved framework's rhetorical role, update and reapprove the outline contract before changing the article.
 
 ## Consider an image only after approval
 

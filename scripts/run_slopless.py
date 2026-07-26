@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preflight and run Slopless, acquiring a pinned CLI through npx when needed."""
+"""Preflight and run one verified Slopless ruleset, installed or through npx."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -14,6 +15,11 @@ from pathlib import Path
 
 SLOPLESS_VERSION = "0.2.23"
 NPX_PACKAGE = f"slopless@{SLOPLESS_VERSION}"
+VERSION_TOKEN = re.compile(
+    r"(?<![0-9A-Za-z.])v?"
+    r"(\d+\.\d+\.\d+(?:[-+.]?[0-9A-Za-z][0-9A-Za-z.-]*)?)"
+    r"(?![0-9A-Za-z.-])"
+)
 
 
 def find_installed_command(project_root: Path) -> list[str] | None:
@@ -35,9 +41,31 @@ def find_npx_command() -> str | None:
     return None
 
 
-def resolve_command(project_root: Path) -> tuple[list[str] | None, str | None]:
+def has_pinned_version(command: list[str], project_root: Path, timeout: int) -> bool:
+    try:
+        version_run = subprocess.run(
+            [*command, "--version"],
+            cwd=project_root,
+            text=True,
+            capture_output=True,
+            timeout=min(timeout, 15),
+            check=False,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    version_text = f"{version_run.stdout}\n{version_run.stderr}"
+    reported_versions = VERSION_TOKEN.findall(version_text)
+    return (
+        version_run.returncode == 0
+        and SLOPLESS_VERSION in reported_versions
+    )
+
+
+def resolve_command(
+    project_root: Path, timeout: int
+) -> tuple[list[str] | None, str | None]:
     installed = find_installed_command(project_root)
-    if installed:
+    if installed and has_pinned_version(installed, project_root, timeout):
         return installed, "installed"
     npx = find_npx_command()
     if npx:
@@ -85,13 +113,13 @@ def main() -> int:
         if draft.suffix.casefold() not in {".md", ".mdx"}:
             parser.error("Slopless input must be Markdown")
 
-    command, source = resolve_command(project_root)
+    command, source = resolve_command(project_root, args.timeout)
     if command is None:
         emit(
             {
                 "status": "blocked",
                 "stage": "resolve",
-                "message": "Slopless is not installed and npx is unavailable. Node.js 22.13.0 or newer is required.",
+                "message": "No installed Slopless 0.2.23 was verified and npx is unavailable. Node.js 22.13.0 or newer is required.",
                 "required_package": NPX_PACKAGE,
             }
         )
@@ -127,7 +155,8 @@ def main() -> int:
             {
                 "status": "ready",
                 "source": source,
-                "package": NPX_PACKAGE if source == "npx" else None,
+                "package": NPX_PACKAGE,
+                "version": SLOPLESS_VERSION,
             }
         )
         return 0
