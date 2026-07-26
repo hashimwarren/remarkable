@@ -472,6 +472,52 @@ print("slopless <file> --help JSON")
                 npx_log.read_text(encoding="utf-8"),
             )
 
+    def test_pinned_npx_replaces_prerelease_installed_versions(self) -> None:
+        for reported_version in ("0.2.23-beta.1", "0.2.23rc1"):
+            with self.subTest(reported_version=reported_version):
+                with tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    installed = root / "node_modules" / ".bin" / "slopless"
+                    npx = root / "bin" / "npx"
+                    npx_log = root / "npx.log"
+                    write_command(
+                        installed,
+                        f"""#!/usr/bin/env python3
+import sys
+if "--version" in sys.argv:
+    print("slopless {reported_version}")
+else:
+    print("prerelease")
+""",
+                    )
+                    write_command(
+                        npx,
+                        f"""#!/usr/bin/env python3
+import pathlib
+import sys
+pathlib.Path({str(npx_log)!r}).write_text(" ".join(sys.argv[1:]))
+print("slopless <file> --help JSON")
+""",
+                    )
+                    env = dict(os.environ)
+                    env["PATH"] = os.pathsep.join(
+                        [str(root / "bin"), str(Path(sys.executable).parent)]
+                    )
+                    result = run_script(
+                        "run_slopless.py",
+                        "--preflight",
+                        "--project-root",
+                        str(root),
+                        env=env,
+                    )
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    payload = json.loads(result.stdout)
+                    self.assertEqual(payload["source"], "npx")
+                    self.assertIn(
+                        "--yes slopless@0.2.23 --help",
+                        npx_log.read_text(encoding="utf-8"),
+                    )
+
 
 class RoughdraftTests(unittest.TestCase):
     def test_missing_roughdraft_keeps_the_draft_available(self) -> None:

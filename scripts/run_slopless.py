@@ -15,6 +15,11 @@ from pathlib import Path
 
 SLOPLESS_VERSION = "0.2.23"
 NPX_PACKAGE = f"slopless@{SLOPLESS_VERSION}"
+VERSION_TOKEN = re.compile(
+    r"(?<![0-9A-Za-z.])v?"
+    r"(\d+\.\d+\.\d+(?:[-+.]?[0-9A-Za-z][0-9A-Za-z.-]*)?)"
+    r"(?![0-9A-Za-z.-])"
+)
 
 
 def find_installed_command(project_root: Path) -> list[str] | None:
@@ -49,8 +54,10 @@ def has_pinned_version(command: list[str], project_root: Path, timeout: int) -> 
     except (OSError, subprocess.TimeoutExpired):
         return False
     version_text = f"{version_run.stdout}\n{version_run.stderr}"
-    return version_run.returncode == 0 and bool(
-        re.search(rf"(?<!\d){re.escape(SLOPLESS_VERSION)}(?!\d)", version_text)
+    reported_versions = VERSION_TOKEN.findall(version_text)
+    return (
+        version_run.returncode == 0
+        and SLOPLESS_VERSION in reported_versions
     )
 
 
