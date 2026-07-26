@@ -1,4 +1,6 @@
-# Complete the Ending
+# Complete the Closing
+
+Read [rhetorical-contract.md](rhetorical-contract.md). Treat `closing` as the preferred focused command and `ending` as a supported alias. Inspect `PREMISE.md`, the approved outline, and the current article when available. Diagnose the existing closing before generating alternatives and preserve it when it already completes the approved movement.
 
 Finish the movement of the premise rather than mechanically summarizing the article. Choose the fitting mode:
 
@@ -10,6 +12,10 @@ Finish the movement of the premise rather than mechanically summarizing the arti
 Ask one question when guidance is needed:
 
 > How should the reader's belief, decision, or behavior be different when the article ends?
+
+When change is warranted, offer materially different supported directions, explain briefly how each would advance the premise, and let the writer choose, combine, revise, or keep the original. Do not force a fixed number of options. Possible moves include returning to the opening with changed meaning, resolving the central tension, showing the consequence of accepting or rejecting the premise, presenting the changed future, issuing a specific challenge, or giving the natural next action.
+
+Strengthen the approved direction without another structural checkpoint. If the writer chooses a different direction, update and reapprove the outline's closing contract before patching the canonical article.
 
 When a commercial call to action belongs, evaluate the offer with RUVU:
 

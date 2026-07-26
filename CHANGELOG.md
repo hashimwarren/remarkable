@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.5.0 — 2026-07-26
+
+### Added
+
+- Added a durable rhetorical contract inside the approved outline for consequential section choices.
+- Added focused `opening` and `closing` behavior alongside the existing headline, proof, and framework commands.
+- Added adherence and effectiveness passes to Remarkable critique.
+
+### Changed
+
+- Drafting, Slopless, critique, and focused section work now preserve approved rhetorical direction or require explicit renegotiation.
+- Slopless now uses one pinned ruleset and completes when every finding is adjudicated rather than requiring zero findings.
+
 ## 1.4.0 — 2026-07-25
 
 ### Added

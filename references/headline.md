@@ -9,11 +9,11 @@ Create a specific, defensible headline that earns attention by framing the artic
 - The selected premise, reader, desired movement, and present stakes.
 - At outline time: the chosen route, approved Personal Authority and framework when present, plus verified evidence already available.
 - At critique time: the complete article and its final evidence boundary.
-- In focused mode: enough article context to judge what the piece can honestly promise.
+- In focused mode: `PREMISE.md`, the approved outline and its current headline contract, the article, and enough evidence to judge what the piece can honestly promise.
 
 ## Process
 
-Generate candidates privately from the five sources below, discard unsupported or interchangeable options, and choose the strongest fit. Treat question, command, list, how-to, and contrarian constructions as formats rather than additional sources.
+Read [rhetorical-contract.md](rhetorical-contract.md). Generate candidates privately from the five sources below, discard unsupported or interchangeable options, and choose the strongest fit. Treat question, command, list, how-to, and contrarian constructions as formats rather than additional sources.
 
 ## User checkpoint
 
@@ -64,4 +64,4 @@ Do not run a separate automatic headline pass after proof. Evidence discovered t
 
 ## Focused `headline` mode
 
-Read the current article, `PREMISE.md`, outline, and verified evidence when available. Diagnose the existing headline first. If the writer asks for alternatives, present the strongest supported candidates across materially different sources, not five cosmetic rewrites. Recommend one, allow combination or revision, and change the article only after explicit approval.
+Read the current article, `PREMISE.md`, outline, and verified evidence when available. Diagnose the existing headline first and preserve it when it already executes the contract. If the writer asks for alternatives, present the strongest supported candidates across materially different sources, not five cosmetic rewrites. Explain briefly how each advances the premise, recommend one, and allow combination, revision, or keeping the original. If the accepted headline materially changes the opening frame or rhetorical direction, update and reapprove the outline contract before changing the article.

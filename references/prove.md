@@ -12,7 +12,7 @@ Turn consequential claims into a premise-governed research plan, test them again
 
 ## Process
 
-Build the compact claim ledger below inside the outline. Set the proof burden before searching, research adversarially, grade the evidence, validate quantitative material, and revise structure whenever findings change what the article may responsibly claim. Read [evidence-design.md](evidence-design.md) for the shared evidence-quality contract.
+Build the compact claim ledger below inside the outline. Set the proof burden before searching, research adversarially, grade the evidence, validate quantitative material, and revise structure whenever findings change what the article may responsibly claim. Read [evidence-design.md](evidence-design.md) for the shared evidence-quality contract and [rhetorical-contract.md](rhetorical-contract.md) before changing a proof section's rhetorical direction.
 
 ## User checkpoint
 

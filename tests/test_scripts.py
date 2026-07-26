@@ -53,7 +53,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("1.4.0", skill)
+        self.assertIn("1.5.0", skill)
         self.assertIn("five-scout premise council", transformation)
         scout_preamble = transformation.split("Before delegation, tell the writer:", 1)[1].split(
             "Give every scout", 1
@@ -332,14 +332,48 @@ print("slopless <file> --help JSON")
             payload = json.loads(result.stdout)
             self.assertEqual(payload["status"], "ready")
             self.assertEqual(payload["source"], "npx")
+            self.assertEqual(payload["version"], "0.2.23")
             self.assertIn("--yes slopless@0.2.23 --help", log.read_text(encoding="utf-8"))
+
+    def test_exact_installed_version_is_used_without_npx(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            installed = root / "node_modules" / ".bin" / "slopless"
+            log = root / "installed.log"
+            write_command(
+                installed,
+                f"""#!/usr/bin/env python3
+import pathlib
+import sys
+pathlib.Path({str(log)!r}).write_text(" ".join(sys.argv[1:]))
+if "--version" in sys.argv:
+    print("slopless 0.2.23")
+else:
+    print("slopless <file> --help JSON")
+""",
+            )
+            env = dict(os.environ)
+            env["PATH"] = str(Path(sys.executable).parent)
+            result = run_script(
+                "run_slopless.py",
+                "--preflight",
+                "--project-root",
+                str(root),
+                env=env,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["source"], "installed")
+            self.assertEqual(payload["version"], "0.2.23")
+            self.assertEqual(log.read_text(encoding="utf-8"), "--help")
 
     def test_captures_findings_and_confirms_a_clean_rerun(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             draft = root / "draft.md"
             draft.write_text("In a world where things change.", encoding="utf-8")
-            command = root / "node_modules" / ".bin" / "slopless"
+            bin_dir = root / "bin"
+            command = bin_dir / "npx"
             write_command(
                 command,
                 """#!/usr/bin/env python3
@@ -349,19 +383,23 @@ import sys
 if "--help" in sys.argv:
     print("slopless <file> --help JSON")
     raise SystemExit(0)
-text = pathlib.Path(sys.argv[1]).read_text()
+assert sys.argv[1:3] == ["--yes", "slopless@0.2.23"]
+text = pathlib.Path(sys.argv[-1]).read_text()
 if "In a world" in text:
-    print(json.dumps([{"filePath": sys.argv[1], "messages": [{"ruleId": "slopless/prohibited-phrases"}]}]))
+    print(json.dumps([{"filePath": sys.argv[-1], "messages": [{"ruleId": "slopless/prohibited-phrases"}]}]))
     raise SystemExit(1)
 print(json.dumps([]))
 """,
             )
+            env = dict(os.environ)
+            env["PATH"] = os.pathsep.join([str(bin_dir), str(Path(sys.executable).parent)])
 
             first = run_script(
                 "run_slopless.py",
                 str(draft),
                 "--project-root",
                 str(root),
+                env=env,
             )
             self.assertEqual(first.returncode, 0, first.stderr)
             first_payload = json.loads(first.stdout)
@@ -377,12 +415,62 @@ print(json.dumps([]))
                 str(draft),
                 "--project-root",
                 str(root),
+                env=env,
             )
             self.assertEqual(second.returncode, 0, second.stderr)
             second_payload = json.loads(second.stdout)
             self.assertEqual(second_payload["status"], "clean")
             self.assertEqual(second_payload["finding_count"], 0)
             self.assertNotEqual(first_payload["findings_path"], second_payload["findings_path"])
+
+    def test_pinned_npx_replaces_a_mismatched_installed_slopless(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            installed = root / "node_modules" / ".bin" / "slopless"
+            npx = root / "bin" / "npx"
+            installed_log = root / "installed.log"
+            npx_log = root / "npx.log"
+            write_command(
+                installed,
+                f"""#!/usr/bin/env python3
+import pathlib
+import sys
+pathlib.Path({str(installed_log)!r}).write_text("used")
+if "--version" in sys.argv:
+    print("slopless 0.2.22")
+else:
+    print("unverified")
+""",
+            )
+            write_command(
+                npx,
+                f"""#!/usr/bin/env python3
+import pathlib
+import sys
+pathlib.Path({str(npx_log)!r}).write_text(" ".join(sys.argv[1:]))
+print("slopless <file> --help JSON")
+""",
+            )
+            env = dict(os.environ)
+            env["PATH"] = os.pathsep.join(
+                [str(root / "bin"), str(Path(sys.executable).parent)]
+            )
+            result = run_script(
+                "run_slopless.py",
+                "--preflight",
+                "--project-root",
+                str(root),
+                env=env,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["source"], "npx")
+            self.assertEqual(payload["package"], "slopless@0.2.23")
+            self.assertTrue(installed_log.exists())
+            self.assertIn(
+                "--yes slopless@0.2.23 --help",
+                npx_log.read_text(encoding="utf-8"),
+            )
 
 
 class RoughdraftTests(unittest.TestCase):
@@ -672,7 +760,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertEqual(positions, sorted(positions))
         self.assertGreaterEqual(skill.count("Complete when"), 7)
         self.assertIn("Complete only when", skill)
-        self.assertIn("Complete on a clean result", skill)
+        self.assertIn("Complete when every finding is addressed or deliberately preserved", skill)
         self.assertIn("Resume at the earliest unmet observable completion condition", skill)
 
     def test_durable_artifact_ownership_is_single_and_bounded(self) -> None:
@@ -708,6 +796,103 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("do not recraft the headline automatically here", prove)
         self.assertIn("second and final automatic headline pass", critique)
         self.assertIn("- `headline`:", skill)
+
+    def test_outline_is_the_shared_rhetorical_contract(self) -> None:
+        skill = self.read("SKILL.md")
+        contract = self.read("references/rhetorical-contract.md")
+        outline = self.read("references/outline.md")
+        article = self.read("references/article.md")
+        slopless = self.read("references/slopless.md")
+        critique = self.read("references/critique.md")
+
+        self.assertIn("approved outline as the rhetorical contract", skill)
+        self.assertIn("inside the canonical outline", contract)
+        self.assertIn("selected move", contract)
+        self.assertIn("intended effect on the reader", contract)
+        self.assertIn("why that move advances this governing premise", contract)
+        self.assertIn("one italic rhetorical-contract sentence", outline)
+        self.assertIn("Do not annotate every paragraph", outline)
+        self.assertIn("executes the approved rhetorical move", article)
+        self.assertIn("authority order", slopless)
+        self.assertIn("### Adherence", critique)
+        self.assertIn("### Effectiveness", critique)
+
+        for owner in (
+            "SKILL.md",
+            "references/outline.md",
+            "references/article.md",
+            "references/slopless.md",
+            "references/critique.md",
+            "references/headline.md",
+            "references/opening.md",
+            "references/prove.md",
+            "references/framework-design.md",
+            "references/ending.md",
+        ):
+            self.assertIn(
+                "rhetorical-contract.md",
+                self.read(owner),
+                owner,
+            )
+
+    def test_direction_changes_require_explicit_renegotiation(self) -> None:
+        skill = self.read("SKILL.md")
+        contract = self.read("references/rhetorical-contract.md")
+        outline = self.read("references/outline.md")
+        critique = self.read("references/critique.md")
+
+        self.assertIn("`proof` or `prove`", skill)
+        self.assertIn("`closing` or `ending`", skill)
+        for choice in (
+            "Strengthen this direction",
+            "Explore a different direction",
+            "Keep it as written",
+        ):
+            self.assertIn(choice, contract)
+            self.assertIn(choice, critique)
+        self.assertIn("update the outline's italic contract sentence first", contract)
+        self.assertIn("reset it to `Status: working`", critique)
+        self.assertIn("Never alter the contract merely to describe drift", outline)
+
+    def test_slopless_adjudicates_rhetoric_sensitive_findings(self) -> None:
+        slopless = self.read("references/slopless.md")
+
+        self.assertIn("verifies exact version `0.2.23`", slopless)
+        self.assertIn("never substitutes an unverified or mismatched installed ruleset", slopless)
+        self.assertIn("Zero findings are not required", slopless)
+        for intentional, empty in (
+            ("Preserve deliberate anaphora", "remove accidental repetition"),
+            ("Preserve antithesis", "remove decorative `not X, but Y`"),
+            ("Preserve narrative tension", "remove a generic tease"),
+            ("Preserve a maxim", "remove it when it substitutes for proof"),
+            ("Preserve signposting", "remove generic announcements"),
+        ):
+            self.assertIn(intentional, slopless)
+            self.assertIn(empty, slopless)
+
+        cases = json.loads(
+            (SKILL_DIR / "tests" / "fixtures" / "rhetorical_hygiene_cases.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        devices = {
+            case["device"]
+            for case in cases
+        }
+        self.assertEqual(
+            devices,
+            {"anaphora", "antithesis", "narrative tension", "framework maxim"},
+        )
+        for device in devices:
+            decisions = {
+                case["decision"]
+                for case in cases
+                if case["device"] == device
+            }
+            self.assertEqual(decisions, {"preserve", "revise"}, device)
+        for case in cases:
+            self.assertTrue(case["sample"].strip())
+            self.assertTrue(case["reason"].strip())
 
     def test_proof_and_lens_share_one_outline_state(self) -> None:
         prove = self.read("references/prove.md")
