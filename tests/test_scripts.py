@@ -156,8 +156,10 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         self.assertIn("Desired Movement", premise)
         self.assertNotIn("## Current Awareness", premise)
         self.assertNotIn("## Target Awareness", premise)
-        self.assertIn("Consume the approved awareness transition from premise formation", routes)
+        self.assertIn("During an uninterrupted workflow, consume the complete private awareness transition", routes)
         self.assertIn("Do not infer a fresh starting stage", routes)
+        self.assertIn("do not claim that the transient awareness gap or required bridge survived", routes)
+        self.assertIn("Derive only the smallest bridge", routes)
 
     def test_fascinate_layer_is_absent_from_active_instructions(self) -> None:
         active_paths = [SKILL_DIR / "SKILL.md", *sorted((SKILL_DIR / "references").glob("*.md"))]
@@ -190,7 +192,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         self.assertIn("unchanged private awareness transition", objection)
         self.assertIn("unchanged private awareness transition", personal)
         self.assertIn("unchanged private awareness transition", framework)
-        self.assertIn("Consume the approved awareness transition", routes)
+        self.assertIn("consume the complete private awareness transition", routes)
         self.assertIn("Do not reopen general audience diagnosis", routes)
 
 
