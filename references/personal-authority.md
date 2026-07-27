@@ -32,7 +32,7 @@ The writer explicitly approves an accurate factual story architecture or explici
 
 ## Next-stage handoff
 
-Pass the approved story or explicit skip to [framework-design.md](framework-design.md).
+Pass the approved story or explicit skip, along with the unchanged private awareness transition, to [framework-design.md](framework-design.md).
 
 Use this stage only after the premise and objection response are confirmed. If the writer has no relevant experience or does not want to use one, skip it without pressure and do not create an empty artifact section.
 

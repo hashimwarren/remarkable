@@ -20,7 +20,7 @@ Extract the reader, desired perception change, and why that change matters now. 
 
 Read [premise-transformation.md](premise-transformation.md), run its private council or fallback, and receive the complete candidate pool. Generate exactly three finalists that ask the reader to make different realizations, care for different reasons, or respond to different consequences. Reject lexical variants of the same idea.
 
-Use the public presentation and audit below. Keep appeals, Fascinate methodology, audience provenance, scoring, and scout assignments private unless the writer asks how the options were developed.
+Use the public presentation and audit below. Keep appeals, awareness-stage labels, audience provenance, scoring, and scout assignments private unless the writer asks how the options were developed.
 
 ## User checkpoint
 
@@ -56,7 +56,7 @@ Updated: [YYYY-MM-DD]
 [Why the idea matters now.]
 ```
 
-Append only the approved Personal Authority shape from [personal-authority.md](personal-authority.md). Do not store appeals, Fascinate metadata, response direction, argument, proof plan, evidence list, headline, opening, CTA, or polished prose. Do not overwrite a file belonging to another article without permission.
+Append only the approved Personal Authority shape from [personal-authority.md](personal-authority.md). Do not store appeals, awareness-stage labels, response direction, argument, proof plan, evidence list, headline, opening, CTA, or polished prose. The `Current Belief` and `Desired Movement` fields preserve the substance of the approved awareness transition without exposing its private labels. Do not overwrite a file belonging to another article without permission.
 
 ## Degraded and failure behavior
 
@@ -68,7 +68,7 @@ One governing premise is explicitly selected and its newly derived strongest can
 
 ## Next-stage handoff
 
-Pass the confirmed premise, likely objection, audience fields, why-now context, and the unwritten canonical schema to [objection-response.md](objection-response.md). Do not skip pressure-testing or write the durable artifact before the objection and optional story decisions are complete.
+Pass the confirmed premise, likely objection, audience fields, why-now context, private awareness transition, and the unwritten canonical schema to [objection-response.md](objection-response.md). Keep the current awareness, target awareness, awareness gap, and required bridge transient; do not add them as fields to `PREMISE.md`. Do not skip pressure-testing or write the durable artifact before the objection and optional story decisions are complete.
 
 ## Return exactly three options
 
@@ -90,7 +90,7 @@ Use this compact structure:
 ## [A, B, or C]. [Distinctive direction name]
 
 **Premise**
-[One concise governing persuasive idea with the selected appeal and private Fascinate attention strategy already integrated.]
+[One concise governing persuasive idea with the selected appeal and awareness bridge already integrated.]
 
 **Likely objection**
 [The strongest intelligent resistance this premise must answer, qualify, or accommodate.]
@@ -112,6 +112,6 @@ Before presenting the options:
 - Confirm that each option uses a genuinely different persuasive strategy, not lexical variation.
 - Give every option a substantive, reader-specific likely objection. Represent the strongest intelligent response, not a straw man or generic writing risk.
 - Use the objection to expose what the eventual argument must answer, qualify, or accommodate and what proof burden it creates.
-- Privately audit the actual model-activating appeal and Fascinate attention strategy for overclaiming, excessive alarm, weak evidence, audience mismatch, unfair blame, false reassurance, unsupported threat amplification, scapegoating, or distorted praise. Keep the two controls distinct, and do not expose either as option metadata.
+- Privately audit the actual model-activating appeal and awareness bridge for overclaiming, excessive alarm, weak evidence, audience mismatch, unfair blame, false reassurance, unsupported threat amplification, scapegoating, or distorted praise. Do not expose either as option metadata.
 - Reject or revise any option whose central claim cannot be responsibly supported from supplied or obtainable context.
 - Keep all three options truthful, fair, audience-relevant, and faithful to the user's stated realization and urgency.

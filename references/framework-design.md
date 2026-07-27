@@ -32,7 +32,7 @@ A concrete framework is explicitly approved, the writer explicitly keeps the adv
 
 ## Next-stage handoff
 
-After approval, privately evaluate an Explanation or Steps image through [informational-images.md](informational-images.md). Pass the approved framework or skip state, its private narrative role, and any accepted visual brief to [article-routes.md](article-routes.md).
+After approval, privately evaluate an Explanation or Steps image through [informational-images.md](informational-images.md). Pass the approved framework or skip state, its private narrative role, any accepted visual brief, and the unchanged private awareness transition to [article-routes.md](article-routes.md).
 
 ## Enter the mode safely
 

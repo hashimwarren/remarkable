@@ -13,7 +13,7 @@ Choose the article's invisible persuasive architecture after framework work and 
 
 ## Process
 
-Infer awareness privately, develop several coherent architectures from the vocabulary below, reject weak or duplicative candidates, and advocate the two routes most likely to advance the premise.
+Consume the awareness transition already established during premise formation when it remains in transient state. On resume, preserve its durable starting belief and desired movement without pretending the full private transition survived. Develop several coherent architectures from the vocabulary below, reject weak or duplicative candidates, and advocate the two routes most likely to advance the premise.
 
 ## User checkpoint
 
@@ -25,7 +25,7 @@ Hold one compact private route brief containing the starting point, belief seque
 
 ## Degraded and failure behavior
 
-Ask one follow-up only when audience uncertainty would produce fundamentally different articles. If both candidates imply the same reading experience, replace one before presentation. If the writer rejects both, develop and reconfirm a materially different route.
+Ask one follow-up only when the durable `Current Belief` or `Desired Movement` fields conflict or when more than one materially different bridge could connect them. Do not reopen general audience diagnosis or assign new awareness-stage labels. If both candidates imply the same reading experience, replace one before presentation. If the writer rejects both, develop and reconfirm a materially different route.
 
 ## Completion criterion
 
@@ -39,7 +39,9 @@ Pass the route brief to [outline.md](outline.md), using [narrative-tension.md](n
 
 Use the governing premise, reader, current belief, desired movement, why-now context, confirmed objection and response direction, approved Personal Authority when present, approved practical framework when present, project context, and known truth boundaries. Do not ask the writer to repeat established material.
 
-Privately make the best-supported guess about the reader's current awareness: unaware, problem-aware, solution-aware, product-aware, or most aware. Use that judgment only to decide where the article must begin and what it may responsibly assume. Do not expose the label or add a questionnaire. Ask one focused follow-up only when uncertainty would produce fundamentally different articles.
+During an uninterrupted workflow, consume the complete private awareness transition from premise formation: current awareness, target awareness, the gap between them, and the bridge the article must make. Do not infer a fresh starting stage, target stage, or reader movement here.
+
+When resuming from durable state, do not claim that the transient awareness gap or required bridge survived. Treat `Current Belief` and `Desired Movement` in `PREMISE.md` as the fixed starting and ending boundaries. Derive only the smallest bridge needed to connect those approved boundaries, without assigning new awareness-stage labels or changing either boundary. Ask one focused follow-up when multiple materially different bridges remain plausible; the answer restores transient route state but does not add fields to `PREMISE.md`.
 
 ## Develop candidate routes
 
@@ -56,7 +58,7 @@ These are starting points, not an exhaustive taxonomy or topic-to-template mappi
 
 For every serious candidate, determine privately:
 
-- where this reader begins;
+- how the established awareness bridge determines where this reader begins;
 - the sequence of beliefs or realizations;
 - what creates forward momentum;
 - where Personal Authority belongs;

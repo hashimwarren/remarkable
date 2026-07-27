@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.6.0 — 2026-07-27
+
+### Changed
+
+- Moved reader-awareness analysis into premise formation so every scout receives the same current awareness, target awareness, awareness gap, and required bridge.
+- Made article-route selection consume the already established awareness transition instead of inferring a new one.
+- Made bolder premise refinement preserve the governing claim, selected appeal, awareness bridge, and truth boundary.
+
+### Removed
+
+- Removed the private Fascinate taxonomy, attention-strategy fields, scoring signals, and refinement controls from active instructions.
+
 ## 1.5.0 — 2026-07-26
 
 ### Added
