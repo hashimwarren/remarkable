@@ -53,7 +53,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("1.5.0", skill)
+        self.assertIn("1.6.0", skill)
         self.assertIn("five-scout premise council", transformation)
         scout_preamble = transformation.split("Before delegation, tell the writer:", 1)[1].split(
             "Give every scout", 1
@@ -102,7 +102,7 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
             self.assertIn(pair, pair_section)
         self.assertIn("same five mirror-pair appeal territories", transformation)
         self.assertIn("model-activating appeal term", transformation)
-        self.assertIn("Fascinate advantage", transformation)
+        self.assertIn("Awareness bridge", transformation)
 
     def test_old_appeal_labels_are_not_active_instructions(self) -> None:
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
@@ -124,15 +124,74 @@ class PremiseCouncilInstructionTests(unittest.TestCase):
         for label in old_labels:
             self.assertNotIn(label, transformation)
 
-    def test_public_premise_contract_keeps_private_controls_distinct(self) -> None:
+    def test_awareness_transition_precedes_scouting_and_stays_private(self) -> None:
         premise = (SKILL_DIR / "references" / "premise.md").read_text(encoding="utf-8")
         transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
             encoding="utf-8"
         )
+        routes = (SKILL_DIR / "references" / "article-routes.md").read_text(
+            encoding="utf-8"
+        )
 
-        self.assertIn("selected appeal and private Fascinate attention strategy", premise)
-        self.assertIn("Keep the two controls distinct", premise)
-        self.assertNotIn("fascination posture", (premise + transformation).casefold())
+        audience_view = transformation.index(
+            "Before delegation, the main agent privately develops one compact audience-and-awareness view"
+        )
+        scout_packet = transformation.index("Give every scout the same bounded packet")
+        council_assignments = transformation.index(
+            "Assign the ten appeals exactly once across five mirror pairs"
+        )
+        self.assertLess(audience_view, scout_packet)
+        self.assertLess(audience_view, council_assignments)
+        for field in (
+            "Current awareness",
+            "Target awareness",
+            "Awareness gap",
+            "Required bridge",
+        ):
+            self.assertIn(field, transformation)
+        self.assertIn("same assigned awareness transition", transformation)
+        self.assertIn("Awareness bridge", transformation)
+        self.assertIn("selected appeal and awareness bridge", premise)
+        self.assertIn("Current Belief", premise)
+        self.assertIn("Desired Movement", premise)
+        self.assertNotIn("## Current Awareness", premise)
+        self.assertNotIn("## Target Awareness", premise)
+        self.assertIn("Consume the approved awareness transition from premise formation", routes)
+        self.assertIn("Do not infer a fresh starting stage", routes)
+
+    def test_fascinate_layer_is_absent_from_active_instructions(self) -> None:
+        active_paths = [SKILL_DIR / "SKILL.md", *sorted((SKILL_DIR / "references").glob("*.md"))]
+        for path in active_paths:
+            content = path.read_text(encoding="utf-8").casefold()
+            self.assertNotIn("fascinate", content, path)
+            self.assertNotIn("fascination", content, path)
+        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertNotIn("Attention strategy", transformation)
+
+    def test_awareness_transition_is_carried_through_intermediate_handoffs(self) -> None:
+        premise = (SKILL_DIR / "references" / "premise.md").read_text(encoding="utf-8")
+        objection = (SKILL_DIR / "references" / "objection-response.md").read_text(
+            encoding="utf-8"
+        )
+        personal = (SKILL_DIR / "references" / "personal-authority.md").read_text(
+            encoding="utf-8"
+        )
+        framework = (SKILL_DIR / "references" / "framework-design.md").read_text(
+            encoding="utf-8"
+        )
+        routes = (SKILL_DIR / "references" / "article-routes.md").read_text(
+            encoding="utf-8"
+        )
+
+        for stage in (premise, objection, personal, framework):
+            self.assertIn("private awareness transition", stage)
+        self.assertIn("unchanged private awareness transition", objection)
+        self.assertIn("unchanged private awareness transition", personal)
+        self.assertIn("unchanged private awareness transition", framework)
+        self.assertIn("Consume the approved awareness transition", routes)
+        self.assertIn("Do not reopen general audience diagnosis", routes)
 
 
 class ArticleRouteInstructionTests(unittest.TestCase):
@@ -1140,7 +1199,7 @@ class InstructionContractTests(unittest.TestCase):
         self.assertIn("five assigned scouts", transformation)
         self.assertIn("capacity-aware waves", transformation)
         self.assertIn("Audience frame", transformation)
-        self.assertIn("worldview fit, language fit, generative power", transformation)
+        self.assertIn("worldview fit, language fit, awareness-bridge strength", transformation)
         self.assertIn("whole-article test", transformation)
         self.assertIn("pairwise", transformation)
         self.assertIn("Earned Discovery", personal)

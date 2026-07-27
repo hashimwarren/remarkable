@@ -12,7 +12,7 @@ Search broadly for high-quality governing ideas, then return a truth-constrained
 
 ## Process
 
-Treat premise quality as Remarkable's highest-leverage result. Run the council, audience-fit analysis, appeal exploration, Fascinate controls, wide generation, fingerprints, scoring, whole-article test, and pairwise distinctness process below. Keep this machinery private.
+Treat premise quality as Remarkable's highest-leverage result. Establish the audience and awareness transition first, then run the council, appeal exploration, wide generation, fingerprints, scoring, whole-article test, and pairwise distinctness process below. Keep this machinery private.
 
 ## User checkpoint
 
@@ -51,21 +51,21 @@ Use one fitting appeal as the primary reason the reader should care. Treat the b
 
 Choose only appeals that fit the topic and evidence. Preserve truth, fairness, and fidelity to the writer's intent over emotional force.
 
-Use Sally Hogshead's Fascinate methodology as private attention vocabulary, not personality typing or user-facing metadata:
-
-- **Innovation:** novelty, possibility, or changing the game.
-- **Passion:** emotion, connection, warmth, or relationship.
-- **Power:** command, confidence, control, or decisive leadership.
-- **Prestige:** excellence, aspiration, status, or higher standards.
-- **Trust:** stability, familiarity, reliability, or consistency.
-- **Mystique:** restraint, curiosity, selective revelation, or hidden insight.
-- **Alert:** care, vigilance, risk prevention, detail, or precision.
-
-Use one advantage or a fitting pair. High-value pairings include Detective (Mystique + Alert), Secret Weapon (Mystique + Innovation), Avant-Garde (Innovation + Prestige), Change Agent (Innovation + Power), Evolutionary (Innovation + Mystique), Provocateur (Prestige + Innovation), Mastermind (Mystique + Power), Architect (Mystique + Prestige), Defender (Alert + Power), Scholar (Alert + Prestige), Good Citizen (Alert + Trust), Authentic (Passion + Trust), People's Champion (Passion + Power), Ringleader (Passion + Innovation), Connoisseur (Passion + Prestige), Victor (Power + Prestige), Gravitas (Power + Trust), Ace (Power + Mystique), Trendsetter (Prestige + Innovation), Blue Chip (Prestige + Trust), Guardian (Trust + Power), Anchor (Trust + Alert), Wise Owl (Mystique + Trust), and Composer (Innovation + Alert). Use a single advantage when a pairing would be forced; never invent an underlying pair from an unsupported archetype name.
-
 ## Run the five-scout premise council
 
 When the runtime supports subagents, run five independent, read-only premise scouts. Do not ask the user to request delegation again. Keep all premise selection and file writes in the main thread. Tell every scout not to spawn descendants. Launch as many scouts concurrently as the available worker slots allow; when capacity is lower than five, wait for the current wave and launch the remaining assigned scouts in the next wave.
+
+Before delegation, the main agent privately develops one compact audience-and-awareness view from the writer's answer and available context:
+
+- **Audience frame:** the reader's existing situation, beliefs, identity, aspirations, or frustrations that provide an honest entry into the subject;
+- **Worldview fit:** what the reader is likely to recognize as true now and what meaningful change in perception the premise asks them to make; and
+- **Language fit:** the concrete language the audience uses for the problem, avoiding generic marketing terminology that distances the premise from the reader.
+- **Current awareness:** the best-supported starting stage—unaware, problem-aware, solution-aware, product-aware, or most aware—plus the concrete belief or assumption that makes the label useful.
+- **Target awareness:** the stage the article should responsibly move the reader toward, grounded in the requested perception change rather than a forced one-step progression.
+- **Awareness gap:** what the reader does not yet see, connect, trust, or know well enough to make that movement.
+- **Required bridge:** the realization, explanation, proof, or experience the article must supply to cross that gap.
+
+Treat the standard awareness stages as private working vocabulary, not a mandatory ladder or public diagnosis. Make the best-supported guess from the writer's answer and available context. When the writer's answer and project context are insufficient, research is available, and public research would materially sharpen the view, run one bounded research pass across credible public sources where the audience discusses the problem. Prefer audience-native sources and primary material over generic persona summaries. Track audience inputs internally as `supplied`, `researched`, or `inferred`. Research may sharpen the writer's description but must not silently replace it. Ask one focused follow-up only when a material conflict would change the premise options.
 
 Before delegation, tell the writer:
 
@@ -77,6 +77,7 @@ Give every scout the same bounded packet, supplemented with its specific assigne
 - the reader and relevant audience context;
 - the reader's current belief;
 - the desired movement;
+- the shared current awareness, target awareness, awareness gap, and required bridge;
 - why the idea matters now;
 - available evidence and explicit truth boundaries;
 - any relevant project positioning; and
@@ -84,15 +85,7 @@ Give every scout the same bounded packet, supplemented with its specific assigne
 
 Do not pass another scout's candidates into its context. Independent search is the point.
 
-Before delegation, the main agent privately develops one compact audience-fit view from the writer's answer and available context:
-
-- **Audience frame:** the reader's existing situation, beliefs, identity, aspirations, or frustrations that provide an honest entry into the subject;
-- **Worldview fit:** what the reader is likely to recognize as true now and what meaningful change in perception the premise asks them to make; and
-- **Language fit:** the concrete language the audience uses for the problem, avoiding generic marketing terminology that distances the premise from the reader.
-
-When the writer's answer and project context are insufficient, research is available, and public research would materially sharpen the audience-fit view, run one bounded research pass across credible public sources where the audience discusses the problem. Prefer audience-native sources and primary material over generic persona summaries. Track audience inputs internally as `supplied`, `researched`, or `inferred`. Research may sharpen the writer's description but must not silently replace it. Ask one focused follow-up only when a material conflict would change the premise options.
-
-Add this audience-fit view to the shared packet so every scout receives the same frame, worldview, language context, and provenance boundaries. Each scout must test its candidates against that view; do not make five scouts repeat the same audience research.
+Add this complete view to the shared packet so every scout receives the same frame, worldview, language context, current awareness, target awareness, awareness gap, required bridge, and provenance boundaries. Each scout must test its candidates against that view; do not make five scouts repeat the same audience research or infer five different reader transitions.
 
 Assign the ten appeals exactly once across five mirror pairs. Each pair explores opposing or complementary ways of motivating the same reader concern:
 
@@ -102,7 +95,7 @@ Assign the ten appeals exactly once across five mirror pairs. Each pair explores
 4. **Relationship to belief:** CORROBORATION + CONCEPTUAL CHANGE. Substantiating what the reader already senses versus replacing an inadequate existing mental model.
 5. **Relationship to opposition:** COLLECTIVE ACTION FRAME + STEELMAN. Identifying and constructively resisting an obstructing system or practice versus fairly extracting the strongest insight from an opposing position.
 
-Each scout must use both assigned appeals as separate search territories, test at least three fitting fascination advantages or pairs across its exploration, and generate at least three candidate governing ideas. It returns only its strongest two candidates. Do not force one winner per assigned appeal when both strongest candidates honestly emerge from the same territory.
+Each scout must use both assigned appeals as separate search territories and generate at least three candidate governing ideas. Every candidate must accomplish the same assigned awareness transition, although the causal explanation and persuasive pressure may differ. It returns only its strongest two candidates. Do not force one winner per assigned appeal when both strongest candidates honestly emerge from the same territory.
 
 Require this compact return shape for each candidate:
 
@@ -110,7 +103,7 @@ Require this compact return shape for each candidate:
 - **Belief shift:** what the reader must stop, start, or change believing;
 - **Causal logic:** the explanation that makes the premise govern a whole article;
 - **Appeal:** the primary assigned model-activating appeal term;
-- **Attention strategy:** the Fascinate advantage or archetype and underlying pair;
+- **Awareness bridge:** how the premise moves the reader across the shared awareness gap;
 - **Truth boundary:** the strongest responsible version of the claim and what would overstate it;
 - **Support fit:** what supplied or obtainable evidence could support it; and
 - **Audience fit:** how its frame, requested belief shift, and language meet this reader without merely echoing them.
@@ -129,7 +122,7 @@ Treat concurrency and availability as different conditions.
 
 In the fully single-context fallback, privately simulate the same five mirror-pair appeal territories, generate 12–20 candidates, and apply the same selection process below. Briefly disclose fallback or single-context execution. Never claim that scouts ran when they did not.
 
-For `Go wider`, use a fresh council when capacity permits. Give it the rejected candidates' fingerprints as negative territory, not as examples to imitate. For `[letter], but bolder`, use up to three scouts when capacity permits, all preserving the selected claim, appeal, Fascinate attention strategy, and truth boundary while testing different intensification moves. The main agent selects the strongest responsible revision.
+For `Go wider`, use a fresh council when capacity permits. Give it the rejected candidates' fingerprints as negative territory, not as examples to imitate. For `[letter], but bolder`, use up to three scouts when capacity permits, all preserving the selected claim, appeal, awareness bridge, and truth boundary while testing different intensification moves. The main agent selects the strongest responsible revision.
 
 ## Generate for divergence
 
@@ -143,15 +136,15 @@ Identify the obvious/default cluster and discard it. Fingerprint surviving candi
 - primary consequence;
 - desired action;
 - appeal; and
-- attention strategy.
+- awareness bridge.
 
 Before presenting finalists, compare A vs. B, A vs. C, and B vs. C. Replace a candidate when substantially the same article body or evidence could support both members of a pair, or when believing either would lead to the same reader decision. Select for both quality and distance: truth, specificity, surprise, consequence, supportability, generative power, worldview fit, language fit, and difference from the other finalists.
 
-Choose the appeal and Fascinate attention strategy after establishing genuinely different governing ideas. A different emotional wrapper does not make the same claim a different premise.
+Use the assigned appeal pairs as search territories during generation. After validating genuinely different governing ideas, the main agent identifies or confirms each finalist's primary appeal rather than treating the appeal as a cosmetic wrapper. Every finalist must still accomplish the shared awareness transition.
 
 ## Select the three finalists
 
-The main agent evaluates the entire candidate pool. Score candidates privately for truth, specificity, surprise, consequence, supportability, worldview fit, language fit, generative power across a full article, and distance from the other finalists. Reject a candidate that is interesting only because of its headline, emotional temperature, or fascination label.
+The main agent evaluates the entire candidate pool. Score candidates privately for truth, specificity, surprise, consequence, supportability, worldview fit, language fit, awareness-bridge strength, generative power across a full article, and distance from the other finalists. Reject a candidate that is interesting only because of its headline or emotional temperature.
 
 Run a whole-article test on every finalist: confirm that the premise can govern an opening, necessary claims, proof, objection response, conclusion, and plausible reader action without abandoning its audience frame or changing what the reader is being asked to see differently.
 
@@ -172,17 +165,7 @@ For `Go wider`, do not paraphrase rejected candidates. Avoid their core claims, 
 
 ## Make a premise bolder
 
-Preserve the governing claim, selected appeal, Fascinate attention strategy, and truth boundary by default. Intensify contrast, stakes, consequence, specificity, or the required reader decision through the selected attention trigger. If a meaningful increase requires changing the claim or strategy, explain that and offer alternatives rather than silently switching.
-
-Use the fascination trigger as the control:
-
-- **Innovation:** make the new possibility or category break more consequential; avoid unsupported revolution language.
-- **Passion:** bring emotional or relational stakes closer; avoid melodrama.
-- **Power:** make the claim and decision more decisive; avoid aggression and false certainty.
-- **Prestige:** raise the standard and clarify what excellence demands; avoid status theater.
-- **Trust:** express calmer, more earned conviction; avoid bland reassurance.
-- **Mystique:** reveal a deeper hidden mechanism or tension; avoid vagueness and clickbait.
-- **Alert:** make the relevant risk, detail, or failure mode concrete; avoid fearmongering.
+Preserve the governing claim, selected appeal, awareness bridge, and truth boundary by default. Intensify contrast, stakes, consequence, specificity, causal clarity, or the required reader decision without changing the reader's starting point or destination. If a meaningful increase requires changing the claim, bridge, or truth boundary, explain that and offer alternatives rather than silently switching.
 
 Use the appeal to decide where the additional persuasive pressure lands:
 
@@ -197,4 +180,4 @@ Use the appeal to decide where the additional persuasive pressure lands:
 - **COLLECTIVE ACTION FRAME:** name the obstructing system or practice and strengthen the constructive response without targeting a person or group.
 - **STEELMAN:** make the opposing position stronger and extract a more surprising but defensible insight or advantage.
 
-The appeal determines where persuasive pressure lands. The Fascinate attention strategy determines how that pressure becomes difficult to ignore. The premise is the governing claim produced by both.
+The awareness bridge determines the movement the premise must accomplish. The appeal determines where persuasive pressure lands. The premise combines the governing claim, bridge, and appeal.

@@ -36,7 +36,7 @@ Run [slopless.md](slopless.md), then offer the critique decision owned by [criti
 
 ## Set the drafting target
 
-Write **800–1,200 words** by default and aim for approximately **1,000 words** unless the user specifies another length. Let the argument determine the visible structure; do not expose a rigid rhetorical template, hidden scoring, or internal fascination labels in the article.
+Write **800–1,200 words** by default and aim for approximately **1,000 words** unless the user specifies another length. Let the argument determine the visible structure; do not expose a rigid rhetorical template, hidden scoring, or private persuasive controls in the article.
 
 Before drafting, reduce the selected option to four controls:
 

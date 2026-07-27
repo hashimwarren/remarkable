@@ -20,7 +20,7 @@ Use the three-choice pressure test below and require explicit confirmation of bo
 
 ## Artifact or state effects
 
-Keep the confirmed objection and response direction transient during this stage. Pass only the objection into the pending `PREMISE.md` data; hold the response direction for article-route reasoning and the working outline. Make no file write and create no separate artifact.
+Keep the confirmed objection, response direction, and private awareness transition transient during this stage. Pass only the objection into the pending `PREMISE.md` data; hold the response direction plus current awareness, target awareness, awareness gap, and required bridge for article-route reasoning and the working outline. Make no file write and create no separate artifact.
 
 ## Degraded and failure behavior
 
@@ -32,7 +32,7 @@ The strongest intelligent objection and a compact response direction are explici
 
 ## Next-stage handoff
 
-Pass the confirmed premise, objection, and response direction to [personal-authority.md](personal-authority.md).
+Pass the confirmed premise, objection, response direction, and unchanged private awareness transition to [personal-authority.md](personal-authority.md).
 
 ## Ask the writer
 
