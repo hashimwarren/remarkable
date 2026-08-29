@@ -18,7 +18,7 @@ Before substantive English drafting, run:
 python3 <skill-directory>/scripts/run_slopless.py --preflight --project-root "$PWD"
 ```
 
-The wrapper uses an installed Slopless only after `--version` verifies exact version `0.2.23`; otherwise it acquires pinned `slopless@0.2.23` through `npx --yes` without modifying project dependencies. It never substitutes an unverified or mismatched installed ruleset. Continue drafting only when preflight reports `ready`.
+The wrapper uses an installed Slopless only after `--version` verifies exact version `0.2.36`; otherwise it acquires pinned `slopless@0.2.36` through `npx --yes` without modifying project dependencies. It never substitutes an unverified or mismatched installed ruleset. Continue drafting only when preflight reports `ready`.
 
 After drafting, run:
 

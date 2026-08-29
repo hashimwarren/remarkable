@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Pinned Slopless 0.2.36 for deterministic English prose hygiene.
+
 ## 1.6.0 — 2026-07-27
 
 ### Changed
