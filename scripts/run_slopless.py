@@ -13,7 +13,7 @@ import subprocess
 from pathlib import Path
 
 
-SLOPLESS_VERSION = "0.2.23"
+SLOPLESS_VERSION = "0.2.36"
 NPX_PACKAGE = f"slopless@{SLOPLESS_VERSION}"
 VERSION_TOKEN = re.compile(
     r"(?<![0-9A-Za-z.])v?"
@@ -119,7 +119,7 @@ def main() -> int:
             {
                 "status": "blocked",
                 "stage": "resolve",
-                "message": "No installed Slopless 0.2.23 was verified and npx is unavailable. Node.js 22.13.0 or newer is required.",
+                "message": f"No installed Slopless {SLOPLESS_VERSION} was verified and npx is unavailable. Node.js 22.13.0 or newer is required.",
                 "required_package": NPX_PACKAGE,
             }
         )

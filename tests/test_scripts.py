@@ -363,7 +363,7 @@ class SloplessTests(unittest.TestCase):
             self.assertEqual(result.returncode, 2, result.stderr)
             payload = json.loads(result.stdout)
             self.assertEqual(payload["status"], "blocked")
-            self.assertEqual(payload["required_package"], "slopless@0.2.23")
+            self.assertEqual(payload["required_package"], "slopless@0.2.36")
 
     def test_preflight_acquires_pinned_slopless_through_npx(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -393,8 +393,8 @@ print("slopless <file> --help JSON")
             payload = json.loads(result.stdout)
             self.assertEqual(payload["status"], "ready")
             self.assertEqual(payload["source"], "npx")
-            self.assertEqual(payload["version"], "0.2.23")
-            self.assertIn("--yes slopless@0.2.23 --help", log.read_text(encoding="utf-8"))
+            self.assertEqual(payload["version"], "0.2.36")
+            self.assertIn("--yes slopless@0.2.36 --help", log.read_text(encoding="utf-8"))
 
     def test_exact_installed_version_is_used_without_npx(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -408,7 +408,7 @@ import pathlib
 import sys
 pathlib.Path({str(log)!r}).write_text(" ".join(sys.argv[1:]))
 if "--version" in sys.argv:
-    print("slopless 0.2.23")
+    print("slopless 0.2.36")
 else:
     print("slopless <file> --help JSON")
 """,
@@ -425,7 +425,7 @@ else:
             self.assertEqual(result.returncode, 0, result.stderr)
             payload = json.loads(result.stdout)
             self.assertEqual(payload["source"], "installed")
-            self.assertEqual(payload["version"], "0.2.23")
+            self.assertEqual(payload["version"], "0.2.36")
             self.assertEqual(log.read_text(encoding="utf-8"), "--help")
 
     def test_captures_findings_and_confirms_a_clean_rerun(self) -> None:
@@ -444,7 +444,7 @@ import sys
 if "--help" in sys.argv:
     print("slopless <file> --help JSON")
     raise SystemExit(0)
-assert sys.argv[1:3] == ["--yes", "slopless@0.2.23"]
+assert sys.argv[1:3] == ["--yes", "slopless@0.2.36"]
 text = pathlib.Path(sys.argv[-1]).read_text()
 if "In a world" in text:
     print(json.dumps([{"filePath": sys.argv[-1], "messages": [{"ruleId": "slopless/prohibited-phrases"}]}]))
@@ -498,7 +498,7 @@ import pathlib
 import sys
 pathlib.Path({str(installed_log)!r}).write_text("used")
 if "--version" in sys.argv:
-    print("slopless 0.2.22")
+    print("slopless 0.2.35")
 else:
     print("unverified")
 """,
@@ -526,15 +526,15 @@ print("slopless <file> --help JSON")
             self.assertEqual(result.returncode, 0, result.stderr)
             payload = json.loads(result.stdout)
             self.assertEqual(payload["source"], "npx")
-            self.assertEqual(payload["package"], "slopless@0.2.23")
+            self.assertEqual(payload["package"], "slopless@0.2.36")
             self.assertTrue(installed_log.exists())
             self.assertIn(
-                "--yes slopless@0.2.23 --help",
+                "--yes slopless@0.2.36 --help",
                 npx_log.read_text(encoding="utf-8"),
             )
 
     def test_pinned_npx_replaces_prerelease_installed_versions(self) -> None:
-        for reported_version in ("0.2.23-beta.1", "0.2.23rc1"):
+        for reported_version in ("0.2.36-beta.1", "0.2.36rc1"):
             with self.subTest(reported_version=reported_version):
                 with tempfile.TemporaryDirectory() as directory:
                     root = Path(directory)
@@ -575,7 +575,7 @@ print("slopless <file> --help JSON")
                     payload = json.loads(result.stdout)
                     self.assertEqual(payload["source"], "npx")
                     self.assertIn(
-                        "--yes slopless@0.2.23 --help",
+                        "--yes slopless@0.2.36 --help",
                         npx_log.read_text(encoding="utf-8"),
                     )
 
@@ -964,7 +964,7 @@ class InstructionContractTests(unittest.TestCase):
     def test_slopless_adjudicates_rhetoric_sensitive_findings(self) -> None:
         slopless = self.read("references/slopless.md")
 
-        self.assertIn("verifies exact version `0.2.23`", slopless)
+        self.assertIn("verifies exact version `0.2.36`", slopless)
         self.assertIn("never substitutes an unverified or mismatched installed ruleset", slopless)
         self.assertIn("Zero findings are not required", slopless)
         for intentional, empty in (
@@ -1177,7 +1177,7 @@ class InstructionContractTests(unittest.TestCase):
 
     def test_slopless_contract_preserves_transparency_and_failure_gate(self) -> None:
         slopless = self.read("references/slopless.md")
-        self.assertIn("slopless@0.2.23", slopless)
+        self.assertIn("slopless@0.2.36", slopless)
         self.assertIn("Never silently produce an unlinted English article", slopless)
         self.assertIn("It flagged [initial count] issues", slopless)
         self.assertIn("ran Slopless [run count] times in total", slopless)
