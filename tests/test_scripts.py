@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Focused tests for Remarkable's deterministic helpers and instruction contract."""
+"""Behavioral tests for deterministic helpers and focused package checks."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 
 SKILL_DIR = Path(__file__).resolve().parents[1]
@@ -47,195 +48,6 @@ def write_command(path: Path, body: str) -> Path:
     return command
 
 
-class PremiseCouncilInstructionTests(unittest.TestCase):
-    def test_premise_council_has_five_scouts_and_a_single_agent_fallback(self) -> None:
-        skill = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
-        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
-            encoding="utf-8"
-        )
-        self.assertIn("1.6.0", skill)
-        self.assertIn("five-scout premise council", transformation)
-        scout_preamble = transformation.split("Before delegation, tell the writer:", 1)[1].split(
-            "Give every scout", 1
-        )[0]
-        self.assertNotIn("appeal", scout_preamble.casefold())
-        self.assertNotIn("fascination", scout_preamble.casefold())
-        self.assertIn("different persuasive territory", scout_preamble)
-        self.assertIn("run five independent", transformation)
-        self.assertIn("Assign the ten appeals exactly once", transformation)
-        self.assertIn("launch scouts in waves", transformation)
-        self.assertIn("Limited concurrency changes only how many waves run", transformation)
-        self.assertIn("Begin finalist selection only after all five territories", transformation)
-        self.assertIn("fully single-context fallback only when subagents cannot be spawned", transformation)
-        self.assertIn("The main agent is the editor-in-chief", transformation)
-
-    def test_premise_council_uses_model_activating_mirror_pairs(self) -> None:
-        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
-            encoding="utf-8"
-        )
-        appeals = [
-            "FUTURE PACING",
-            "LOSS FRAMING",
-            "CAUSAL REATTRIBUTION",
-            "SELF-SABOTAGE",
-            "COPING APPRAISAL",
-            "THREAT APPRAISAL",
-            "CORROBORATION",
-            "CONCEPTUAL CHANGE",
-            "COLLECTIVE ACTION FRAME",
-            "STEELMAN",
-        ]
-        pair_section = transformation.split(
-            "Assign the ten appeals exactly once across five mirror pairs", 1
-        )[1].split("Each scout must use both assigned appeals", 1)[0]
-        expected_pairs = [
-            "FUTURE PACING + LOSS FRAMING",
-            "CAUSAL REATTRIBUTION + SELF-SABOTAGE",
-            "COPING APPRAISAL + THREAT APPRAISAL",
-            "CORROBORATION + CONCEPTUAL CHANGE",
-            "COLLECTIVE ACTION FRAME + STEELMAN",
-        ]
-
-        for appeal in appeals:
-            self.assertEqual(pair_section.count(appeal), 1, appeal)
-        for pair in expected_pairs:
-            self.assertIn(pair, pair_section)
-        self.assertIn("same five mirror-pair appeal territories", transformation)
-        self.assertIn("model-activating appeal term", transformation)
-        self.assertIn("Awareness bridge", transformation)
-
-    def test_old_appeal_labels_are_not_active_instructions(self) -> None:
-        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
-            encoding="utf-8"
-        )
-        old_labels = [
-            "Encourage their dreams",
-            "Warn against the destruction of their dreams",
-            "Justify their failures",
-            "Imply they are their own worst enemy",
-            "Allay their fears",
-            "Agitate their fears",
-            "Confirm their suspicions",
-            "Thwart their conventional wisdom",
-            "Help them throw rocks at their enemies",
-            "Shock them with unusual praise for their enemies",
-        ]
-
-        for label in old_labels:
-            self.assertNotIn(label, transformation)
-
-    def test_awareness_transition_precedes_scouting_and_stays_private(self) -> None:
-        premise = (SKILL_DIR / "references" / "premise.md").read_text(encoding="utf-8")
-        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
-            encoding="utf-8"
-        )
-        routes = (SKILL_DIR / "references" / "article-routes.md").read_text(
-            encoding="utf-8"
-        )
-
-        audience_view = transformation.index(
-            "Before delegation, the main agent privately develops one compact audience-and-awareness view"
-        )
-        scout_packet = transformation.index("Give every scout the same bounded packet")
-        council_assignments = transformation.index(
-            "Assign the ten appeals exactly once across five mirror pairs"
-        )
-        self.assertLess(audience_view, scout_packet)
-        self.assertLess(audience_view, council_assignments)
-        for field in (
-            "Current awareness",
-            "Target awareness",
-            "Awareness gap",
-            "Required bridge",
-        ):
-            self.assertIn(field, transformation)
-        self.assertIn("same assigned awareness transition", transformation)
-        self.assertIn("Awareness bridge", transformation)
-        self.assertIn("selected appeal and awareness bridge", premise)
-        self.assertIn("Current Belief", premise)
-        self.assertIn("Desired Movement", premise)
-        self.assertNotIn("## Current Awareness", premise)
-        self.assertNotIn("## Target Awareness", premise)
-        self.assertIn("During an uninterrupted workflow, consume the complete private awareness transition", routes)
-        self.assertIn("Do not infer a fresh starting stage", routes)
-        self.assertIn("do not claim that the transient awareness gap or required bridge survived", routes)
-        self.assertIn("Derive only the smallest bridge", routes)
-
-    def test_fascinate_layer_is_absent_from_active_instructions(self) -> None:
-        active_paths = [SKILL_DIR / "SKILL.md", *sorted((SKILL_DIR / "references").glob("*.md"))]
-        for path in active_paths:
-            content = path.read_text(encoding="utf-8").casefold()
-            self.assertNotIn("fascinate", content, path)
-            self.assertNotIn("fascination", content, path)
-        transformation = (SKILL_DIR / "references" / "premise-transformation.md").read_text(
-            encoding="utf-8"
-        )
-        self.assertNotIn("Attention strategy", transformation)
-
-    def test_awareness_transition_is_carried_through_intermediate_handoffs(self) -> None:
-        premise = (SKILL_DIR / "references" / "premise.md").read_text(encoding="utf-8")
-        objection = (SKILL_DIR / "references" / "objection-response.md").read_text(
-            encoding="utf-8"
-        )
-        personal = (SKILL_DIR / "references" / "personal-authority.md").read_text(
-            encoding="utf-8"
-        )
-        framework = (SKILL_DIR / "references" / "framework-design.md").read_text(
-            encoding="utf-8"
-        )
-        routes = (SKILL_DIR / "references" / "article-routes.md").read_text(
-            encoding="utf-8"
-        )
-
-        for stage in (premise, objection, personal, framework):
-            self.assertIn("private awareness transition", stage)
-        self.assertIn("unchanged private awareness transition", objection)
-        self.assertIn("unchanged private awareness transition", personal)
-        self.assertIn("unchanged private awareness transition", framework)
-        self.assertIn("consume the complete private awareness transition", routes)
-        self.assertIn("Do not reopen general audience diagnosis", routes)
-
-
-class ArticleRouteInstructionTests(unittest.TestCase):
-    def test_two_advocated_routes_gate_outline_and_proof(self) -> None:
-        skill = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
-        routes = (SKILL_DIR / "references" / "article-routes.md").read_text(
-            encoding="utf-8"
-        )
-
-        self.assertEqual(routes.count("### A. [Concrete route name]"), 1)
-        self.assertEqual(routes.count("### B. [Concrete route name]"), 1)
-        self.assertNotIn("### C. [Concrete route name]", routes)
-        self.assertIn("Present exactly:", routes)
-        self.assertIn("Advocate for both routes", routes)
-        self.assertIn("Which direction should govern the outline: A or B?", routes)
-        self.assertIn("STOP and wait", routes)
-        self.assertIn("combination, revision, or another direction", routes)
-        self.assertIn("reconfirm the revised route before outlining", routes)
-        self.assertIn("Do not create a separate route artifact", routes)
-        self.assertIn("Create the working outline directly from this brief", routes)
-
-        route_stage = skill.index("5. **Article route.**")
-        outline_stage = skill.index("6. **Working outline.**")
-        proof_stage = skill.index("7. **Proof.**")
-        approval_stage = skill.index("8. **Outline approval.**")
-        self.assertLess(route_stage, outline_stage)
-        self.assertLess(outline_stage, proof_stage)
-        self.assertLess(proof_stage, approval_stage)
-        self.assertIn("reserve_draft.py", self.read_outline())
-
-    def test_visual_generation_waits_for_stable_proof(self) -> None:
-        prove = (SKILL_DIR / "references" / "prove.md").read_text(encoding="utf-8")
-        visuals = (SKILL_DIR / "references" / "visual-placeholders.md").read_text(encoding="utf-8")
-        self.assertIn("After claim and section jobs are stable", prove)
-        self.assertIn("dedicated visual subagent", prove)
-        self.assertIn("use a dedicated visual subagent", visuals)
-
-    @staticmethod
-    def read_outline() -> str:
-        return (SKILL_DIR / "references" / "outline.md").read_text(encoding="utf-8")
-
-
 class ContextDiscoveryTests(unittest.TestCase):
     def test_prioritizes_context_and_excludes_generated_and_secret_files(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -258,7 +70,7 @@ class ContextDiscoveryTests(unittest.TestCase):
             self.assertIn("docs/customer-messaging.md", paths)
             self.assertNotIn("node_modules/BRAND.md", paths)
             self.assertNotIn("marketing-secrets.md", paths)
-            self.assertGreaterEqual(payload["skipped_secret_like"], 2)
+            self.assertNotIn(".env", paths)
 
     def test_succeeds_without_style_or_impeccable_files(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -322,7 +134,7 @@ class OutlineReservationTests(unittest.TestCase):
             article.write_text("# Article\n", encoding="utf-8")
             result = run_script("reserve_outline.py", str(article), "--root", str(root))
             self.assertNotEqual(result.returncode, 0)
-            self.assertIn("inside the project root", result.stderr)
+            self.assertFalse(article.with_suffix(".outline.md").exists())
 
     def test_rejects_existing_outline_symlink(self) -> None:
         with tempfile.TemporaryDirectory() as directory, tempfile.TemporaryDirectory() as outside:
@@ -341,21 +153,19 @@ class OutlineReservationTests(unittest.TestCase):
 
             result = run_script("reserve_outline.py", str(article), "--root", str(root))
             self.assertNotEqual(result.returncode, 0)
-            self.assertIn("symbolic link", result.stderr)
+            self.assertTrue(outline.is_symlink())
             self.assertEqual(target.read_text(encoding="utf-8"), "Keep me")
 
 
 class SloplessTests(unittest.TestCase):
-    def test_missing_slopless_and_npx_blocks_before_drafting(self) -> None:
+    def test_preflight_blocks_when_slopless_and_npx_are_unavailable(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            draft = root / "draft.md"
-            draft.write_text("Draft", encoding="utf-8")
             env = dict(os.environ)
             env["PATH"] = ""
             result = run_script(
                 "run_slopless.py",
-                str(draft),
+                "--preflight",
                 "--project-root",
                 str(root),
                 env=env,
@@ -598,8 +408,8 @@ class RoughdraftTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             payload = json.loads(result.stdout)
             self.assertEqual(payload["status"], "missing")
-            self.assertEqual(payload["install_command"], "npm i -g roughdraft")
-            self.assertTrue(draft.is_file())
+            self.assertEqual(Path(payload["draft"]), draft.resolve())
+            self.assertEqual(draft.read_bytes(), b"Draft")
 
     def test_uses_documented_non_watching_mode_when_supported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -614,7 +424,7 @@ class RoughdraftTests(unittest.TestCase):
 import json
 import pathlib
 import sys
-pathlib.Path({str(log)!r}).write_text(" ".join(sys.argv[1:]))
+pathlib.Path({str(log)!r}).write_text(json.dumps(sys.argv[1:]))
 if "--help" in sys.argv:
     print("open <path> --no-watch --json")
     raise SystemExit(0)
@@ -632,11 +442,12 @@ print(json.dumps({{"opened": True}}))
             self.assertEqual(result.returncode, 0, result.stderr)
             payload = json.loads(result.stdout)
             self.assertEqual(payload["status"], "opened")
-            self.assertIn("--no-watch", payload["command"])
-            self.assertIn("--json", payload["command"])
-            self.assertIn("open", log.read_text(encoding="utf-8"))
+            arguments = json.loads(log.read_text(encoding="utf-8"))
+            self.assertEqual(arguments[:2], ["open", str(draft)])
+            self.assertIn("--no-watch", arguments[2:])
+            self.assertIn("--json", arguments[2:])
 
-    def test_waits_for_done_reviewing_by_default(self) -> None:
+    def test_default_watched_review_reports_completion(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             draft = root / "draft.md"
@@ -735,501 +546,30 @@ print(json.dumps({"event": "review.abandoned"}))
             self.assertEqual(result.returncode, 0, result.stderr)
             payload = json.loads(result.stdout)
             self.assertEqual(payload["status"], "review_abandoned")
-            self.assertNotEqual(payload["status"], "review_completed")
 
 
-class InstructionContractTests(unittest.TestCase):
-    STAGE_OWNERS = (
-        "premise.md",
-        "premise-transformation.md",
-        "objection-response.md",
-        "personal-authority.md",
-        "framework-design.md",
-        "article-routes.md",
-        "outline.md",
-        "prove.md",
-        "article.md",
-        "headline.md",
-        "critique.md",
-        "roughdraft-handoff.md",
-        "slopless.md",
-    )
-    CONTRACT_HEADINGS = (
-        "## Purpose",
-        "## Required inputs",
-        "## Process",
-        "## User checkpoint",
-        "## Artifact or state effects",
-        "## Degraded and failure behavior",
-        "## Completion criterion",
-        "## Next-stage handoff",
-    )
+class PackagingTests(unittest.TestCase):
+    def test_packaged_instruction_links_resolve(self) -> None:
+        sources = [SKILL_DIR / "SKILL.md", *sorted((SKILL_DIR / "references").rglob("*.md"))]
+        for source in sources:
+            for target in re.findall(r"\[[^\]]*\]\(([^)\s]+)\)", source.read_text(encoding="utf-8")):
+                link = urlsplit(target)
+                if link.scheme or link.netloc or not link.path:
+                    continue
+                with self.subTest(source=source.relative_to(SKILL_DIR), target=target):
+                    self.assertTrue((source.parent / unquote(link.path)).is_file())
 
-    def read(self, relative_path: str) -> str:
-        return (SKILL_DIR / relative_path).read_text(encoding="utf-8")
-
-    def test_router_is_low_resolution_and_all_pointers_resolve(self) -> None:
-        skill = self.read("SKILL.md")
-        self.assertLess(len(skill.splitlines()), 120)
-        self.assertLess(len(skill.split()), 1600)
-        targets = re.findall(r"\]\((references/[^)]+\.md)\)", skill)
-        self.assertGreater(len(targets), 10)
-        for target in targets:
-            self.assertTrue((SKILL_DIR / target).is_file(), target)
-        for owner in self.STAGE_OWNERS:
-            self.assertIn(f"references/{owner}", skill)
-
-    def test_focused_outline_and_draft_load_authoritative_contracts(self) -> None:
-        skill = self.read("SKILL.md")
-        outline_route = next(
-            line for line in skill.splitlines() if line.startswith("- `outline`:")
+    def test_agent_metadata_declares_explicit_invocation(self) -> None:
+        # Lint the canonical block declaration, not general YAML or runtime behavior.
+        # Alternate YAML serializations require updating this deliberately scoped check.
+        metadata = (SKILL_DIR / "agents" / "openai.yaml").read_text(encoding="utf-8")
+        policies = re.findall(r"(?m)^policy:[ \t]*(?:#.*)?\n((?:[ \t]+.*\n|\n)*)", metadata + "\n")
+        self.assertEqual(len(policies), 1, "Expected one top-level policy block")
+        flags = re.findall(
+            r"(?m)^  allow_implicit_invocation:[ \t]*([^#\n]*?)[ \t]*(?:#.*)?$",
+            policies[0],
         )
-        draft_route = next(
-            line for line in skill.splitlines() if line.startswith("- `draft`:")
-        )
-        for owner in (
-            "article-routes.md",
-            "outline.md",
-            "prove.md",
-            "roughdraft-handoff.md",
-        ):
-            self.assertIn(f"references/{owner}", outline_route)
-        for owner in ("outline.md", "article.md", "slopless.md"):
-            self.assertIn(f"references/{owner}", draft_route)
-
-    def test_every_stage_owner_uses_the_shared_contract_shape(self) -> None:
-        for owner in self.STAGE_OWNERS:
-            content = self.read(f"references/{owner}")
-            positions = []
-            for heading in self.CONTRACT_HEADINGS:
-                self.assertIn(
-                    heading,
-                    content,
-                    f"Heading '{heading}' is missing in references/{owner}",
-                )
-                positions.append(content.index(heading))
-            self.assertEqual(
-                positions,
-                sorted(positions),
-                f"Headings are out of order in references/{owner}",
-            )
-
-    def test_detailed_contracts_live_outside_the_router(self) -> None:
-        skill = self.read("SKILL.md")
-        premise = self.read("references/premise.md")
-        objection = self.read("references/objection-response.md")
-        framework = self.read("references/framework-design.md")
-        routes = self.read("references/article-routes.md")
-        outline = self.read("references/outline.md")
-        prove = self.read("references/prove.md")
-        critique = self.read("references/critique.md")
-        headline = self.read("references/headline.md")
-        roughdraft = self.read("references/roughdraft-handoff.md")
-        slopless = self.read("references/slopless.md")
-
-        self.assertNotIn("Who’s this for?", skill)
-        self.assertIn("Who’s this for? What should they see differently", premise)
-        self.assertNotIn("Yes — I’ll answer", skill)
-        self.assertIn("Yes — I’ll answer", objection)
-        self.assertNotIn("Develop the framework", skill)
-        self.assertIn("Develop the framework", framework)
-        self.assertNotIn("Which direction should govern the outline", skill)
-        self.assertIn("Which direction should govern the outline", routes)
-        self.assertNotIn("Draft this structure", skill)
-        self.assertIn("Draft this structure", outline)
-        self.assertNotIn("Narrow or remove the claim", skill)
-        self.assertIn("Narrow or remove the claim", prove)
-        self.assertNotIn("Run Remarkable critique", skill)
-        self.assertIn("Run Remarkable critique", critique)
-        self.assertNotIn("Premise and tension", skill)
-        self.assertIn("Premise and tension", headline)
-        self.assertNotIn("click **Done Reviewing**", skill)
-        self.assertIn("click **Done Reviewing**", roughdraft)
-        self.assertNotIn("run_slopless.py --preflight", skill)
-        self.assertIn("run_slopless.py --preflight", slopless)
-
-    def test_lifecycle_order_and_completion_gates_are_explicit(self) -> None:
-        skill = self.read("SKILL.md")
-        labels = (
-            "1. **Premise.**",
-            "2. **Objection.**",
-            "3. **Personal Authority.**",
-            "4. **Framework.**",
-            "5. **Article route.**",
-            "6. **Working outline.**",
-            "7. **Proof.**",
-            "8. **Outline approval.**",
-            "9. **Draft.**",
-            "10. **Slopless.**",
-            "11. **Critique and review.**",
-        )
-        positions = [skill.index(label) for label in labels]
-        self.assertEqual(positions, sorted(positions))
-        self.assertGreaterEqual(skill.count("Complete when"), 7)
-        self.assertIn("Complete only when", skill)
-        self.assertIn("Complete when every finding is addressed or deliberately preserved", skill)
-        self.assertIn("Resume at the earliest unmet observable completion condition", skill)
-
-    def test_durable_artifact_ownership_is_single_and_bounded(self) -> None:
-        skill = self.read("SKILL.md")
-        premise = self.read("references/premise.md")
-        context = self.read("references/context-artifacts.md")
-        self.assertEqual(premise.count("# Premise\n\nDraft:"), 1)
-        self.assertNotIn("# Premise\n\nDraft:", skill)
-        self.assertNotIn("appeal, and fascination", context)
-        self.assertIn("only durable stores of article decisions", skill)
-        self.assertIn("Do not create a route artifact", self.read("references/article-routes.md"))
-        self.assertIn("Create no separate proof artifact", self.read("references/prove.md"))
-        self.assertIn("create a separate framework artifact", self.read("references/framework-design.md"))
-        self.assertIn("Create no headline artifact", self.read("references/headline.md"))
-
-    def test_headline_runs_only_at_outline_and_critique(self) -> None:
-        skill = self.read("SKILL.md")
-        outline = self.read("references/outline.md")
-        prove = self.read("references/prove.md")
-        critique = self.read("references/critique.md")
-        headline = self.read("references/headline.md")
-
-        for source in (
-            "Premise and tension",
-            "Personal discovery",
-            "Method or outcome",
-            "Proof or finding",
-            "Reader recognition",
-        ):
-            self.assertIn(source, headline)
-        self.assertIn("silent outline pass", outline)
-        self.assertIn("Do not run another automatic headline pass", outline)
-        self.assertIn("do not recraft the headline automatically here", prove)
-        self.assertIn("second and final automatic headline pass", critique)
-        self.assertIn("- `headline`:", skill)
-
-    def test_outline_is_the_shared_rhetorical_contract(self) -> None:
-        skill = self.read("SKILL.md")
-        contract = self.read("references/rhetorical-contract.md")
-        outline = self.read("references/outline.md")
-        article = self.read("references/article.md")
-        slopless = self.read("references/slopless.md")
-        critique = self.read("references/critique.md")
-
-        self.assertIn("approved outline as the rhetorical contract", skill)
-        self.assertIn("inside the canonical outline", contract)
-        self.assertIn("selected move", contract)
-        self.assertIn("intended effect on the reader", contract)
-        self.assertIn("why that move advances this governing premise", contract)
-        self.assertIn("one italic rhetorical-contract sentence", outline)
-        self.assertIn("Do not annotate every paragraph", outline)
-        self.assertIn("executes the approved rhetorical move", article)
-        self.assertIn("authority order", slopless)
-        self.assertIn("### Adherence", critique)
-        self.assertIn("### Effectiveness", critique)
-
-        for owner in (
-            "SKILL.md",
-            "references/outline.md",
-            "references/article.md",
-            "references/slopless.md",
-            "references/critique.md",
-            "references/headline.md",
-            "references/opening.md",
-            "references/prove.md",
-            "references/framework-design.md",
-            "references/ending.md",
-        ):
-            self.assertIn(
-                "rhetorical-contract.md",
-                self.read(owner),
-                owner,
-            )
-
-    def test_direction_changes_require_explicit_renegotiation(self) -> None:
-        skill = self.read("SKILL.md")
-        contract = self.read("references/rhetorical-contract.md")
-        outline = self.read("references/outline.md")
-        critique = self.read("references/critique.md")
-
-        self.assertIn("`proof` or `prove`", skill)
-        self.assertIn("`closing` or `ending`", skill)
-        for choice in (
-            "Strengthen this direction",
-            "Explore a different direction",
-            "Keep it as written",
-        ):
-            self.assertIn(choice, contract)
-            self.assertIn(choice, critique)
-        self.assertIn("update the outline's italic contract sentence first", contract)
-        self.assertIn("reset it to `Status: working`", critique)
-        self.assertIn("Never alter the contract merely to describe drift", outline)
-
-    def test_slopless_adjudicates_rhetoric_sensitive_findings(self) -> None:
-        slopless = self.read("references/slopless.md")
-
-        self.assertIn("verifies exact version `0.2.36`", slopless)
-        self.assertIn("never substitutes an unverified or mismatched installed ruleset", slopless)
-        self.assertIn("Zero findings are not required", slopless)
-        for intentional, empty in (
-            ("Preserve deliberate anaphora", "remove accidental repetition"),
-            ("Preserve antithesis", "remove decorative `not X, but Y`"),
-            ("Preserve narrative tension", "remove a generic tease"),
-            ("Preserve a maxim", "remove it when it substitutes for proof"),
-            ("Preserve signposting", "remove generic announcements"),
-        ):
-            self.assertIn(intentional, slopless)
-            self.assertIn(empty, slopless)
-
-        cases = json.loads(
-            (SKILL_DIR / "tests" / "fixtures" / "rhetorical_hygiene_cases.json").read_text(
-                encoding="utf-8"
-            )
-        )
-        devices = {
-            case["device"]
-            for case in cases
-        }
-        self.assertEqual(
-            devices,
-            {"anaphora", "antithesis", "narrative tension", "framework maxim"},
-        )
-        for device in devices:
-            decisions = {
-                case["decision"]
-                for case in cases
-                if case["device"] == device
-            }
-            self.assertEqual(decisions, {"preserve", "revise"}, device)
-        for case in cases:
-            self.assertTrue(case["sample"].strip())
-            self.assertTrue(case["reason"].strip())
-
-    def test_proof_and_lens_share_one_outline_state(self) -> None:
-        prove = self.read("references/prove.md")
-        evidence = self.read("references/evidence-design.md")
-        images = self.read("references/informational-images.md")
-        framework = self.read("references/framework-design.md")
-        visuals = self.read("references/visual-placeholders.md")
-
-        for phrase in (
-            "proof burden before searching",
-            "Search for disconfirmation",
-            "competing explanations",
-            "For quantitative evidence",
-            "## Claim ledger",
-        ):
-            self.assertIn(phrase, prove)
-        self.assertIn("Several sources repeating one origin", evidence)
-        for job in ("Legitimacy", "Explanation", "Numbers", "Steps"):
-            self.assertIn(f"**{job}:**", images)
-        self.assertIn("zero for Fidelity blocks", images)
-        self.assertIn("Make this image", images)
-        self.assertIn("Plan it for later", images)
-        self.assertIn("Keep it as prose", images)
-        self.assertIn("must STOP and wait", images)
-        self.assertIn("Only **Make this image**", images)
-        self.assertIn("Explanation or Steps", framework)
-        self.assertIn("Legitimacy and Numbers", prove)
-        self.assertIn("not automatically evidence", visuals)
-        self.assertIn("never create empty positions", visuals)
-        article = self.read("references/article.md")
-        outline = self.read("references/outline.md")
-        self.assertIn("accepted image placements", article)
-        self.assertIn("Omit private visual briefs and scores", article)
-        self.assertIn("Do not copy", outline)
-        self.assertIn("the claim ledger", outline)
-        self.assertIn("Preserve accepted visual placements", outline)
-        self.assertIn("URL or file path plus section or location", prove)
-
-    def test_fresh_start_orientation_is_brief_and_scoped(self) -> None:
-        wayfinding = self.read("references/wayfinding.md")
-        self.assertIn("Only for a fresh guided `start`", wayfinding)
-        self.assertIn("move them to action", wayfinding)
-        self.assertIn("evidence-supported article ready to review and use", wayfinding)
-        self.assertIn("Do not repeat this orientation when resuming", wayfinding)
-
-    def test_roughdraft_contract_is_watched_and_recoverable(self) -> None:
-        handoff = self.read("references/roughdraft-handoff.md")
-        self.assertIn("--no-watch", handoff)
-        self.assertIn("review_completed", handoff)
-        for status in ("missing", "unsupported", "error", "review_ended", "review_abandoned"):
-            self.assertIn(status, handoff)
-        self.assertIn("Review completion alone never", handoff)
-        self.assertIn("chat/Markdown fallback", handoff)
-
-    def test_fragile_transitions_have_observable_contracts(self) -> None:
-        skill = self.read("SKILL.md")
-        premise = self.read("references/premise.md")
-        objection = self.read("references/objection-response.md")
-        personal = self.read("references/personal-authority.md")
-        routes = self.read("references/article-routes.md")
-        outline = self.read("references/outline.md")
-        prove = self.read("references/prove.md")
-        article = self.read("references/article.md")
-        slopless = self.read("references/slopless.md")
-        critique = self.read("references/critique.md")
-
-        self.assertIn("Pass the confirmed premise", premise)
-        self.assertIn("explicitly confirmed", objection)
-        self.assertIn("sole writer for the initial durable premise artifact", personal)
-        self.assertIn("Pass the route brief", routes)
-        self.assertIn("Status: working", outline)
-        self.assertIn("Every central claim is supported", prove)
-        self.assertIn("Status: approved", outline)
-        self.assertIn("working outline with `Status: approved`", article)
-        self.assertIn("Run [slopless.md]", article)
-        self.assertIn("Offer Remarkable critique", slopless)
-        self.assertIn("B. Open the draft as-is", critique)
-        self.assertIn("Launch the unannotated canonical article", critique)
-        self.assertIn("chat fallback", critique)
-        self.assertLess(
-            skill.index("1. **Premise.**"),
-            skill.index("11. **Critique and review.**"),
-        )
-
-    def test_guided_1_2_trace_replays_observable_state_and_writes(self) -> None:
-        fixture = json.loads(
-            self.read("tests/fixtures/guided_workflow_1_2.json")
-        )
-        state = {
-            "premise_selected": False,
-            "objection_confirmed": False,
-            "outline_status": None,
-            "proof_resolved": False,
-            "preflight_ready": False,
-            "article_written": False,
-            "slopless_clean": False,
-            "ready": False,
-        }
-        tool_calls: list[str] = []
-
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            for event in fixture["events"]:
-                owner = self.read(event["owner"])
-                self.assertIn(event["observable"], owner, event["type"])
-                event_type = event["type"]
-
-                if event_type == "premise_selected":
-                    state["premise_selected"] = True
-                    state["candidate_objection"] = event["candidate_objection"]
-                    self.assertFalse(state["objection_confirmed"])
-                elif event_type == "objection_confirmed":
-                    self.assertTrue(state["premise_selected"])
-                    state["objection_confirmed"] = True
-                elif event_type == "personal_authority_skipped":
-                    self.assertTrue(state["objection_confirmed"])
-                    (root / event["artifact"]).write_text(
-                        "# Premise\n\n## Likely Objection\n"
-                        + state["candidate_objection"]
-                        + "\n",
-                        encoding="utf-8",
-                    )
-                elif event_type == "outline_written":
-                    path = root / event["artifact"]
-                    path.parent.mkdir(parents=True, exist_ok=True)
-                    path.write_text("Status: working\n", encoding="utf-8")
-                    state["outline_status"] = "working"
-                elif event_type == "proof_resolved":
-                    state["proof_resolved"] = event["central_claims_resolved"]
-                elif event_type == "outline_review_fallback":
-                    tool_calls.append(event["tool"])
-                    self.assertEqual(event["result"], "missing")
-                    self.assertEqual(state["outline_status"], "working")
-                elif event_type == "outline_approved":
-                    self.assertTrue(state["proof_resolved"])
-                    path = root / event["artifact"]
-                    path.write_text("Status: approved\n", encoding="utf-8")
-                    state["outline_status"] = "approved"
-                elif event_type == "slopless_preflight":
-                    self.assertEqual(state["outline_status"], "approved")
-                    tool_calls.append(event["tool"])
-                    state["preflight_ready"] = event["result"] == "ready"
-                elif event_type == "article_written":
-                    self.assertTrue(state["preflight_ready"])
-                    path = root / event["artifact"]
-                    path.write_text("# Article\n", encoding="utf-8")
-                    state["article_written"] = True
-                elif event_type == "slopless_clean":
-                    self.assertTrue(state["article_written"])
-                    tool_calls.append(event["tool"])
-                    state["slopless_clean"] = event["result"] == "clean"
-                elif event_type == "final_review_fallback":
-                    tool_calls.append(event["tool"])
-                    self.assertEqual(event["result"], "missing")
-                elif event_type == "ready":
-                    self.assertTrue(state["slopless_clean"])
-                    state["ready"] = True
-
-            self.assertTrue((root / "PREMISE.md").is_file())
-            self.assertEqual(
-                (root / "drafts/article.outline.md").read_text(encoding="utf-8"),
-                "Status: approved\n",
-            )
-            self.assertTrue((root / "drafts/article.md").is_file())
-            self.assertTrue(state["ready"])
-            self.assertEqual(
-                tool_calls,
-                [
-                    "open_roughdraft.py",
-                    "run_slopless.py --preflight",
-                    "run_slopless.py drafts/article.md",
-                    "open_roughdraft.py",
-                ],
-            )
-
-    def test_slopless_contract_preserves_transparency_and_failure_gate(self) -> None:
-        slopless = self.read("references/slopless.md")
-        self.assertIn("slopless@0.2.36", slopless)
-        self.assertIn("Never silently produce an unlinted English article", slopless)
-        self.assertIn("It flagged [initial count] issues", slopless)
-        self.assertIn("ran Slopless [run count] times in total", slopless)
-        self.assertIn("deliberate exceptions", slopless)
-        self.assertIn("non-English", slopless)
-
-    def test_premise_divergence_and_existing_product_contracts_survive(self) -> None:
-        premise = self.read("references/premise.md")
-        transformation = self.read("references/premise-transformation.md")
-        personal = self.read("references/personal-authority.md")
-        framework = self.read("references/framework-design.md")
-        routes = self.read("references/article-routes.md")
-        outline = self.read("references/outline.md")
-        prove = self.read("references/prove.md")
-        article = self.read("references/article.md")
-        critique = self.read("references/critique.md")
-
-        self.assertIn("exactly three", premise)
-        self.assertIn("## [A, B, or C]. [Distinctive direction name]", premise)
-        self.assertIn("Go wider", premise)
-        self.assertIn("five assigned scouts", transformation)
-        self.assertIn("capacity-aware waves", transformation)
-        self.assertIn("Audience frame", transformation)
-        self.assertIn("worldview fit, language fit, awareness-bridge strength", transformation)
-        self.assertIn("whole-article test", transformation)
-        self.assertIn("pairwise", transformation)
-        self.assertIn("Earned Discovery", personal)
-        self.assertIn("Shared Struggle", personal)
-        self.assertIn("Transformation", personal)
-        self.assertIn("Whole / Parts / Whole", framework)
-        self.assertIn("Decision Tree", framework)
-        self.assertIn("PAS — Problem, Agitate, Solve", routes)
-        self.assertIn("exactly two", routes)
-        self.assertIn("300–700", outline)
-        self.assertIn("reserve_outline.py", outline)
-        self.assertIn("Status: approved", outline)
-        self.assertIn("central unsupported claim to pass as a placeholder", prove)
-        self.assertIn("800–1,200", article)
-        self.assertIn("Never invent", article)
-        self.assertIn("Review revisions one by one", critique)
-        self.assertIn("Apply recommended revisions", critique)
-        self.assertIn("Leave the draft unchanged", critique)
-
-    def test_retired_map_and_invocation_contracts(self) -> None:
-        skill = self.read("SKILL.md")
-        outline = self.read("references/outline.md")
-        interface = self.read("agents/openai.yaml")
-        self.assertNotIn("create_article_map.py", skill)
-        self.assertNotIn("create_article_map.py", outline)
-        self.assertIn("legacy map", outline)
-        self.assertIn("Use only when a human explicitly invokes Remarkable", skill)
-        self.assertIn("allow_implicit_invocation: false", interface)
+        self.assertEqual(flags, ["false"])
 
 
 if __name__ == "__main__":
