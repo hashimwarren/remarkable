@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Remarkable</title><!-- APP_STYLES --></head>
+<body><main class="writer">
+<header><span class="eyebrow">REMARKABLE</span><h1>Bring your own style.</h1><p>Strengthen the persuasion. Keep the final word.</p></header>
+<p id="status" role="status" aria-live="polite">Connecting…</p>
+<fieldset data-controls disabled><legend class="sr-only">Document workspace</legend>
+<div class="row"><label class="grow">Document ID<input id="document-id" placeholder="Paste an existing document ID"></label><button id="open">Open</button><button id="new">New</button></div>
+<div class="row tabs" role="group" aria-label="Writing files"><button data-kind="premise">Premise</button><button data-kind="outline">Outline</button><button data-kind="article">Article</button></div>
+<div class="row"><label>View <select id="mode"><option value="rich">Rich text</option><option value="source">Markdown source</option></select></label><span id="approval" class="grow"></span><button id="save">Save edits</button></div>
+<div id="editor"></div><textarea id="source" aria-label="Markdown source" hidden spellcheck="false"></textarea>
+<div class="row"><button id="reload">Reload saved version</button><button id="approve">Approve outline</button></div>
+<label>Work on this stage<select id="stage"><option value="start">Continue from current state</option><option value="premise">Find the premise</option><option value="outline">Build the outline</option><option value="draft">Draft from the approved outline</option><option value="critique">Critique the article</option></select></label>
+<button id="ask" class="primary">Ask Remarkable in chat</button>
+</fieldset>
+<p class="note">Save before switching files. Rich text supports basic article formatting. Markdown source preserves tables, review comments, and custom syntax. Approval resets when the premise or outline changes.</p>
+<details id="fallback" hidden><summary>Copy into chat</summary><textarea id="copy-message" aria-label="Message to copy into chat" readonly></textarea></details>
+</main><!-- APP_SCRIPT --></body></html>

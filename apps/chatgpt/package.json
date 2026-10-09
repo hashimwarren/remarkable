@@ -1,0 +1,44 @@
+{
+  "name": "remarkable-chatgpt",
+  "version": "1.0.0",
+  "description": "Remarkable writing workflow and Markdown editor in an MCP App",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "npm run build:apps && mastra dev",
+    "build": "npm run build:apps && mastra build",
+    "build:apps": "node scripts/build-apps.mjs",
+    "start": "mastra start",
+    "typecheck": "npm run build:apps && tsc --noEmit",
+    "test": "npm run build:apps && node --import tsx --test tests/*.test.ts",
+    "test:ui": "npm run build:apps && playwright test",
+    "test:smoke": "node scripts/smoke-mcp.mjs",
+    "preview": "npm run build:apps && node --import tsx tests/host/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "dependencies": {
+    "@mastra/core": "1.75.0",
+    "@mastra/mcp": "^2.2.0",
+    "@modelcontextprotocol/ext-apps": "^2.0.3",
+    "@tiptap/core": "3.31.4",
+    "@tiptap/markdown": "3.31.4",
+    "@tiptap/pm": "3.31.4",
+    "@tiptap/starter-kit": "3.31.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.3.1",
+    "@playwright/test": "^1.64.0",
+    "@types/node": "latest",
+    "esbuild": "^0.28.2",
+    "mastra": "1.33.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3"
+  }
+}
