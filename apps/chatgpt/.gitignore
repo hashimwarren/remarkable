@@ -1,0 +1,8 @@
+node_modules/
+.mastra/
+dist/
+workspace/
+test-results/
+playwright-report/
+src/mastra/mcp/generated/
+.env
